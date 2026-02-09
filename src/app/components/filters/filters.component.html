@@ -1,0 +1,118 @@
+<div class="flex flex-column gap-4 w-19rem mx-2">
+  <div class="flex flex-column">
+    <h2 class="mt-3 mb-2">Filters</h2>
+
+    <p-divider class="m-0" />
+  </div>
+
+  <div class="flex">
+    <p-selectbutton
+      class="custom-togglebutton"
+      [ngModel]="logged ? visibilityFilter : undefined"
+      [options]="
+        logged ? visibilityFilterOptions : [visibilityFilterOptions[2]]
+      "
+      [allowEmpty]="!logged"
+      optionLabel="label"
+      optionValue="value"
+      (ngModelChange)="updateVisibilityFilter($event)"
+      [disabled]="!logged"
+      size="small"
+      [pTooltip]="!logged ? 'You must be logged in to use this field.' : ''"
+      tooltipPosition="top"
+    >
+      <ng-template #item let-item>
+        <div class="flex flex-column">
+          <i [class]="item.icon"></i>
+
+          {{ item.label }}
+        </div>
+      </ng-template>
+    </p-selectbutton>
+  </div>
+
+  <div class="flex flex-column">
+    Search by {{ searchOption }}
+
+    <p-inputgroup class="w-20rem">
+      <input
+        class="custom-input"
+        type="text"
+        pInputText
+        [(ngModel)]="searchValue"
+        (ngModelChange)="updateSearchValue()"
+        placeholder="Search"
+        [disabled]="loading"
+      />
+
+      <p-inputgroup-addon [class]="loading ? 'disabled-addon' : ''">
+        <p-button
+          class="input-button"
+          icon="pi pi-chevron-down"
+          severity="secondary"
+          variant="text"
+          (click)="menu.toggle($event)"
+          [disabled]="loading"
+        />
+      </p-inputgroup-addon>
+    </p-inputgroup>
+
+    <p-menu #menu styleClass="!min-w-fit" [model]="searchOptions" popup>
+      <ng-template #item let-item>
+        <a
+          pRipple
+          class="flex items-center p-menu-item-link"
+          (click)="updateSearchOption(item.label)"
+        >
+          <i
+            class="w-1rem"
+            [ngClass]="item.label === searchOption ? 'pi pi-check' : ''"
+          ></i>
+
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </ng-template>
+    </p-menu>
+  </div>
+
+  @for (option of multiSelectOptions; track option.label) {
+    <div class="flex flex-column">
+      <div class="flex align-items-center">
+        {{ option.label }}
+
+        @if (option.tooltip) {
+          <i
+            class="ml-2 pi pi-info-circle"
+            [pTooltip]="option.tooltip"
+            tooltipPosition="right"
+          ></i>
+        }
+      </div>
+
+      <p-multiselect
+        class="mt-1 w-20rem custom-multiselect"
+        [options]="getMultiselectOptions(option)"
+        [(ngModel)]="option.selection"
+        (ngModelChange)="updateSelectOptions()"
+        placeholder="Select {{ option.label }}"
+        panelStyleClass="max-w-20rem"
+        [disabled]="loading"
+        [showClear]="true"
+        (onClear)="clearOptions(option.label)"
+        [maxSelectedLabels]="1"
+        optionValue="value"
+        optionLabel="id"
+      />
+    </div>
+  }
+
+  <div class="max-w-20rem">
+    <bokModal
+      [allowKnowledgeAreas]="true"
+      [disabled]="loading"
+      [label]="'Filter by Knowledge / BoK Concept'"
+      [selectedConcepts]="bokConcepts"
+      (selectedConceptsChange)="bokConceptsChange.emit($event)"
+    ></bokModal>
+  </div>
+</div>

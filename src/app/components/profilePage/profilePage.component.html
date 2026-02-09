@@ -1,0 +1,335 @@
+<p-toast class="custom-toast" position="bottom-right" />
+
+<p-confirmdialog />
+
+@if (profile) {
+  <div class="flex flex-column gap-2">
+    <h1 class="mb-0">{{ profile.title }}</h1>
+
+    <div class="flex flex-wrap gap-2 text-sm">
+      <span class="white-space-nowrap">
+        <strong>Last updated: </strong>
+        {{ profile.updatedAt?.toDate().toLocaleDateString() }}
+      </span>
+      |
+      <span class="white-space-nowrap">
+        <strong>Visibility: </strong>
+        {{ profile.isPublic ? "Public" : "Private" }}
+      </span>
+      |
+      <span class="white-space-nowrap">
+        <strong>EQF Level: </strong>
+        {{ profile.eqf }}
+      </span>
+      |
+      <span class="white-space-nowrap">
+        <strong>Organization: </strong>
+        {{ profile.orgName }}
+      </span>
+      |
+      <span class="white-space-nowrap">
+        <strong>Division: </strong>
+        {{ profile.division || "-" }}
+      </span>
+    </div>
+
+    <div class="flex flex-column xl:flex-row gap-2 xl:gap-4">
+      <div class="xl:w-9 text-justify">
+        {{ profile.description }}
+      </div>
+
+      <div class="xl:w-3">
+        <strong>Application domain(s):</strong>
+
+        <ul class="m-0">
+          @for (domain of applicationDomains; track $index) {
+            <li>{{ domain }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-column">
+      <p-panel
+        #conceptsPanel
+        class="my-2 custom-panel"
+        [header]="`Knowledge (${concepts.length})`"
+        [toggleable]="true"
+        [collapsed]="overTagLimit(concepts.length)"
+      >
+        <ng-template #headericons>
+          <p-button
+            [icon]="
+              conceptsPanel.collapsed
+                ? 'pi pi-chevron-down'
+                : 'pi pi-chevron-up'
+            "
+            severity="secondary"
+            text
+          />
+        </ng-template>
+
+        <div class="flex flex-column xl:flex-row gap-3">
+          <skill-tags class="xl:w-9" [tags]="concepts" [compactBoKTags]="true"></skill-tags>
+
+          <div class="flex flex-column xl:w-3">
+            @for (item of knowledgeDistributionArray; track $index) {
+              <span class="text-xs">
+                <strong>{{ item[1] }}%</strong> | {{ item[0].label }} -
+                {{ item[0].tooltip }}
+              </span>
+
+              <p-progressbar
+                class="custom-bar mb-2"
+                [value]="item[1]"
+                [showValue]="false"
+                [color]="item[0].color"
+              ></p-progressbar>
+            }
+          </div>
+        </div>
+      </p-panel>
+
+      <p-panel
+        #skillsPanel
+        class="my-2 custom-panel"
+        [header]="`Skills (${allSkills.length})`"
+        [toggleable]="true"
+        [collapsed]="overTagLimit(allSkills.length)"
+      >
+        <ng-template #headericons>
+          <p-button
+            [icon]="
+              skillsPanel.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
+            "
+            severity="secondary"
+            text
+          />
+        </ng-template>
+
+        <div
+          [class]="
+            overTagLimit(allSkills.length)
+              ? 'flex flex-column align-items-start gap-2'
+              : 'flex flex-wrap gap-2'
+          "
+        >
+          @for (skill of allSkills; track $index) {
+            <p-tag class="tag skill-tag" [value]="skill" [rounded]="true" />
+          }
+        </div>
+      </p-panel>
+
+      <p-panel
+        #transversalSkillsPanel
+        class="my-2 custom-panel"
+        [header]="`Transversal Skills (${transversalSkills.length})`"
+        [toggleable]="true"
+        [collapsed]="overTagLimit(transversalSkills.length)"
+      >
+        <ng-template #headericons>
+          <p-button
+            [icon]="
+              transversalSkillsPanel.collapsed
+                ? 'pi pi-chevron-down'
+                : 'pi pi-chevron-up'
+            "
+            severity="secondary"
+            text
+          />
+        </ng-template>
+
+        <div
+          [class]="
+            overTagLimit(transversalSkills.length)
+              ? 'flex flex-column align-items-start gap-2'
+              : 'flex flex-wrap gap-2'
+          "
+        >
+          @for (transversalSkill of transversalSkills; track $index) {
+            <p-tag
+              [class]="
+                transversalSkill.uri
+                  ? 'tag transversal-skill-tag cursor-pointer'
+                  : 'tag skill-tag'
+              "
+              [value]="transversalSkill.preferredLabel"
+              [rounded]="true"
+              (click)="
+                transversalSkill.uri && onClickSkill(transversalSkill.uri)
+              "
+            />
+          }
+        </div>
+      </p-panel>
+
+      <div class="xl:hidden flex flex-column gap-2 mb-2">
+        <p-button
+          class="flex justify-content-center custom-button"
+          label="Share Profile"
+          icon="pi pi-share-alt"
+          (onClick)="copyLink()"
+        />
+
+        <div class="flex justify-content-center">
+          <p-button
+            class="custom-button"
+            label="Download Profile"
+            icon="pi pi-download"
+            (onClick)="op1.toggle($event)"
+          />
+
+          <p-popover #op1>
+            <div style="color: var(--primary-color)">
+              <strong>Choose Format</strong>
+
+              <ul class="flex flex-column p-0 m-0">
+                <li class="flex p-2 popover-element" (click)="downloadPDF(op1)">
+                  PDF
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('rdfa', op1)"
+                >
+                  RDFa
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('xml', op1)"
+                >
+                  RDF/XML
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('ttl', op1)"
+                >
+                  Turtle
+                </li>
+              </ul>
+            </div>
+          </p-popover>
+        </div>
+
+        @if (isLogged()) {
+          <p-button
+            class="flex justify-content-center custom-button"
+            label="Duplicate Profile"
+            icon="pi pi-clone"
+            (onClick)="duplicateProfile()"
+          />
+
+          @if (checkUser()) {
+            <p-button
+              class="flex justify-content-center custom-button"
+              label="Edit Profile"
+              icon="pi pi-pencil"
+              (onClick)="editProfile()"
+            />
+
+            <p-button
+              class="flex justify-content-center delete-button"
+              label="Delete Profile"
+              icon="pi pi-trash"
+              (onClick)="deleteModal($event)"
+            />
+          }
+        }
+
+        <p-button
+          class="flex justify-content-center custom-secondary-button"
+          label="Return to Homepage"
+          severity="secondary"
+          icon="pi pi-arrow-left"
+          (onClick)="goToMainPage()"
+        />
+      </div>
+    </div>
+
+    <div class="hidden xl:flex justify-content-between mb-2">
+      <p-button
+        class="custom-secondary-button"
+        label="Return to Homepage"
+        severity="secondary"
+        icon="pi pi-arrow-left"
+        (onClick)="goToMainPage()"
+      />
+
+      <div class="flex flex-wrap gap-2">
+        <p-button
+          class="custom-button"
+          label="Share Profile"
+          icon="pi pi-share-alt"
+          (onClick)="copyLink()"
+        />
+
+        <div>
+          <p-button
+            class="custom-button"
+            label="Download Profile"
+            icon="pi pi-download"
+            (onClick)="op2.toggle($event)"
+          />
+
+          <p-popover #op2>
+            <div style="color: var(--primary-color)">
+              <strong>Choose Format</strong>
+
+              <ul class="flex flex-column p-0 m-0">
+                <li class="flex p-2 popover-element" (click)="downloadPDF(op2)">
+                  PDF
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('rdfa', op2)"
+                >
+                  RDFa
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('xml', op2)"
+                >
+                  RDF/XML
+                </li>
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadRDF('ttl', op2)"
+                >
+                  Turtle
+                </li>
+              </ul>
+            </div>
+          </p-popover>
+        </div>
+
+        @if (isLogged()) {
+          <p-button
+            class="custom-button"
+            label="Duplicate Profile"
+            icon="pi pi-clone"
+            (onClick)="duplicateProfile()"
+          />
+
+          @if (checkUser()) {
+            <p-button
+              class="custom-button"
+              label="Edit Profile"
+              icon="pi pi-pencil"
+              (onClick)="editProfile()"
+            />
+
+            <p-button
+              class="delete-button"
+              label="Delete Profile"
+              icon="pi pi-trash"
+              (onClick)="deleteModal($event)"
+            />
+          }
+        }
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="flex justify-content-center align-items-center h-screen">
+    <p-progress-spinner strokeWidth="3" ariaLabel="loading" />
+  </div>
+}

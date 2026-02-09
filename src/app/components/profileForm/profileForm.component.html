@@ -1,0 +1,274 @@
+<p-toast class="custom-toast" position="bottom-right" />
+
+<p-confirmdialog />
+
+<h2 class="flex justify-content-center mb-4">{{ pageName }}</h2>
+
+<div class="flex flex-column gap-3">
+  <div class="flex flex-column">
+    <p-floatlabel variant="on" class="custom-floatlabel">
+      <p-iconfield>
+        <input
+          class="custom-input w-full"
+          pInputText
+          id="title"
+          autocomplete="off"
+          [class.ng-invalid]="errorMap.get('title') !== undefined"
+          [class.ng-dirty]="errorMap.get('title') !== undefined"
+          [(ngModel)]="profile.title"
+          pTooltip="Name of the profile."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+          maxlength="200"
+        />
+
+        <p-inputicon
+          [class]="
+            errorMap.get('title') !== undefined
+              ? 'danger pi pi-pencil'
+              : 'pi pi-pencil'
+          "
+        />
+      </p-iconfield>
+
+      <label for="title">Title *</label>
+    </p-floatlabel>
+
+    @if (errorMap.get("title"); as error) {
+      <span class="danger text-xs font-italic">{{ error }}</span>
+    }
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="flex w-full">
+      <p-selectbutton
+        [options]="visibilityFieldOptions"
+        [(ngModel)]="profile.isPublic"
+        optionLabel="label"
+        optionValue="value"
+        pTooltip="Specifies whether the profile is public or restricted to your organization."
+        allowEmpty="false"
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      />
+    </div>
+
+    <div class="w-full">
+      <custom-select
+        fieldName="EQF Level"
+        [(selection)]="profile.eqf"
+        [allowCustom]="false"
+        icon="'pi pi-bookmark'"
+        [error]="errorMap.get('eqf') !== undefined"
+        optionsName="EQF Level"
+        pTooltip="The level of knowledge and skills of the profile. Ranges from 1 (basic) to 8 (advanced)."
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      ></custom-select>
+
+      @if (errorMap.get("eqf"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="w-full">
+      <p-floatlabel
+        variant="on"
+        class="custom-floatlabel"
+        [class.invalid-floatlabel]="errorMap.get('organization') !== undefined"
+      >
+        <p-select
+          class="custom-select w-full"
+          inputId="org"
+          [options]="organizationSelector.values"
+          [ngModel]="
+            profile.orgId === undefined
+              ? undefined
+              : { value: profile.orgId, label: profile.orgName }
+          "
+          (ngModelChange)="onOrganizationChange($event)"
+          optionLabel="label"
+          [checkmark]="true"
+          [class.invalid-select]="errorMap.get('organization') !== undefined"
+          pTooltip="The organization to which the profile belongs."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+        />
+
+        <label for="org">{{ organizationSelector.label }} *</label>
+      </p-floatlabel>
+
+      @if (errorMap.get("organization"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="w-full">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-select
+          class="custom-select w-full"
+          [options]="divisionSelector.values"
+          [(ngModel)]="profile.division"
+          [disabled]="divisionSelector.values.length === 0"
+          [checkmark]="true"
+          inputId="division"
+          pTooltip="The organization division to which the profile belongs."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+        />
+
+        <label for="division">{{ divisionSelector.label }}</label>
+      </p-floatlabel>
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-7">
+      <div>
+        <p-floatlabel variant="on" class="custom-floatlabel">
+          <textarea
+            class="custom-textarea w-full"
+            id="description"
+            pTextarea
+            [(ngModel)]="profile.description"
+            [class.ng-invalid]="errorMap.get('description') !== undefined"
+            [class.ng-dirty]="errorMap.get('description') !== undefined"
+            rows="7"
+            pTooltip="Summary or overview of the profile."
+            tooltipPosition="top"
+            showDelay="200"
+            hideDelay="200"
+            maxlength="2000"
+          ></textarea>
+
+          <span
+            [class]="
+              errorMap.get('description') !== undefined
+                ? 'danger textarea-length'
+                : 'textarea-length'
+            "
+          >
+            {{ profile.description.length + " " }} / 2000
+          </span>
+
+          <label for="description">Description *</label>
+        </p-floatlabel>
+
+        @if (errorMap.get("description"); as error) {
+          <span class="danger text-xs font-italic">{{ error }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="xl:w-5">
+      <multiselect-chips
+        optionsSource="fields"
+        fieldName="Application Domain(s)"
+        [(chips)]="fieldNames"
+        [icon]="'pi pi-bookmark'"
+        [allowCustom]="false"
+        pTooltip="Fields of education and training of the profile as defined by UNESCO's ISCED-F."
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      ></multiselect-chips>
+    </div>
+  </div>
+
+  <div>
+    <div
+      class="custom-border p-2"
+      style="color: #64748b"
+      [style.border-color]="
+        errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
+      "
+      pTooltip="Body of Knowledge concepts related to a field of work of the profile. Related skills are automatically added."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    >
+      <bokModal
+        id="knowledge"
+        [allowKnowledgeAreas]="true"
+        label="Knowledge *"
+        [selectedConcepts]="profile.knowledge"
+        [selectedSkills]="profile.skills"
+        (selectedConceptsChange)="onConceptsChange($event)"
+        (selectedSkillsChange)="onSkillsChange($event)"
+        (deletedConcept)="onDeletedConcept($event)"
+        [style.color]="
+          errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
+        "
+      ></bokModal>
+    </div>
+
+    @if (errorMap.get("knowledge"); as error) {
+      <span class="danger text-xs font-italic mt-1">{{ error }}</span>
+    }
+  </div>
+
+  <div>
+    <text-chips
+      fieldName="Skills *"
+      [icon]="'pi pi-book'"
+      [(chips)]="profile.skills"
+      [(customChips)]="profile.customSkills"
+      [error]="errorMap.get('skills') !== undefined"
+      pTooltip="Skills associated with Body of Knowledge concepts of the profile. Custom values can be manually added."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></text-chips>
+
+    @if (errorMap.get("skills"); as error) {
+      <span class="danger text-xs font-italic">{{ error }}</span>
+    }
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <treeselect-chips
+      [(chips)]="this.competenceLabels"
+      [treeNodes]="competenceTree"
+      fieldName="Transversal Skills"
+      pTooltip="Skills that can be used in a wide variety of situations and work settings based on the ESCO classification. Custom values can be manually added below."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></treeselect-chips>
+
+    @if (!showCustomCompetences) {
+      <p-button
+        [rounded]="true"
+        [text]="true"
+        size="small"
+        (onClick)="showCustomCompetences = true"
+        class="text-button ml-auto mt-1 p-0 text-xs font-italic custom-button-2"
+      >
+        Add custom transversal skills
+      </p-button>
+    } @else {
+      <text-chips
+        fieldName="Custom Transversal Skill"
+        icon="pi pi-chart-bar"
+        [(customChips)]="customCompetences"
+      ></text-chips>
+    }
+  </div>
+</div>
+
+<div class="flex justify-content-between my-3">
+  <p-button
+    class="custom-secondary-button"
+    label="Return"
+    severity="secondary"
+    icon="pi pi-arrow-left"
+    (onClick)="returnToHomepage()"
+  />
+
+  <p-button class="custom-button" label="Submit" (onClick)="submitProfile()" />
+</div>
