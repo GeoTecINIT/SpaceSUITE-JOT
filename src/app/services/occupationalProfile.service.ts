@@ -34,6 +34,7 @@ export class OccupationalProfileService {
         tap((profiles) => {
           const formattedProfiles = this.formatOccupationalProfiles(profiles);
           const map = new Map(formattedProfiles.map((p) => [p._id, p]));
+
           this.profilesSubject.next(map);
         }),
       )
@@ -59,7 +60,7 @@ export class OccupationalProfileService {
     return this.profilesSubject.asObservable().pipe(
       map((map) => {
         if (map === undefined || map.size === 0) return [];
-        return [...new Set(Array.from(map.values()).map((p) => p.orgId))];
+        return [...new Set(Array.from(map.values()).map((p) => p.orgName))];
       }),
     );
   }
