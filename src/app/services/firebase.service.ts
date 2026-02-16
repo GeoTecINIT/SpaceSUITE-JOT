@@ -12,6 +12,7 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { concatMap, from, map, Observable, of } from 'rxjs';
+import { JobOfferDB } from '../models/jobOfferDB';
 import { OccupationalProfile } from '../models/occupationalProfile';
 
 @Injectable({
@@ -22,6 +23,7 @@ export class FirebaseService {
 
   private orgCollection: CollectionReference;
   private profileCollection: CollectionReference<OccupationalProfile>;
+  private jobCollection: CollectionReference<JobOfferDB>;
 
   constructor(
     private auth: Auth = inject(Auth),
@@ -32,8 +34,26 @@ export class FirebaseService {
       this.db,
       'OcuProfiles',
     ) as CollectionReference<OccupationalProfile>;
+    this.jobCollection = collection(
+      this.db,
+      'JobOffers',
+    ) as CollectionReference<JobOfferDB>;
 
     authState(this.auth).subscribe((user) => (this.userId = user?.uid ?? ''));
+  }
+
+  getJobOffers(): Observable<JobOfferDB[]> {
+    return collectionData(this.jobCollection, { idField: '_id' }).pipe(
+      map((items) =>
+        items.map(
+          (data) =>
+            ({
+              ...data,
+              occuProf: OccupationalProfile.fromFirestore(data.occuProf),
+            }) as JobOfferDB,
+        ),
+      ),
+    );
   }
 
   getOccupationalProfiles(): Observable<OccupationalProfile[]> {
@@ -80,8 +100,20 @@ export class FirebaseService {
     );
   }
 
+  updateJobOffer(jobOffer: JobOfferDB): Observable<string> {
+    const newDocRef = doc(this.jobCollection, jobOffer._id);
+
+    jobOffer.updatedAt = serverTimestamp();
+    jobOffer.lastModified = new Date().toDateString();
+
+    return from(setDoc(newDocRef, jobOffer.toPlain())).pipe(
+      map(() => jobOffer._id),
+    );
+  }
+
   updateOccupationalProfile(profile: OccupationalProfile): Observable<string> {
     const newDocRef = doc(this.profileCollection, profile._id);
+
     profile.updatedAt = serverTimestamp();
     profile.lastModified = new Date().toDateString();
 
@@ -90,8 +122,22 @@ export class FirebaseService {
     );
   }
 
+  setJobOffer(jobOffer: JobOfferDB): Observable<string> {
+    const newDocRef = doc(this.jobCollection);
+
+    jobOffer.createdAt = serverTimestamp();
+    jobOffer.updatedAt = serverTimestamp();
+    jobOffer.lastModified = new Date().toDateString();
+    jobOffer._id = newDocRef.id;
+
+    return of(setDoc(newDocRef, jobOffer.toPlain())).pipe(
+      map(() => jobOffer._id),
+    );
+  }
+
   setOccupationalProfile(profile: OccupationalProfile): Observable<string> {
     const newDocRef = doc(this.profileCollection);
+
     profile.createdAt = serverTimestamp();
     profile.updatedAt = serverTimestamp();
     profile.lastModified = new Date().toDateString();
@@ -102,8 +148,19 @@ export class FirebaseService {
     );
   }
 
+  deleteJobOffer(jobOffer: JobOfferDB): Observable<void> {
+    const docRef = doc(this.jobCollection, jobOffer._id);
+
+    return from(deleteDoc(docRef)).pipe(
+      concatMap(() => {
+        return of();
+      }),
+    );
+  }
+
   deleteOccupationalProfile(profile: OccupationalProfile): Observable<void> {
     const docRef = doc(this.profileCollection, profile._id);
+
     return from(deleteDoc(docRef)).pipe(
       concatMap(() => {
         return of();
