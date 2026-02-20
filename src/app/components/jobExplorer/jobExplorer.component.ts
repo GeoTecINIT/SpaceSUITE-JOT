@@ -9,94 +9,102 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ButtonGroupModule } from 'primeng/buttongroup';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DividerModule } from 'primeng/divider';
+import { MenuModule } from 'primeng/menu';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
 import { combineLatest, filter, map, Subscription, take } from 'rxjs';
 import { Filter } from '../../models/filter';
-import { OccupationalProfile } from '../../models/occupationalProfile';
+import { JobOffer } from '../../models/jobOffer';
 import { CardFilterService } from '../../services/cardFilter.service';
+import { CardSortingService } from '../../services/cardSorting.service';
 import { FirebaseService } from '../../services/firebase.service';
-import { OccupationalProfileService } from '../../services/occupationalProfile.service';
+import { JobOfferService } from '../../services/jobOffer.service';
 import { FiltersComponent } from '../filters/filters.component';
-import { ProfileCardComponent } from '../profileCard/profileCard.component';
+import { JobCardComponent } from '../jobCard/jobCard.component';
 
 @Component({
   standalone: true,
-  selector: 'profile-explorer',
-  templateUrl: './profileExplorer.component.html',
-  styleUrls: ['./profileExplorer.component.css'],
+  selector: 'job-explorer',
+  templateUrl: './jobExplorer.component.html',
+  styleUrls: ['./jobExplorer.component.css'],
   imports: [
     CommonModule,
     DividerModule,
     PaginatorModule,
     SkeletonModule,
     FiltersComponent,
-    ProfileCardComponent,
+    JobCardComponent,
     ToastModule,
     ConfirmDialogModule,
     ButtonModule,
+    ButtonGroupModule,
+    MenuModule,
   ],
   providers: [ConfirmationService, MessageService],
 })
-export class ProfileExplorerComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   loading: boolean = true;
   skeletonElements: number[] = [];
 
   first: number = 0;
   rows: number = 6;
-  paginatedProfiles: OccupationalProfile[] = [];
+  paginatedJobs: JobOffer[] = [];
 
   bokConcepts: string[] = [];
   filterOptions: Filter[] = [];
   searchOption: string = 'Title';
   searchValue: string = '';
   visibilityFilter: string = 'all';
-  filteredProfiles: OccupationalProfile[] = [];
+  filteredJobs: JobOffer[] = [];
 
   @ViewChild('container') containerRef!: ElementRef;
   buttonBottom = 32;
 
-  private profiles: OccupationalProfile[] = [];
+  sortOptions: MenuItem[] = [{ label: 'Title' }, { label: 'Last updated' }];
+  sortOption: string = 'Title';
+  sortAsc: boolean = false;
+
+  private jobs: JobOffer[] = [];
   private organizations: string[] = [];
 
-  private occupationalProfilesSubscription!: Subscription;
+  private jobOffersSubscription!: Subscription;
 
   constructor(
-    private occupationalProfileService: OccupationalProfileService,
     private filterService: CardFilterService,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private router: Router,
     private ngZone: NgZone,
+    private sortingService: CardSortingService,
+    private jobOfferService: JobOfferService,
   ) {
     this.skeletonElements = Array(this.rows);
   }
 
   ngOnInit() {
-    this.occupationalProfilesSubscription = combineLatest([
+    this.jobOffersSubscription = combineLatest([
       this.firebaseService
         .getUserOrganizationList()
         .pipe(map((orgs) => orgs.map((o) => o._id))),
       this.filterService.getFilters(),
-      this.occupationalProfileService
-        .getOccupationalProfiles()
-        .pipe(filter((p) => p !== undefined)),
-    ]).subscribe(([orgs, filters, profiles]) => {
+      this.jobOfferService.getJobOffers().pipe(filter((j) => j !== undefined)),
+    ]).subscribe(([orgs, filters, jobs]) => {
       this.organizations = orgs;
       this.filterOptions = filters;
-      this.profiles = profiles;
+      this.jobs = jobs;
 
       this.searchOption = this.filterService.searchOption;
       this.searchValue = this.filterService.searchValue;
       this.bokConcepts = this.filterService.bokConcepts;
+      this.sortAsc = this.sortingService.sortAsc;
+      this.sortOption = this.sortingService.sortOption;
       if (!this.isLogged()) {
         this.visibilityFilter = 'all';
         this.filterService.visibilityFilter = 'all';
@@ -124,7 +132,7 @@ export class ProfileExplorerComponent
             this.messageService.add({
               severity: 'info',
               summary: 'Info',
-              detail: `Profile deleted without problems.`,
+              detail: `Job deleted without problems.`,
               life: 3000,
               closable: true,
             });
@@ -140,7 +148,7 @@ export class ProfileExplorerComponent
   ngOnDestroy() {
     window.removeEventListener('scroll', this.updateButtonPosition);
     window.removeEventListener('resize', this.updateButtonPosition);
-    this.occupationalProfilesSubscription.unsubscribe();
+    this.jobOffersSubscription.unsubscribe();
   }
 
   isLogged(): boolean {
@@ -152,7 +160,21 @@ export class ProfileExplorerComponent
     this.rows = event.rows ?? 6;
     this.filterService.paginatorState = event;
 
-    this.updatePaginatedProfiles();
+    this.updatePaginatedJobs();
+  }
+
+  switchSortOrientation(): void {
+    this.sortAsc = !this.sortAsc;
+    this.sortingService.sortAsc = this.sortAsc;
+
+    this.filterPipeline();
+  }
+
+  setSortOption(option: string): void {
+    this.sortOption = option;
+    this.sortingService.sortOption = option;
+
+    this.filterPipeline();
   }
 
   setBoKConcepts(concepts: string[]): void {
@@ -189,18 +211,19 @@ export class ProfileExplorerComponent
   filterPipeline(): void {
     this.first = 0;
 
-    const searched = this.searchProfiles(this.profiles);
-    const filtered = this.filterProfiles(searched);
-    this.filteredProfiles = this.filterByBoKConcept(filtered);
+    const sorted = this.sortJobs(this.jobs);
+    const searched = this.searchJobs(sorted);
+    const filtered = this.filterJobs(searched);
+    this.filteredJobs = this.filterByBoKConcept(filtered);
 
-    this.updatePaginatedProfiles();
+    this.updatePaginatedJobs();
     this.ngZone.onStable.pipe(take(1)).subscribe(() => {
       this.updateButtonPosition();
     });
   }
 
-  createOccupationalProfile() {
-    this.router.navigate(['profile/new'], {
+  createJobOffer() {
+    this.router.navigate(['job/new'], {
       queryParams: { origin: 'explorer' },
     });
   }
@@ -215,72 +238,74 @@ export class ProfileExplorerComponent
     }
   };
 
-  private updatePaginatedProfiles(): void {
-    this.paginatedProfiles = this.filteredProfiles.slice(
+  private updatePaginatedJobs(): void {
+    this.paginatedJobs = this.filteredJobs.slice(
       this.first,
       this.first + this.rows,
     );
   }
 
-  private searchProfiles(
-    profiles: OccupationalProfile[],
-  ): OccupationalProfile[] {
-    const searchedProfiles: OccupationalProfile[] = [];
+  private sortJobs(jobs: JobOffer[]): JobOffer[] {
+    return this.sortingService.sortJobs(jobs);
+  }
+
+  private searchJobs(jobs: JobOffer[]): JobOffer[] {
+    const searchedJobs: JobOffer[] = [];
     const value = this.searchValue.trim().toLowerCase();
 
     switch (this.searchOption) {
       case 'Title':
-        profiles.forEach((profile) => {
-          if (profile.title.trim().toLowerCase().includes(value))
-            searchedProfiles.push(profile);
+        jobs.forEach((job) => {
+          if (job.title.trim().toLowerCase().includes(value))
+            searchedJobs.push(job);
         });
 
         break;
 
       case 'Description':
-        profiles.forEach((profile) => {
-          if (profile.description.trim().toLowerCase().includes(value))
-            searchedProfiles.push(profile);
+        jobs.forEach((job) => {
+          if (job.description.trim().toLowerCase().includes(value))
+            searchedJobs.push(job);
         });
 
         break;
 
       case 'Skills':
         if (value === '') {
-          searchedProfiles.push(...profiles);
+          searchedJobs.push(...jobs);
           break;
         }
 
-        profiles.forEach((profile) => {
+        jobs.forEach((job) => {
           if (
-            profile.skills.some((skill) =>
+            job.skills.some((skill) =>
               skill.trim().toLowerCase().includes(value),
             ) ||
-            profile.customSkills.some((skill) =>
+            job.customSkills.some((skill) =>
               skill.trim().toLowerCase().includes(value),
             )
           )
-            searchedProfiles.push(profile);
+            searchedJobs.push(job);
         });
 
         break;
 
       case 'Transversal Skills':
         if (value === '') {
-          searchedProfiles.push(...profiles);
+          searchedJobs.push(...jobs);
           break;
         }
 
-        profiles.forEach((profile) => {
+        jobs.forEach((job) => {
           if (
-            profile.competences.some((competence) =>
+            job.competences.some((competence) =>
               competence.preferredLabel.trim().toLowerCase().includes(value),
             ) ||
-            profile.customCompetences.some((competence) =>
+            job.customCompetences.some((competence) =>
               competence.trim().toLowerCase().includes(value),
             )
           )
-            searchedProfiles.push(profile);
+            searchedJobs.push(job);
         });
 
         break;
@@ -289,53 +314,49 @@ export class ProfileExplorerComponent
         console.log('Invalid Search Option');
     }
 
-    return searchedProfiles;
+    return searchedJobs;
   }
 
-  private filterProfiles(
-    profiles: OccupationalProfile[],
-  ): OccupationalProfile[] {
+  private filterJobs(jobs: JobOffer[]): JobOffer[] {
     const userId = this.firebaseService.getUserData()?.uid;
 
-    let filteredProfiles = profiles.filter((profile) => {
+    let filteredJobs = jobs.filter((job) => {
       switch (this.visibilityFilter) {
         case 'mine':
-          return userId ? profile.userId === userId : false;
+          return userId ? job.userId === userId : false;
 
         case 'organization':
-          return this.organizations.includes(profile.orgId);
+          return this.organizations.includes(job.orgId);
 
         case 'all':
         default:
           if (userId)
             return (
-              profile.isPublic ||
-              profile.userId === userId ||
-              this.organizations.includes(profile.orgId)
+              job.isPublic ||
+              job.userId === userId ||
+              this.organizations.includes(job.orgId)
             );
-          return profile.isPublic;
+          return job.isPublic;
       }
     });
 
-    filteredProfiles = filteredProfiles.filter((profile) =>
+    filteredJobs = filteredJobs.filter((job) =>
       this.filterOptions.every(
         (filter) =>
           !filter.selection ||
           filter.selection.length === 0 ||
-          this.filterService.checkProfile(profile, filter),
+          this.filterService.checkJob(job, filter),
       ),
     );
 
-    return filteredProfiles;
+    return filteredJobs;
   }
 
-  private filterByBoKConcept(
-    profiles: OccupationalProfile[],
-  ): OccupationalProfile[] {
-    if (this.bokConcepts.length === 0) return profiles;
+  private filterByBoKConcept(jobs: JobOffer[]): JobOffer[] {
+    if (this.bokConcepts.length === 0) return jobs;
 
-    return profiles.filter((profile) =>
-      this.bokConcepts.some((concept) => profile.knowledge.includes(concept)),
+    return jobs.filter((job) =>
+      this.bokConcepts.some((concept) => job.knowledge.includes(concept)),
     );
   }
 }

@@ -15,8 +15,8 @@
           autocomplete="off"
           [class.ng-invalid]="errorMap.get('title') !== undefined"
           [class.ng-dirty]="errorMap.get('title') !== undefined"
-          [(ngModel)]="profile.title"
-          pTooltip="Name of the profile."
+          [(ngModel)]="job.title"
+          pTooltip="Name of the job."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -44,10 +44,10 @@
     <div class="flex w-full">
       <p-selectbutton
         [options]="visibilityFieldOptions"
-        [(ngModel)]="profile.isPublic"
+        [(ngModel)]="job.isPublic"
         optionLabel="label"
         optionValue="value"
-        pTooltip="Specifies whether the profile is public or restricted to your organization."
+        pTooltip="Specifies whether the job is public or restricted to your organization."
         allowEmpty="false"
         tooltipPosition="top"
         showDelay="200"
@@ -58,12 +58,12 @@
     <div class="w-full">
       <custom-select
         fieldName="EQF Level"
-        [(selection)]="profile.eqf"
+        [(selection)]="job.eqf"
         [allowCustom]="false"
         icon="'pi pi-bookmark'"
         [error]="errorMap.get('eqf') !== undefined"
         optionsName="EQF Level"
-        pTooltip="The level of knowledge and skills of the profile. Ranges from 1 (basic) to 8 (advanced)."
+        pTooltip="The level of knowledge and skills of the job. Ranges from 1 (basic) to 8 (advanced)."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -85,15 +85,15 @@
           inputId="org"
           [options]="organizationSelector.values"
           [ngModel]="
-            profile.orgId === undefined
+            job.orgId === undefined
               ? undefined
-              : { value: profile.orgId, label: profile.orgName }
+              : { value: job.orgId, label: job.orgName }
           "
           (ngModelChange)="onOrganizationChange($event)"
           optionLabel="label"
           [checkmark]="true"
           [class.invalid-select]="errorMap.get('organization') !== undefined"
-          pTooltip="The organization to which the profile belongs."
+          pTooltip="The organization to which the job belongs."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -112,11 +112,11 @@
         <p-select
           class="custom-select w-full"
           [options]="divisionSelector.values"
-          [(ngModel)]="profile.division"
+          [(ngModel)]="job.division"
           [disabled]="divisionSelector.values.length === 0"
           [checkmark]="true"
           inputId="division"
-          pTooltip="The organization division to which the profile belongs."
+          pTooltip="The organization division to which the job belongs."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -135,11 +135,11 @@
             class="custom-textarea w-full"
             id="description"
             pTextarea
-            [(ngModel)]="profile.description"
+            [(ngModel)]="job.description"
             [class.ng-invalid]="errorMap.get('description') !== undefined"
             [class.ng-dirty]="errorMap.get('description') !== undefined"
             rows="7"
-            pTooltip="Summary or overview of the profile."
+            pTooltip="Summary or overview of the job."
             tooltipPosition="top"
             showDelay="200"
             hideDelay="200"
@@ -153,7 +153,7 @@
                 : 'textarea-length'
             "
           >
-            {{ profile.description.length + " " }} / 2000
+            {{ job.description.length + " " }} / 2000
           </span>
 
           <label for="description">Description *</label>
@@ -172,7 +172,7 @@
         [(chips)]="fieldNames"
         [icon]="'pi pi-bookmark'"
         [allowCustom]="false"
-        pTooltip="Fields of education and training of the profile as defined by UNESCO's ISCED-F."
+        pTooltip="Fields of education and training of the job as defined by UNESCO's ISCED-F."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -187,7 +187,7 @@
       [style.border-color]="
         errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
       "
-      pTooltip="Body of Knowledge concepts related to a field of work of the profile. Related skills are automatically added."
+      pTooltip="Body of Knowledge concepts related to a field of work of the job. Related skills are automatically added."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
@@ -196,8 +196,8 @@
         id="knowledge"
         [allowKnowledgeAreas]="true"
         label="Knowledge *"
-        [selectedConcepts]="profile.knowledge"
-        [selectedSkills]="profile.skills"
+        [selectedConcepts]="job.knowledge"
+        [selectedSkills]="job.skills"
         (selectedConceptsChange)="onConceptsChange($event)"
         (selectedSkillsChange)="onSkillsChange($event)"
         (deletedConcept)="onDeletedConcept($event)"
@@ -216,10 +216,10 @@
     <text-chips
       fieldName="Skills *"
       [icon]="'pi pi-book'"
-      [(chips)]="profile.skills"
-      [(customChips)]="profile.customSkills"
+      [(chips)]="job.skills"
+      [(customChips)]="job.customSkills"
       [error]="errorMap.get('skills') !== undefined"
-      pTooltip="Skills associated with Body of Knowledge concepts of the profile. Custom values can be manually added."
+      pTooltip="Skills associated with Body of Knowledge concepts of the job. Custom values can be manually added."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
@@ -270,5 +270,5 @@
     (onClick)="returnToHomepage()"
   />
 
-  <p-button class="custom-button" label="Submit" (onClick)="submitProfile()" />
+  <p-button class="custom-button" label="Submit" (onClick)="submitJob()" />
 </div>

@@ -100,15 +100,13 @@ export class FirebaseService {
     );
   }
 
-  updateJobOffer(jobOffer: JobOfferDB): Observable<string> {
-    const newDocRef = doc(this.jobCollection, jobOffer._id);
+  updateJobOffer(job: JobOfferDB): Observable<string> {
+    const newDocRef = doc(this.jobCollection, job._id);
 
-    jobOffer.updatedAt = serverTimestamp();
-    jobOffer.lastModified = new Date().toDateString();
+    job.updatedAt = serverTimestamp();
+    job.lastModified = new Date().toDateString();
 
-    return from(setDoc(newDocRef, jobOffer.toPlain())).pipe(
-      map(() => jobOffer._id),
-    );
+    return from(setDoc(newDocRef, job.toPlain())).pipe(map(() => job._id));
   }
 
   updateOccupationalProfile(profile: OccupationalProfile): Observable<string> {
@@ -122,17 +120,15 @@ export class FirebaseService {
     );
   }
 
-  setJobOffer(jobOffer: JobOfferDB): Observable<string> {
+  setJobOffer(job: JobOfferDB): Observable<string> {
     const newDocRef = doc(this.jobCollection);
 
-    jobOffer.createdAt = serverTimestamp();
-    jobOffer.updatedAt = serverTimestamp();
-    jobOffer.lastModified = new Date().toDateString();
-    jobOffer._id = newDocRef.id;
+    job.createdAt = serverTimestamp();
+    job.updatedAt = serverTimestamp();
+    job.lastModified = new Date().toDateString();
+    job._id = newDocRef.id;
 
-    return of(setDoc(newDocRef, jobOffer.toPlain())).pipe(
-      map(() => jobOffer._id),
-    );
+    return of(setDoc(newDocRef, job.toPlain())).pipe(map(() => job._id));
   }
 
   setOccupationalProfile(profile: OccupationalProfile): Observable<string> {
@@ -148,8 +144,8 @@ export class FirebaseService {
     );
   }
 
-  deleteJobOffer(jobOffer: JobOfferDB): Observable<void> {
-    const docRef = doc(this.jobCollection, jobOffer._id);
+  deleteJobOffer(job: JobOfferDB): Observable<void> {
+    const docRef = doc(this.jobCollection, job._id);
 
     return from(deleteDoc(docRef)).pipe(
       concatMap(() => {

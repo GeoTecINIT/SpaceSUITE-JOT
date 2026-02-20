@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BokInformationService } from '@eo4geo/ngx-bok-visualization';
+import { AuthService, SkillTagComponent, Tag } from '@eo4geo/ngx-bok-utils';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -16,37 +16,41 @@ import {
   catchError,
   combineLatest,
   concatMap,
-  count,
   defaultIfEmpty,
   filter,
   finalize,
-  first,
   forkJoin,
-  from,
   map,
-  mergeMap,
   of,
   retry,
-  switchMap,
+  skip,
+  Subscription,
   take,
   tap,
 } from 'rxjs';
+import { JobOffer } from '../../models/jobOffer';
+import { Dataset, Language, Tool } from '../../models/jobOfferDB';
 import {
   Competence,
   OccupationalProfile,
 } from '../../models/occupationalProfile';
 import { FirebaseService } from '../../services/firebase.service';
-import { OccupationalProfileService } from '../../services/occupationalProfile.service';
+import { JobOfferService } from '../../services/jobOffer.service';
 import { PdfService } from '../../services/pdf.service';
 import { RdfService } from '../../services/rdf.service';
 import { UtilsService } from '../../services/utils.service';
-import { SkillTagComponent, Tag } from "@eo4geo/ngx-bok-utils";
+
+interface AuthState {
+  logged: boolean;
+  nameInitial: string;
+  uid: string;
+}
 
 @Component({
   standalone: true,
-  selector: 'profile-page',
-  templateUrl: './profilePage.component.html',
-  styleUrls: ['./profilePage.component.css'],
+  selector: 'job-page',
+  templateUrl: './jobPage.component.html',
+  styleUrls: ['./jobPage.component.css'],
   imports: [
     CommonModule,
     ProgressSpinnerModule,
@@ -58,28 +62,36 @@ import { SkillTagComponent, Tag } from "@eo4geo/ngx-bok-utils";
     ProgressBarModule,
     PopoverModule,
     TooltipModule,
-    SkillTagComponent
-],
+    SkillTagComponent,
+  ],
   providers: [ConfirmationService, MessageService],
 })
-export class ProfilePageComponent implements OnInit {
-  profile?: OccupationalProfile;
+export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
+  job?: JobOffer;
 
   concepts: Tag[] = [];
   allSkills: string[] = [];
   transversalSkills: Competence[] = [];
   applicationDomains: string[] = [];
+  datasets: Dataset[] = [];
+  tools: Tool[] = [];
+  languages: Language[] = [];
 
   private tagLimit: number = 30;
   knowledgeDistribution: Map<Tag, number> = new Map();
+
+  private userOrgIdsSubscription!: Subscription;
   private organizations: string[] = [];
+
+  private authStateSubscription!: Subscription;
+  private authState: AuthState | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private occupationalProfileService: OccupationalProfileService,
+    private jobOfferService: JobOfferService,
     private utilsService: UtilsService,
-    private bokInfo: BokInformationService,
+    private authService: AuthService,
     private firebaseService: FirebaseService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -88,36 +100,73 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.firebaseService.getUserOrganizationList().subscribe((orgs) => {
-      orgs.forEach((org) => this.organizations.push(org._id));
-    });
-    combineLatest([this.route.paramMap, this.route.queryParams])
-      .pipe(
-        map(([paramMap, queryParams]) => {
-          const profileId = paramMap.get('profileId') || '';
-          const submitted =
-            queryParams['submitted'] === 'true' ||
-            queryParams['submitted'] === true;
-          return { profileId: profileId, submitted };
-        }),
-        concatMap(({ profileId, submitted }) =>
-          this.occupationalProfileService
-            .getOccupationalProfile(profileId)
-            .pipe(
-              tap((profile) => {
-                if (submitted && !profile) throw new Error('Profile not found');
-              }),
-              retry({ count: 1, delay: 500 }),
-              catchError(() => of(undefined)),
-            ),
+    const routeData$ = combineLatest([
+      this.route.paramMap,
+      this.route.queryParams,
+    ]).pipe(
+      map(([paramMap, queryParams]) => {
+        const jobId = paramMap.get('jobId') || '';
+        const submitted =
+          queryParams['submitted'] === 'true' ||
+          queryParams['submitted'] === true;
+        return { jobId: jobId, submitted };
+      }),
+      concatMap(({ jobId: jobId, submitted }) =>
+        this.jobOfferService.getJobOffer(jobId).pipe(
+          tap((job) => {
+            if (submitted && !job) throw new Error('Job not found');
+          }),
+          retry({ count: 1, delay: 500 }),
+          catchError(() => of(undefined)),
         ),
-        filter((profile) => profile?.updatedAt !== null),
-        take(1),
+      ),
+      filter((job) => job?.updatedAt !== null),
+      take(1),
+    );
+
+    const orgIds$ = this.firebaseService.getUserOrganizationList().pipe(
+      map((orgs) => orgs.map((o) => o._id)),
+      tap((orgIds) => (this.organizations = orgIds)),
+      take(1),
+    );
+
+    const userState$ = this.authService.getUserState().pipe(
+      tap((authState) => (this.authState = authState)),
+      take(1),
+    );
+
+    forkJoin([routeData$, orgIds$, userState$]).subscribe(
+      ([newJob, _, userData]) => {
+        const isJobMissing = !newJob;
+        const isNotPublic = newJob && !newJob.isPublic;
+        const belongsToUserOrg =
+          newJob?.orgId && this.organizations.includes(newJob.orgId);
+        const belongsToUser =
+          newJob && userData && newJob.userId === userData.uid;
+
+        if (
+          isJobMissing ||
+          (isNotPublic && !(belongsToUserOrg || belongsToUser))
+        ) {
+          this.router.navigate(['not_found']);
+        } else this.loadJob(newJob);
+      },
+    );
+
+    this.userOrgIdsSubscription = this.firebaseService
+      .getUserOrganizationList()
+      .pipe(
+        skip(1),
+        map((orgs) => orgs.map((o) => o._id)),
       )
-      .subscribe((newProfile?: OccupationalProfile) => {
-        if (newProfile) this.loadProfile(newProfile);
-        else this.router.navigate(['not_found']);
+      .subscribe((ids) => {
+        this.organizations = ids;
       });
+
+    this.authStateSubscription = this.authService
+      .getUserState()
+      .pipe(skip(1))
+      .subscribe((authState) => (this.authState = authState));
   }
 
   ngAfterViewInit() {
@@ -130,7 +179,7 @@ export class ProfilePageComponent implements OnInit {
             this.messageService.add({
               severity: 'info',
               summary: 'Info',
-              detail: `Profile successfully updated!`,
+              detail: `Job successfully updated!`,
               life: 3000,
               closable: true,
             });
@@ -139,7 +188,7 @@ export class ProfilePageComponent implements OnInit {
             this.messageService.add({
               severity: 'info',
               summary: 'Info',
-              detail: `Profile successfully created!`,
+              detail: `Job successfully created!`,
               life: 3000,
               closable: true,
             });
@@ -149,34 +198,45 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  private loadProfile(newProfile: OccupationalProfile) {
-    this.profile = newProfile;
+  ngOnDestroy() {
+    this.authStateSubscription.unsubscribe();
+    this.userOrgIdsSubscription.unsubscribe();
+  }
+
+  private loadJob(newJob: JobOffer) {
+    this.job = newJob;
     this.concepts = [];
     this.allSkills = [];
     this.transversalSkills = [];
     this.applicationDomains = [];
+    this.datasets = [];
+    this.tools = [];
+    this.languages = [];
 
-    this.utilsService.stringToTag(this.profile.knowledge, 'bok').pipe(defaultIfEmpty([])).subscribe(results => {
-      this.concepts = [...this.concepts, ...results];
-      this.concepts.sort((a, b) => a.label.localeCompare(b.label));
-      this.getConcept(this.concepts);
-    });
+    this.utilsService
+      .stringToTag(this.job.knowledge, 'bok')
+      .pipe(defaultIfEmpty([]))
+      .subscribe((results) => {
+        this.concepts = [...this.concepts, ...results];
+        this.concepts.sort((a, b) => a.label.localeCompare(b.label));
+        this.getConcept(this.concepts);
+      });
 
-    this.profile.skills.forEach((skill) => {
+    this.job.skills.forEach((skill) => {
       if (skill !== '') this.allSkills.push(skill);
     });
 
-    this.profile.customSkills.forEach((customSkill) => {
+    this.job.customSkills.forEach((customSkill) => {
       if (customSkill !== '') this.allSkills.push(customSkill);
     });
 
-    this.profile.competences.forEach((competence) => {
+    this.job.competences.forEach((competence) => {
       if (competence.preferredLabel !== '') {
         this.transversalSkills.push(competence);
       }
     });
 
-    this.profile.customCompetences.forEach((customCompetence) => {
+    this.job.customCompetences.forEach((customCompetence) => {
       if (
         customCompetence !== '' &&
         this.transversalSkills.every(
@@ -187,23 +247,35 @@ export class ProfilePageComponent implements OnInit {
       }
     });
 
-    this.profile.fields.forEach((field) => {
+    this.job.fields.forEach((field) => {
       this.applicationDomains.push(`${field.name} (${field.grandparent})`);
     });
+
+    this.datasets = this.job.dataRequired.sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
+
+    this.tools = this.job.toolsRequired.sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
+
+    this.languages = this.job.languages.sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
   }
 
   goToMainPage() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['job']);
   }
 
-  editProfile() {
-    this.router.navigate([`profile/edit/${this.profile?._id}`], {
+  editJob() {
+    this.router.navigate([`job/edit/${this.job?._id}`], {
       queryParams: { origin: 'details' },
     });
   }
 
-  duplicateProfile() {
-    this.router.navigate([`profile/new/${this.profile?._id}`], {
+  duplicateJob() {
+    this.router.navigate([`job/new/${this.job?._id}`], {
       queryParams: { origin: 'details' },
     });
   }
@@ -211,8 +283,8 @@ export class ProfilePageComponent implements OnInit {
   deleteModal(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Do you want to delete this occupational profile?',
-      header: 'Delete Profile',
+      message: 'Do you want to delete this job offer?',
+      header: 'Delete Job',
       icon: 'pi pi-info-circle',
       rejectLabel: 'Cancel',
       rejectButtonProps: {
@@ -225,16 +297,16 @@ export class ProfilePageComponent implements OnInit {
       },
 
       accept: () => {
-        this.deleteProfile();
+        this.deleteJob();
       },
       reject: () => {},
     });
   }
 
-  deleteProfile() {
+  deleteJob() {
     let deleteError = false;
-    this.occupationalProfileService
-      .deleteOccupationalProfile(this.profile!)
+    this.jobOfferService
+      .deleteJobOffer(this.job!)
       .pipe(
         take(1),
         catchError((error) => {
@@ -252,7 +324,7 @@ export class ProfilePageComponent implements OnInit {
         }),
         finalize(() => {
           if (!deleteError)
-            this.router.navigate(['profile'], {
+            this.router.navigate(['job'], {
               queryParams: { submitted: true, mode: 'delete' },
             });
         }),
@@ -261,7 +333,10 @@ export class ProfilePageComponent implements OnInit {
   }
 
   checkUser() {
-    return this.profile && this.organizations.includes(this.profile.orgId);
+    return (
+      this.authState?.uid == this.job?.userId ||
+      (this.job && this.organizations.includes(this.job.orgId))
+    );
   }
 
   onClickConcept(code: string) {
@@ -277,27 +352,31 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getConcept(concepts: Tag[]) {
-    const conceptsAreas = concepts.map(concept => concept.label.substring(0, 2).toUpperCase());
-    this.utilsService.stringToTag(conceptsAreas, 'bok').subscribe(areasTags => {
-      const allAreas = new Map<string, Tag>();
-      const counts = new Map<string, number>();
-      let total = 0;
-      
-      areasTags.flat().forEach(area => {
-        allAreas.set(area.label, area);
-        counts.set(area.label, (counts.get(area.label) || 0) + 1);
-        total += 1;
-      });
-            
-      if (total > 0) {
-        this.knowledgeDistribution = new Map(
-          Array.from(counts.entries()).map(([label, count]) => [
-            allAreas.get(label)!,
-            Math.round((count / total) * 100)
-          ])
-        );
-      }
+    const conceptsAreas = concepts.map((concept) => {
+      if (concept.label === 'GIST') return concept.label;
+      return concept.label.substring(0, 2).toUpperCase();
     });
+    this.utilsService
+      .stringToTag(conceptsAreas, 'bok')
+      .subscribe((areasTags) => {
+        const allAreas = new Map<string, Tag>();
+        const counts = new Map<string, number>();
+        const total = concepts.length;
+
+        areasTags.flat().forEach((area) => {
+          allAreas.set(area.label, area);
+          counts.set(area.label, (counts.get(area.label) || 0) + 1);
+        });
+
+        if (total > 0) {
+          this.knowledgeDistribution = new Map(
+            Array.from(counts.entries()).map(([label, count]) => [
+              allAreas.get(label)!,
+              Math.round((count / total) * 100),
+            ]),
+          );
+        }
+      });
   }
 
   get knowledgeDistributionArray() {
@@ -305,7 +384,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   isLogged(): boolean {
-    return this.firebaseService.getUserData() !== null;
+    return this.authState?.logged ?? false;
   }
 
   copyLink(): void {
@@ -314,7 +393,7 @@ export class ProfilePageComponent implements OnInit {
     this.messageService.add({
       severity: 'info',
       summary: 'Info',
-      detail: `You copied the profile url to clipboard!`,
+      detail: `You copied the job url to clipboard!`,
       life: 3000,
       closable: true,
     });
@@ -325,7 +404,7 @@ export class ProfilePageComponent implements OnInit {
     op.hide();
 
     this.pdfService
-      .generatePortfolioPdf(new OccupationalProfile(this.profile))
+      .generatePortfolioPdf(new OccupationalProfile(this.job))
       .subscribe((pdf) => {
         this.downloadURI(pdf.url, pdf.filename);
         document.body.style.cursor = '';
@@ -336,13 +415,13 @@ export class ProfilePageComponent implements OnInit {
     document.body.style.cursor = 'wait';
     op.hide();
 
-    const fileName = (this.profile?.title || 'default_name')
+    const fileName = (this.job?.title || 'default_name')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/\s+/g, '_')
       .replace(/[^\w_-]/g, '')
       .toLowerCase();
-    const newProfile = new OccupationalProfile(this.profile);
+    const newProfile = new OccupationalProfile(this.job);
 
     switch (format) {
       case 'ttl':

@@ -14,58 +14,55 @@ export class JobOfferAdapter {
   getJobOffers(): Observable<JobOffer[]> {
     return this.firebaseService
       .getJobOffers()
-      .pipe(
-        map((jobOffers) =>
-          jobOffers.map((jobOffer) => this.convertToLocal(jobOffer)),
-        ),
-      );
+      .pipe(map((jobs) => jobs.map((job) => this.convertToLocal(job))));
   }
 
-  updateJobOffer(jobOffer: JobOffer): Observable<string> {
-    return this.firebaseService.updateJobOffer(this.convertToDB(jobOffer));
+  updateJobOffer(job: JobOffer): Observable<string> {
+    return this.firebaseService.updateJobOffer(this.convertToDB(job));
   }
 
-  setJobOffer(jobOffer: JobOffer): Observable<string> {
-    return this.firebaseService.setJobOffer(this.convertToDB(jobOffer));
+  setJobOffer(job: JobOffer): Observable<string> {
+    return this.firebaseService.setJobOffer(this.convertToDB(job));
   }
 
-  deleteJobOffer(jobOffer: JobOffer): Observable<void> {
-    return this.firebaseService.deleteJobOffer(this.convertToDB(jobOffer));
+  deleteJobOffer(job: JobOffer): Observable<void> {
+    return this.firebaseService.deleteJobOffer(this.convertToDB(job));
   }
 
-  private convertToLocal(jobOffer: JobOfferDB): JobOffer {
-    const newJobOffer = new JobOffer(jobOffer);
+  private convertToLocal(job: JobOfferDB): JobOffer {
+    const newJob = new JobOffer(job);
 
-    if (jobOffer.occuProf) {
-      newJobOffer.competences = jobOffer.occuProf.competences;
-      newJobOffer.customCompetences = jobOffer.occuProf.customCompetences;
-      newJobOffer.customSkills = jobOffer.occuProf.customSkills;
-      newJobOffer.description = jobOffer.occuProf.description;
-      newJobOffer.eqf = jobOffer.occuProf.eqf;
-      newJobOffer.fields = jobOffer.occuProf.fields;
-      newJobOffer.knowledge = jobOffer.occuProf.knowledge;
-      newJobOffer.profiles.push(jobOffer.occuProf._id);
-      newJobOffer.skills = jobOffer.occuProf.skills;
-      newJobOffer.title = jobOffer.occuProf.title;
+    if (job.occuProf) {
+      newJob.competences = job.occuProf.competences;
+      newJob.customCompetences = job.occuProf.customCompetences;
+      newJob.customSkills = job.occuProf.customSkills;
+      newJob.description = job.occuProf.description;
+      newJob.eqf = job.occuProf.eqf;
+      newJob.fields = job.occuProf.fields;
+      newJob.knowledge = job.occuProf.knowledge;
+      newJob.skills = job.occuProf.skills;
+      newJob.title = job.occuProf.title;
+
+      if (job.occuProf._id !== '') newJob.profiles.push(job.occuProf._id);
     }
 
-    return newJobOffer;
+    return newJob;
   }
 
-  private convertToDB(jobOffer: JobOffer): JobOfferDB {
-    const newJobOffer = new JobOfferDB(jobOffer);
+  private convertToDB(job: JobOffer): JobOfferDB {
+    const newJob = new JobOfferDB(job);
 
-    newJobOffer.occuProf = new OccupationalProfile();
-    newJobOffer.occuProf.competences = jobOffer.competences;
-    newJobOffer.occuProf.customCompetences = jobOffer.customCompetences;
-    newJobOffer.occuProf.customSkills = jobOffer.customSkills;
-    newJobOffer.occuProf.description = jobOffer.description;
-    newJobOffer.occuProf.eqf = jobOffer.eqf;
-    newJobOffer.occuProf.fields = jobOffer.fields;
-    newJobOffer.occuProf.knowledge = jobOffer.knowledge;
-    newJobOffer.occuProf.skills = jobOffer.skills;
-    newJobOffer.occuProf.title = jobOffer.title;
+    newJob.occuProf = new OccupationalProfile();
+    newJob.occuProf.competences = job.competences;
+    newJob.occuProf.customCompetences = job.customCompetences;
+    newJob.occuProf.customSkills = job.customSkills;
+    newJob.occuProf.description = job.description;
+    newJob.occuProf.eqf = job.eqf;
+    newJob.occuProf.fields = job.fields;
+    newJob.occuProf.knowledge = job.knowledge;
+    newJob.occuProf.skills = job.skills;
+    newJob.occuProf.title = job.title;
 
-    return newJobOffer;
+    return newJob;
   }
 }

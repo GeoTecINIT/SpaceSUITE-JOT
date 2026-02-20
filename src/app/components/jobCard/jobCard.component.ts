@@ -1,27 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { SkillTagComponent, Tag } from '@eo4geo/ngx-bok-utils';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { Popover, PopoverModule } from 'primeng/popover';
+import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { catchError, defaultIfEmpty, finalize, of, take } from 'rxjs';
+import { JobOffer } from '../../models/jobOffer';
 import { OccupationalProfile } from '../../models/occupationalProfile';
 import { FirebaseService } from '../../services/firebase.service';
-import { OccupationalProfileService } from '../../services/occupationalProfile.service';
+import { JobOfferService } from '../../services/jobOffer.service';
 import { PdfService } from '../../services/pdf.service';
-import { SkillTagComponent, Tag } from "@eo4geo/ngx-bok-utils";
 import { RdfService } from '../../services/rdf.service';
-import { SkeletonModule } from 'primeng/skeleton';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
   standalone: true,
-  selector: 'profile-card',
-  templateUrl: './profileCard.component.html',
-  styleUrl: './profileCard.component.css',
+  selector: 'job-card',
+  templateUrl: './jobCard.component.html',
+  styleUrl: './jobCard.component.css',
   imports: [
     CommonModule,
     ButtonModule,
@@ -30,11 +38,11 @@ import { UtilsService } from '../../services/utils.service';
     TooltipModule,
     PopoverModule,
     SkeletonModule,
-    SkillTagComponent
+    SkillTagComponent,
   ],
 })
-export class ProfileCardComponent implements OnInit {
-  @Input() occupationalProfile!: OccupationalProfile;
+export class JobCardComponent implements OnInit {
+  @Input() job!: JobOffer;
   @Input() logged: boolean = false;
 
   private organizations: string[] = [];
@@ -46,14 +54,18 @@ export class ProfileCardComponent implements OnInit {
 
   @ViewChild('conceptsOp') conceptsOp!: Popover;
 
+  @ViewChild('card') cardComponent!: ElementRef;
+  maxOverflowWidth: number = 2000;
+  minOverflowWidth: number = 500;
+
   concepts: Tag[] = [];
   conceptsLoaded: boolean = false;
   overflow: boolean = false;
   compactConcepts: boolean = false;
-  limitTagsHeigth: boolean = true;
+  limitTagsHeight: boolean = true;
 
   skeletonElements: number[] = [];
-  showSkelleton: boolean = true;
+  showSkeleton: boolean = true;
 
   constructor(
     private utilsService: UtilsService,
@@ -61,10 +73,10 @@ export class ProfileCardComponent implements OnInit {
     private firebaseService: FirebaseService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private occupationalProfileService: OccupationalProfileService,
+    private jobOfferService: JobOfferService,
     private pdfService: PdfService,
     private rdfService: RdfService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.skeletonElements = Array(10).fill(null);
   }
@@ -74,28 +86,34 @@ export class ProfileCardComponent implements OnInit {
       orgs.forEach((org) => this.organizations.push(org._id));
     });
 
-    this.utilsService.stringToTag(this.occupationalProfile.knowledge, 'bok').pipe(defaultIfEmpty([])).subscribe(results => {
-      this.concepts = [...this.concepts, ...results];
-      this.concepts.sort((a, b) => a.label.localeCompare(b.label));
-      this.conceptsLoaded = true;
-      this.showSkelleton = false;
-    });
+    this.utilsService
+      .stringToTag(this.job.knowledge, 'bok')
+      .pipe(defaultIfEmpty([]))
+      .subscribe((results) => {
+        this.concepts = [...this.concepts, ...results];
+        this.concepts.sort((a, b) => a.label.localeCompare(b.label));
+        this.conceptsLoaded = true;
+        this.showSkeleton = false;
+      });
   }
 
   ngAfterViewChecked() {
-    if (this.conceptsLoaded && this.limitTagsHeigth) {
+    if (this.conceptsLoaded && this.limitTagsHeight) {
+      const currentWidth = this.cardComponent.nativeElement.clientWidth;
+      this.maxOverflowWidth = currentWidth * 1.4;
+      this.minOverflowWidth = currentWidth * 0.6;
       this.overflow = this.checkOverflow();
-      this.limitTagsHeigth = false;
+      this.limitTagsHeight = false;
       this.cdr.detectChanges();
     }
   }
 
-  compactConceptsChanged = () => this.compactConcepts = !this.compactConcepts;
+  compactConceptsChanged = () => (this.compactConcepts = !this.compactConcepts);
 
   checkOverflow(): boolean {
     const containerHeight = this.containerElement.nativeElement.clientHeight;
     const subjectsHeight = this.subjectsElement.nativeElement.scrollHeight;
-    return (subjectsHeight > containerHeight);
+    return subjectsHeight > containerHeight;
   }
 
   onClickConcept(code: string): void {
@@ -104,21 +122,21 @@ export class ProfileCardComponent implements OnInit {
 
   onClickTitle(event: MouseEvent): void {
     event.preventDefault();
-    this.router.navigate([`profile/${this.occupationalProfile._id}`]);
+    this.router.navigate([`job/${this.job._id}`]);
   }
 
   checkUser() {
-    return this.organizations.includes(this.occupationalProfile.orgId);
+    return this.organizations.includes(this.job.orgId);
   }
 
-  editProfile() {
-    this.router.navigate([`profile/edit/${this.occupationalProfile._id}`], {
+  editJob() {
+    this.router.navigate([`job/edit/${this.job._id}`], {
       queryParams: { origin: 'explorer' },
     });
   }
 
-  duplicateProfile() {
-    this.router.navigate([`profile/new/${this.occupationalProfile._id}`], {
+  duplicateJob() {
+    this.router.navigate([`job/new/${this.job._id}`], {
       queryParams: { origin: 'explorer' },
     });
   }
@@ -126,8 +144,8 @@ export class ProfileCardComponent implements OnInit {
   deleteModal(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Do you want to delete this occupational profile?',
-      header: 'Delete Profile',
+      message: 'Do you want to delete this job offer?',
+      header: 'Delete Job',
       icon: 'pi pi-info-circle',
       rejectLabel: 'Cancel',
       rejectButtonProps: {
@@ -140,16 +158,16 @@ export class ProfileCardComponent implements OnInit {
       },
 
       accept: () => {
-        this.deleteProfile();
+        this.deleteJob();
       },
       reject: () => {},
     });
   }
 
-  deleteProfile() {
+  deleteJob() {
     let deleteError = false;
-    this.occupationalProfileService
-      .deleteOccupationalProfile(this.occupationalProfile!)
+    this.jobOfferService
+      .deleteJobOffer(this.job!)
       .pipe(
         take(1),
         catchError((error) => {
@@ -170,7 +188,7 @@ export class ProfileCardComponent implements OnInit {
             this.messageService.add({
               severity: 'info',
               summary: 'Info',
-              detail: `Profile successfully deleted!`,
+              detail: `Job successfully deleted!`,
               life: 3000,
               closable: true,
             });
@@ -180,14 +198,12 @@ export class ProfileCardComponent implements OnInit {
   }
 
   copyLink(): void {
-    navigator.clipboard.writeText(
-      window.location.href + `profile/${this.occupationalProfile._id}`,
-    );
+    navigator.clipboard.writeText(window.location.href + `job/${this.job._id}`);
 
     this.messageService.add({
       severity: 'info',
       summary: 'Info',
-      detail: `You copied the profile url to clipboard!`,
+      detail: `You copied the job url to clipboard!`,
       life: 3000,
       closable: true,
     });
@@ -198,7 +214,7 @@ export class ProfileCardComponent implements OnInit {
     this.op.hide();
 
     this.pdfService
-      .generatePortfolioPdf(new OccupationalProfile(this.occupationalProfile))
+      .generatePortfolioPdf(new OccupationalProfile(this.job))
       .subscribe((pdf) => {
         this.downloadURI(pdf.url, pdf.filename);
         document.body.style.cursor = '';
@@ -209,13 +225,13 @@ export class ProfileCardComponent implements OnInit {
     document.body.style.cursor = 'wait';
     this.op.hide();
 
-    const fileName = (this.occupationalProfile.title || 'default_name')
+    const fileName = (this.job.title || 'default_name')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/\s+/g, '_')
       .replace(/[^\w_-]/g, '')
       .toLowerCase();
-    const newProfile = new OccupationalProfile(this.occupationalProfile);
+    const newProfile = new OccupationalProfile(this.job);
 
     switch (format) {
       case 'ttl':

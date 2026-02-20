@@ -1,0 +1,6 @@
+@if (jobSignal(); as job) {
+  <job-form
+    [inputJob]="job"
+    [pageName]="isDuplicateSignal() ? 'Duplicate Job' : 'Edit Job'"
+  ></job-form>
+}

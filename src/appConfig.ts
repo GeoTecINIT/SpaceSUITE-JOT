@@ -15,14 +15,14 @@ import {
 } from '@eo4geo/ngx-bok-utils';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
-import { EditProfilePageComponent } from './app/components/editProfilePage/editProfilePage.component';
-import { ProfileExplorerComponent } from './app/components/profileExplorer/profileExplorer.component';
-import { ProfileFormComponent } from './app/components/profileForm/profileForm.component';
-import { ProfilePageComponent } from './app/components/profilePage/profilePage.component';
+import { EditJobPageComponent } from './app/components/editJobPage/editJobPage.component';
+import { JobExplorerComponent } from './app/components/jobExplorer/jobExplorer.component';
+import { JobPageComponent } from './app/components/jobPage/jobPage.component';
+import { JobFormComponent } from './app/components/jobForm/jobForm.component';
 import { environment } from './environments/environment';
 
 const routes: Routes = [
-  { path: '', component: ProfileExplorerComponent },
+  { path: '', component: JobExplorerComponent },
   {
     path: 'userProfile',
     component: UserPageComponent,
@@ -33,26 +33,26 @@ const routes: Routes = [
     component: OrganizationPageComponent,
     canMatch: [AuthGuard],
   },
-  { path: 'profile', redirectTo: '', pathMatch: 'full' },
+  { path: 'job', redirectTo: '', pathMatch: 'full' },
   {
-    path: 'profile/new',
-    component: ProfileFormComponent,
+    path: 'job/new',
+    component: JobFormComponent,
     canMatch: [AuthGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
   {
-    path: 'profile/new/:profileId',
-    component: EditProfilePageComponent,
+    path: 'job/new/:jobId',
+    component: EditJobPageComponent,
     canMatch: [AuthGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
   {
-    path: 'profile/edit/:profileId',
-    component: EditProfilePageComponent,
+    path: 'job/edit/:jobId',
+    component: EditJobPageComponent,
     canMatch: [AuthGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
-  { path: 'profile/:profileId', component: ProfilePageComponent },
+  { path: 'job/:jobId', component: JobPageComponent },
   { path: 'not_found', component: NotFoundPageComponent },
   { path: '**', component: NotFoundPageComponent },
 ];

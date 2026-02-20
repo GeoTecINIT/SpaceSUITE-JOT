@@ -1,8 +1,8 @@
 /// <reference lib="webworker" />
 
 import jsPDF from 'jspdf';
-import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
 import { Competence, OccupationalProfile } from '../models/occupationalProfile';
+import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
 
 addEventListener('message', ({ data }: { data: PdfWorkerPayload }) => {
   const { profile, assets, scaleFactor } = data;

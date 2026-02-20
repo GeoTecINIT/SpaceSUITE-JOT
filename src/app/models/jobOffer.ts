@@ -18,7 +18,7 @@ export class JobOffer extends OccupationalProfile {
   yearsExperience: number;
 
   constructor(data: Partial<JobOffer> = {}) {
-    super();
+    super(data);
     this.additionalQuestions = data.additionalQuestions ?? '';
     this.contactDetails = data.contactDetails ?? '';
     this.currency = data.currency ?? '';

@@ -1,6 +1,6 @@
 <div class="flex flex-column min-h-screen">
   <header
-    toolName="Occupational Profile Tool"
+    toolName="Job Offer Tool"
     [items]="headerItems"
     [login]="true"
     (profileClick)="redirectToProfile()"
@@ -11,5 +11,11 @@
     <router-outlet></router-outlet>
   </div>
 
-  <footer class="mt-auto"></footer>
+  <footer
+    class="mt-auto"
+    (openReleaseNotes)="releaseNotes = !releaseNotes"
+    (openUserManual)="openPdf()"
+  ></footer>
+
+  <release-notes [(visible)]="releaseNotes"></release-notes>
 </div>

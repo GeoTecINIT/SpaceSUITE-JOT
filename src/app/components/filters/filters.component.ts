@@ -65,13 +65,13 @@ export class FiltersComponent implements OnChanges {
   ];
 
   visibilityFilterOptions: MenuItem[] = [
-    { label: 'My Profiles', value: 'mine', icon: 'pi pi-user' },
+    { label: 'My Jobs', value: 'mine', icon: 'pi pi-user' },
     {
-      label: "My Organization's Profiles",
+      label: "My Organization's Jobs",
       value: 'organization',
       icon: 'pi pi-users',
     },
-    { label: 'All Profiles', value: 'all', icon: 'pi pi-globe' },
+    { label: 'All Jobs', value: 'all', icon: 'pi pi-globe' },
   ];
 
   constructor() {}
