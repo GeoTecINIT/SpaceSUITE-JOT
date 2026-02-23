@@ -60,7 +60,8 @@ function applyMetadata(doc: jsPDF, offer: JobOffer) {
     title: `${offer.title} – Job Offer`,
     subject: getSubjectMetadata(offer),
     author: 'SpaceSuite',
-    creator: 'Job Offer Tool',
+    creator: 'SpaceSuite Job Offer Tool',
+    keywords: 'spacesuite, job offer',
   });
 }
 
