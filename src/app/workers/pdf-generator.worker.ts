@@ -1,11 +1,12 @@
 /// <reference lib="webworker" />
 
 import jsPDF from 'jspdf';
-import { Competence, OccupationalProfile } from '../models/occupationalProfile';
+import { Competence } from '../models/occupationalProfile';
 import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
+import { JobOffer } from '../models/jobOffer';
 
 addEventListener('message', ({ data }: { data: PdfWorkerPayload }) => {
-  const { profile, assets, scaleFactor } = data;
+  const { offer, assets, scaleFactor } = data;
   const doc = new jsPDF();
 
   if (!assets.watermark) assets.watermark = '';
@@ -28,20 +29,25 @@ addEventListener('message', ({ data }: { data: PdfWorkerPayload }) => {
 
   doc.setLineHeightFactor(scaleFactor);
 
-  applyMetadata(doc, profile);
-  y = renderHeader(doc, profile, y, assets);
-  y = renderSummary(doc, profile, y, assets);
-  y = renderDomains(doc, profile, y, assets);
-  y = renderKnowledge(doc, profile, y, assets);
-  y = renderSkills(doc, profile, y, assets);
-  y = renderTransversalSkills(doc, profile, y, assets);
+  applyMetadata(doc, offer);
+  y = renderHeader(doc, offer, y, assets);
+  y = renderSummary(doc, offer, y, assets);
+  y = renderDomains(doc, offer, y, assets);
+  y = renderContactDetails(doc, offer, y, assets);
+  y = renderAdditionalInfo(doc, offer, y, assets);
+  y = renderKnowledge(doc, offer, y, assets);
+  y = renderSkills(doc, offer, y, assets);
+  y = renderTransversalSkills(doc, offer, y, assets);
+  y = renderDatasets(doc, offer, y, assets);
+  y = renderTools(doc, offer, y, assets);
+  y = renderLanguages(doc, offer, y, assets);
   renderFooter(doc, assets);
 
   const blob = doc.output('blob');
 
   postMessage({
     blob,
-    filename: buildFilename(profile),
+    filename: buildFilename(offer),
   });
 });
 
@@ -49,13 +55,29 @@ addEventListener('message', ({ data }: { data: PdfWorkerPayload }) => {
     METADATA
 ============================ */
 
-function applyMetadata(doc: jsPDF, profile: OccupationalProfile) {
+function applyMetadata(doc: jsPDF, offer: JobOffer) {
   doc.setProperties({
-    title: `${profile.title} – Profile`,
-    subject: 'Occupational Profile',
+    title: `${offer.title} – Job Offer`,
+    subject: getSubjectMetadata(offer),
     author: 'SpaceSuite',
-    creator: 'SpaceSuite',
+    creator: 'Job Offer Tool',
   });
+}
+
+function getSubjectMetadata(offer: JobOffer) {
+  let subject = '@prefix dc: <http://purl.org/dc/terms/> . @prefix eo4geo: <http://bok.eo4geo.eu/> . ';
+  if (offer.knowledge && offer.knowledge.length > 0) {
+    subject = subject + '<> dc:type "Job Offer"; <> dc:title "' + offer.title + '"';
+    offer.knowledge.forEach(know => {
+      // const bokCode = concept.split('] ')[1];
+      const bokCode = know.split(']', 1)[0].split('[', 2)[1];
+      if (bokCode) {
+        subject = subject + '; dc:relation eo4geo:' + bokCode;
+      }
+    });
+    subject = subject + ' .';
+  }
+  return subject;
 }
 
 /* ============================
@@ -64,7 +86,7 @@ function applyMetadata(doc: jsPDF, profile: OccupationalProfile) {
 
 function renderHeader(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -102,12 +124,22 @@ function renderHeader(
   );
   y += 4 * 1.35;
 
-  doc.text(
-    [p.orgName, p.division ?? null, 'EQF ' + p.eqf].filter(Boolean).join(' | '),
-    20,
-    y,
-  );
-  y += 4 * 1.35;
+  const infoData = [
+    p.orgName, 
+    p.division ?? null, 
+    'EQF ' + p.eqf, 
+    'Required experience: ' + p.yearsExperience + ' years', 
+    (p.salaryMax != 0 && p.salaryMin != 0) ? ('Annual salary range: ' + p.salaryMin + ' - ' + p.salaryMax + ' ' + p.currency) : null,
+    (p.location !== '') ? ('Location: ' + p.location) : null,
+    (p.dedication != '') ? ('Dedication: ' + p.dedication) : null,
+    (p.typeContract != '') ? ('Contract type: ' + p.typeContract) : null,
+    'Ask for motivation letter? ' + (p.motivationLetter ? 'Yes' : 'No')
+  ].filter(Boolean).join(' | ');
+  const infoLines = doc.splitTextToSize(infoData, 170);
+  const infoLinesSize = infoLines.length * 4 * 1.35;
+  y = checkEnd(doc, y, infoLinesSize, assets);
+  doc.text(infoLines, 20, y);
+  y += infoLinesSize;
 
   return y;
 }
@@ -183,7 +215,7 @@ function renderFooter(
 
 function renderSummary(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -214,7 +246,7 @@ function renderSummary(
 
 function renderDomains(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -250,12 +282,12 @@ function renderDomains(
 }
 
 /* ============================
-    KNOWLEDGE
+    Contact details
 ============================ */
 
-function renderKnowledge(
+function renderContactDetails(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -266,7 +298,69 @@ function renderKnowledge(
     spaceSuiteLogo?: string | undefined;
   },
 ): number {
-  if (!p.fields.length) return y;
+  if (!p.contactDetails) return y;
+
+  y = sectionTitle(doc, 'Contact Details', y, assets);
+
+  y += 4 * 1.35;
+  const lines = doc.splitTextToSize(p.contactDetails, 170);
+  const linesSize = lines.length * 4 * 1.35;
+  y = checkEnd(doc, y, linesSize, assets);
+  doc.text(lines, 20, y);
+  y += linesSize;
+
+  return y;
+}
+
+/* ============================
+    Additional Info
+============================ */
+
+function renderAdditionalInfo(
+  doc: jsPDF,
+  p: JobOffer,
+  y: number,
+  assets: {
+    poppinsRegular?: string | undefined;
+    poppinsBold?: string | undefined;
+    poppinsItalic?: string | undefined;
+    watermark?: string | undefined;
+    euLogo?: string | undefined;
+    spaceSuiteLogo?: string | undefined;
+  },
+): number {
+  if (!p.additionalQuestions) return y;
+
+  y = sectionTitle(doc, 'Additional Information/Questions', y, assets);
+
+  y += 4 * 1.35;
+  const lines = doc.splitTextToSize(p.additionalQuestions, 170);
+  const linesSize = lines.length * 4 * 1.35;
+  y = checkEnd(doc, y, linesSize, assets);
+  doc.text(lines, 20, y);
+  y += linesSize;
+
+  return y;
+}
+
+/* ============================
+    KNOWLEDGE
+============================ */
+
+function renderKnowledge(
+  doc: jsPDF,
+  p: JobOffer,
+  y: number,
+  assets: {
+    poppinsRegular?: string | undefined;
+    poppinsBold?: string | undefined;
+    poppinsItalic?: string | undefined;
+    watermark?: string | undefined;
+    euLogo?: string | undefined;
+    spaceSuiteLogo?: string | undefined;
+  },
+): number {
+  if (!p.knowledge.length) return y;
 
   y = sectionTitle(doc, 'Required Knowledge', y, assets);
 
@@ -300,7 +394,7 @@ function renderKnowledge(
 
 function renderSkills(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -311,7 +405,7 @@ function renderSkills(
     spaceSuiteLogo?: string | undefined;
   },
 ): number {
-  if (!p.fields.length) return y;
+  if (!p.skills.length && !p.customSkills.length) return y;
 
   y = sectionTitle(doc, 'Required Skills', y, assets);
 
@@ -345,7 +439,7 @@ function renderSkills(
 
 function renderTransversalSkills(
   doc: jsPDF,
-  p: OccupationalProfile,
+  p: JobOffer,
   y: number,
   assets: {
     poppinsRegular?: string | undefined;
@@ -356,7 +450,7 @@ function renderTransversalSkills(
     spaceSuiteLogo?: string | undefined;
   },
 ): number {
-  if (!p.fields.length) return y;
+  if (!p.competences.length && !p.customCompetences.length) return y;
 
   y = sectionTitle(doc, 'Required Transversal Skills', y, assets);
 
@@ -376,6 +470,119 @@ function renderTransversalSkills(
     const linesSize = lines.length * 4 * 1.35;
     y = checkEnd(doc, y, linesSize, assets);
     if (skill.uri) doc.textWithLink(lines, 20, y, { url: skill.uri });
+    else doc.text(lines, 20, y);
+    y += linesSize;
+  });
+
+  return y;
+}
+
+/* ============================
+    Languages
+============================ */
+
+function renderLanguages(
+  doc: jsPDF,
+  p: JobOffer,
+  y: number,
+  assets: {
+    poppinsRegular?: string | undefined;
+    poppinsBold?: string | undefined;
+    poppinsItalic?: string | undefined;
+    watermark?: string | undefined;
+    euLogo?: string | undefined;
+    spaceSuiteLogo?: string | undefined;
+  },
+): number {
+  if (!p.languages.length) return y;
+
+  y = sectionTitle(doc, 'Required Languages', y, assets);
+
+  y += 4 * 1.35;
+  p.languages.forEach((language) => {
+    const lines = doc.splitTextToSize(language.name, 170);
+    for (let i = 0; i < lines.length; i++) {
+      if (i == 0) lines[i] = '• ' + lines[i];
+      else lines[i] = '   ' + lines[i];
+    }
+    const linesSize = lines.length * 4 * 1.35;
+    y = checkEnd(doc, y, linesSize, assets);
+    doc.text(lines, 20, y);
+    y += linesSize;
+  });
+
+  return y;
+}
+
+/* ============================
+    Datasets
+============================ */
+
+function renderDatasets(
+  doc: jsPDF,
+  p: JobOffer,
+  y: number,
+  assets: {
+    poppinsRegular?: string | undefined;
+    poppinsBold?: string | undefined;
+    poppinsItalic?: string | undefined;
+    watermark?: string | undefined;
+    euLogo?: string | undefined;
+    spaceSuiteLogo?: string | undefined;
+  },
+): number {
+  if (!p.dataRequired.length) return y;
+
+  y = sectionTitle(doc, 'Required Datasets Knowledge', y, assets);
+
+  y += 4 * 1.35;
+  p.dataRequired.forEach((dataset) => {
+    const lines = doc.splitTextToSize(dataset.name, 170);
+    for (let i = 0; i < lines.length; i++) {
+      if (i == 0) lines[i] = '• ' + lines[i];
+      else lines[i] = '   ' + lines[i];
+    }
+    const linesSize = lines.length * 4 * 1.35;
+    y = checkEnd(doc, y, linesSize, assets);
+    if (dataset.url) doc.textWithLink(lines, 20, y, { url: dataset.url });
+    else doc.text(lines, 20, y);
+    y += linesSize;
+  });
+
+  return y;
+}
+
+/* ============================
+    Tools
+============================ */
+
+function renderTools(
+  doc: jsPDF,
+  p: JobOffer,
+  y: number,
+  assets: {
+    poppinsRegular?: string | undefined;
+    poppinsBold?: string | undefined;
+    poppinsItalic?: string | undefined;
+    watermark?: string | undefined;
+    euLogo?: string | undefined;
+    spaceSuiteLogo?: string | undefined;
+  },
+): number {
+  if (!p.toolsRequired.length) return y;
+
+  y = sectionTitle(doc, 'Required Tools Knowledge', y, assets);
+
+  y += 4 * 1.35;
+  p.toolsRequired.forEach((tool) => {
+    const lines = doc.splitTextToSize(tool.name, 170);
+    for (let i = 0; i < lines.length; i++) {
+      if (i == 0) lines[i] = '• ' + lines[i];
+      else lines[i] = '   ' + lines[i];
+    }
+    const linesSize = lines.length * 4 * 1.35;
+    y = checkEnd(doc, y, linesSize, assets);
+    if (tool.url) doc.textWithLink(lines, 20, y, { url: tool.url });
     else doc.text(lines, 20, y);
     y += linesSize;
   });
@@ -440,7 +647,7 @@ function addWatermark(doc: jsPDF, watermark: string): void {
   }
 }
 
-function buildFilename(p: OccupationalProfile): string {
+function buildFilename(p: JobOffer): string {
   return `${p.title.replace(/\s+/g, '_')}_Profile.pdf`;
 }
 

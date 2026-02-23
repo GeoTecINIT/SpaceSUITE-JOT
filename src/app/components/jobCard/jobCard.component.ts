@@ -214,7 +214,7 @@ export class JobCardComponent implements OnInit {
     this.op.hide();
 
     this.pdfService
-      .generatePortfolioPdf(new OccupationalProfile(this.job))
+      .generatePortfolioPdf(new JobOffer(this.job))
       .subscribe((pdf) => {
         this.downloadURI(pdf.url, pdf.filename);
         document.body.style.cursor = '';
