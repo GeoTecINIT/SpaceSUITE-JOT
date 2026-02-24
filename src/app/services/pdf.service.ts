@@ -19,8 +19,8 @@ import {
 import { BokInformationService } from '@eo4geo/ngx-bok-visualization';
 import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
 import { PdfWorkerResult } from '../models/pdfWorkerResult';
-import { OccupationalProfile } from '../models/occupationalProfile';
 import { Timestamp } from '@angular/fire/firestore';
+import { JobOffer } from '../models/jobOffer';
 
 @Injectable({ providedIn: 'root' })
 export class PdfService {
@@ -117,15 +117,15 @@ export class PdfService {
     });
   }
 
-  generatePortfolioPdf(profile: OccupationalProfile): Observable<PdfResult> {
-    const profileToPrint: OccupationalProfile = new OccupationalProfile(
-      profile,
+  generatePortfolioPdf(offer: JobOffer): Observable<PdfResult> {
+    const offerToPrint: JobOffer = new JobOffer(
+      offer,
     );
     const parseBokConcepts$ = this.parseBokConcepts(
-      profileToPrint.knowledge,
-    ).pipe(tap((parsed) => (profileToPrint.knowledge = parsed || [])));
-    profileToPrint.createdAt = this.normalizeDate(profileToPrint.createdAt);
-    profileToPrint.updatedAt = this.normalizeDate(profileToPrint.updatedAt);
+      offerToPrint.knowledge,
+    ).pipe(tap((parsed) => (offerToPrint.knowledge = parsed || [])));
+    offerToPrint.createdAt = this.normalizeDate(offerToPrint.createdAt);
+    offerToPrint.updatedAt = this.normalizeDate(offerToPrint.updatedAt);
     return this.resourcesLoaded.pipe(
       filter((value) => value === true),
       take(1),
@@ -133,7 +133,7 @@ export class PdfService {
       switchMap(() =>
         from(
           this.generatePdf({
-            profile: profileToPrint,
+            offer: offerToPrint,
             scaleFactor: this.scaleFactor,
             assets: {
               poppinsRegular: this.poppinsRegular,
