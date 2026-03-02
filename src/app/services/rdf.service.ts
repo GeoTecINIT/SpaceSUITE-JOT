@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   Competence,
-  Field,
-  OccupationalProfile,
+  Field
 } from '../models/occupationalProfile';
+import { JobOffer } from '../models/jobOffer';
+import { Language } from '../models/jobOfferDB';
 
 @Injectable({
   providedIn: 'root',
@@ -13,21 +14,21 @@ export class RdfService {
      Public API
      ============================ */
 
-  getRdfTtlUrl(model: OccupationalProfile): string {
+  getRdfTtlUrl(model: JobOffer): string {
     const blob = new Blob([this.convertModelToTurtle(model)], {
       type: 'text/ttl',
     });
     return window.URL.createObjectURL(blob);
   }
 
-  getRdfXmlUrl(model: OccupationalProfile): string {
+  getRdfXmlUrl(model: JobOffer): string {
     const blob = new Blob([this.convertModelToRdfXml(model)], {
       type: 'text/xml',
     });
     return window.URL.createObjectURL(blob);
   }
 
-  getRdfaUrl(model: OccupationalProfile): string {
+  getRdfaUrl(model: JobOffer): string {
     const blob = new Blob([this.convertModelToRDFa(model)], {
       type: 'text/html',
     });
@@ -38,7 +39,7 @@ export class RdfService {
      Turtle
      ============================ */
 
-  private convertModelToTurtle(model: OccupationalProfile): string {
+  private convertModelToTurtle(model: JobOffer): string {
     let additionalObjects = '';
 
     let ttl = `@prefix dcterms: <http://purl.org/dc/terms/> .
@@ -50,20 +51,58 @@ export class RdfService {
 
 `;
 
-    ttl += `geospacebok:OccupationalProfile rdf:type rdfs:Class .\n`;
+    ttl += `geospacebok:JobOffer rdf:type rdfs:Class .\n`;
 
-    ttl += `<https://geospacebok.eu/ocuprofiles/${model._id}> a geospacebok:OccupationalProfile ;\n`;
+    ttl += `<https://geospacebok.eu/ocuprofiles/${model._id}> a geospacebok:JobOffer ;\n`;
 
     if (model.title) ttl += `  dcterms:title "${this.escape(model.title)}" ;\n`;
 
     if (model.description)
       ttl += `  dcterms:description "${this.escape(model.description)}" ;\n`;
 
+    if (model.additionalQuestions)
+      ttl += `  rdfs:comment "${this.escape(model.additionalQuestions)}" ;\n`;
+
     if (model.orgName)
       ttl += `  dcterms:publisher "${this.escape(model.orgName)}${model.division ? ' - ' + this.escape(model.division) : ''}"  ;\n`;
 
     if (model.updatedAt)
       ttl += `  dcterms:modified "${model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt.toDate().toISOString()}" ;\n`;
+
+    if (model.contactDetails)
+      ttl += `  rdfs:seeAlso "${this.escape(model.contactDetails)}" ;\n`;
+
+    if (model.salaryMin || model.salaryMax) {
+      ttl += `  rdfs:comment "Annual salary: ${model.salaryMin} - ${model.salaryMax}${model.currency ? ' ' + model.currency : ''}" ;\n`;
+    }
+
+    if (model.yearsExperience) {
+      ttl += `  dcterms:requires "${model.yearsExperience} years of experience" ;\n`;
+    }
+
+    if (model.dedication) {
+      ttl += `  dcterms:type "${this.escape(model.dedication)}" ;\n`;
+    }
+
+    if (model.typeContract) {
+      ttl += `  dcterms:type "${this.escape(model.typeContract)}" ;\n`;
+    }
+
+    if (model.languages.length != 0) {
+      model.languages.forEach((lang, i) => {
+        const node = `_:LANG${i}`;
+        ttl += `  dcterms:requires ${node} ;\n`;
+        additionalObjects += this.languageSkillToTurtle(lang, node);
+      });
+    }
+
+    if (model.location) {
+      ttl += `  dcterms:spatial "${this.escape(model.location)}" ;\n`;
+    }
+
+    if (model.motivationLetter) {
+      ttl += `  dcterms:requires "motivation letter" ;\n`;
+    }
 
     if (model.eqf) ttl += `  elm:EQFLevel "${this.escape(model.eqf)}" ;\n`;
 
@@ -91,10 +130,16 @@ export class RdfService {
     }
 
     if (model.competences.length != 0 || model.customCompetences.length != 0) {
+      const customCompetences: string[] = model.customCompetences.map( value => value);
       model.competences.forEach((transversalSkill: Competence) => {
-        ttl += `  esco:relatedEssentialSkills <${transversalSkill.uri}> ;\n`;
+        if (transversalSkill.uri) {
+          ttl += `  esco:relatedEssentialSkills <${transversalSkill.uri}> ;\n`;
+        }
+        else {
+          customCompetences.push(transversalSkill.preferredLabel);
+        }
       });
-      model.customCompetences.forEach(
+      customCompetences.forEach(
         (transversalSkill: string, index: number) => {
           ttl += `  esco:relatedEssentialSkill _:TRANSVERSAL${index} ;\n`;
           additionalObjects += `_:TRANSVERSAL${index}\n`;
@@ -104,17 +149,37 @@ export class RdfService {
       );
     }
 
+    if (model.dataRequired.length != 0) {
+      model.dataRequired.forEach(value => {
+        ttl += `  dcterms:requires <${value.url}> ;\n`;
+      })
+    }
+
+    if (model.toolsRequired.length != 0) {
+      model.toolsRequired.forEach(value => {
+        ttl += `  dcterms:requires <${value.url}> ;\n`;
+      })
+    }
+
     ttl = ttl.trim().replace(/;$/, '.') + '\n\n';
     ttl += additionalObjects;
 
     return ttl;
   }
 
+  private languageSkillToTurtle(lang: Language, node: string): string {
+    return `${node}
+  rdf:type geospacebok:LanguageSkill ;
+  dcterms:language "${this.escape(lang.name)}" .
+
+`;
+  }
+
   /* ============================
      RDF/XML
      ============================ */
 
-  private convertModelToRdfXml(model: OccupationalProfile): string {
+  private convertModelToRdfXml(model: JobOffer): string {
     const NS = {
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
@@ -134,14 +199,14 @@ export class RdfService {
         xmlns:geospacebok="${NS.geospacebok}"
     >\n\n`;
 
-    xml += `  <rdf:Description rdf:about="${NS.geospacebok}OccupationalProfile">\n`;
+    xml += `  <rdf:Description rdf:about="${NS.geospacebok}JobOffer">\n`;
     xml += `    <rdf:type rdf:resource="${NS.rdfs}Class"/>\n`;
     xml += `  </rdf:Description>\n\n`;
 
     const profileUri = `${NS.geospacebok}ocuprofiles/${model._id}`;
 
     xml += `  <rdf:Description rdf:about="${profileUri}">\n`;
-    xml += `    <rdf:type rdf:resource="${NS.geospacebok}OccupationalProfile"/>\n`;
+    xml += `    <rdf:type rdf:resource="${NS.geospacebok}JobOffer"/>\n`;
 
     if (model.title)
       xml += `    <dcterms:title>${this.escapeXml(model.title)}</dcterms:title>\n`;
@@ -213,7 +278,7 @@ export class RdfService {
       RDFa 
       ============================ */
 
-  private convertModelToRDFa(model: OccupationalProfile): string {
+  private convertModelToRDFa(model: JobOffer): string {
     const NS = {
       geospacebok: 'https://geospacebok.eu/',
       dcterms: 'http://purl.org/dc/terms/',
@@ -232,7 +297,7 @@ export class RdfService {
       elm: ${NS.elm}
     "
     about="${NS.geospacebok}ocuprofiles/${model._id}"
-    typeof="geospacebok:OccupationalProfile"
+    typeof="geospacebok:JobOffer"
   >
   `;
 
@@ -304,7 +369,6 @@ export class RdfService {
      ============================ */
 
   private escape(str: string): string {
-    console.log('Escaping string:', str);
     const inlineString: string = str
       .split('\n')
       .map((line) => line.trim())

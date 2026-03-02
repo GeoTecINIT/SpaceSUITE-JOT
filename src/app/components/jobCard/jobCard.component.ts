@@ -231,23 +231,23 @@ export class JobCardComponent implements OnInit {
       .replace(/\s+/g, '_')
       .replace(/[^\w_-]/g, '')
       .toLowerCase();
-    const newProfile = new OccupationalProfile(this.job);
+    const newOffer = new JobOffer(this.job);
 
     switch (format) {
       case 'ttl':
-        const ttlUrl = this.rdfService.getRdfTtlUrl(newProfile);
+        const ttlUrl = this.rdfService.getRdfTtlUrl(newOffer);
         this.downloadURI(ttlUrl, fileName + '_profile.ttl');
 
         break;
 
       case 'xml':
-        const xmlUrl = this.rdfService.getRdfXmlUrl(newProfile);
+        const xmlUrl = this.rdfService.getRdfXmlUrl(newOffer);
         this.downloadURI(xmlUrl, fileName + '_profile.rdf.xml');
 
         break;
 
       case 'rdfa':
-        const rdfaUrl = this.rdfService.getRdfaUrl(newProfile);
+        const rdfaUrl = this.rdfService.getRdfaUrl(newOffer);
         this.downloadURI(rdfaUrl, fileName + '_profile.html');
 
         break;
