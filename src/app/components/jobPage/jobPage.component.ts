@@ -421,7 +421,7 @@ export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
       .replace(/\s+/g, '_')
       .replace(/[^\w_-]/g, '')
       .toLowerCase();
-    const newProfile = new OccupationalProfile(this.job);
+    const newProfile = new JobOffer(this.job);
 
     switch (format) {
       case 'ttl':
