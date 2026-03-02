@@ -287,89 +287,89 @@ export class RdfService {
 
   private convertModelToRDFa(model: JobOffer): string {
     const NS = {
-      geospacebok: 'https://geospacebok.eu/',
       dcterms: 'http://purl.org/dc/terms/',
-      esco: 'http://data.europa.eu/esco/model#',
+      rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
       elm: 'http://data.europa.eu/snb/model/elm',
+      esco: 'http://data.europa.eu/esco/model#',
+      geospacebok: 'https://geospacebok.eu/',
     };
 
     const escape = (v: string) => this.escapeHtml(v);
 
-    let html = `
-  <div
+    let html = `<div
     vocab="${NS.dcterms}"
-    prefix="
-      geospacebok: ${NS.geospacebok}
-      esco: ${NS.esco}
-      elm: ${NS.elm}
-    "
-    about="${NS.geospacebok}ocuprofiles/${model._id}"
+    prefix="rdfs: ${NS.rdfs} elm: ${NS.elm} esco: ${NS.esco} geospacebok: ${NS.geospacebok}"
+    about="https://geospacebok.eu/ocuprofiles/${model._id}"
     typeof="geospacebok:JobOffer"
-  >
-  `;
+  >`;
 
-    if (model.title)
-      html += `  <h1 property="title">${escape(model.title)}</h1>\n`;
+    // Title/description first
+    if (model.title) html += `\n  <h1 property="title">${escape(model.title)}</h1>`;
+    if (model.description) html += `\n  <p property="description">${escape(model.description)}</p>`;
 
-    if (model.description)
-      html += `  <p property="description">${escape(model.description)}</p>\n`;
+    // New JobOffer fields as inline properties
+    if (model.additionalQuestions) html += `\n  <p property="rdfs:comment">${escape(model.additionalQuestions)}</p>`;
+    if (model.contactDetails) html += `\n  <a property="rdfs:seeAlso" href="${escape(model.contactDetails)}">Contact</a>`;
+    if (model.salaryMin || model.salaryMax) {
+      const salaryText = `Annual salary: ${model.salaryMin} - ${model.salaryMax}${model.currency ? ' ' + model.currency : ''}`;
+      html += `\n  <span property="rdfs:comment">${escape(salaryText)}</span>`;
+    }
+    if (model.yearsExperience) html += `\n  <span property="requires">${escape(model.yearsExperience + ' years of experience')}</span>`;
+    if (model.dedication) html += `\n  <span property="type">${escape(model.dedication)}</span>`;
+    if (model.typeContract) html += `\n  <span property="type">${escape(model.typeContract)}</span>`;
+    if (model.location) html += `\n  <span property="spatial">${escape(model.location)}</span>`;
+    if (model.motivationLetter) html += `\n  <span property="requires">motivation letter</span>`;
+    if (model.orgName) html += `\n  <span property="publisher">${escape(model.orgName + (model.division ? ' - ' + model.division : ''))}</span>`;
 
-    if (model.orgName)
-      html += `  <span property="publisher">${escape(
-        model.orgName + (model.division ? ' - ' + model.division : ''),
-      )}</span><br/>\n`;
-
+    // UpdatedAt as time
     if (model.updatedAt) {
-      const dt =
-        model.updatedAt instanceof Date
-          ? model.updatedAt.toISOString()
-          : model.updatedAt.toDate().toISOString();
-      html += `  <time property="modified" datetime="${dt}">${dt}</time><br/>\n`;
+      const dt = model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt.toDate().toISOString();
+      html += `\n  <time property="modified" datetime="${dt}">${dt}</time>`;
     }
 
-    if (model.eqf)
-      html += `  <span property="elm:EQFLevel">${escape(model.eqf)}</span><br/>\n`;
+    // EQF/fields/knowledge unchanged
+    if (model.eqf) html += `\n  <span property="elm:EQFLevel">${escape(model.eqf)}</span>`;
+    model.fields?.forEach((field) => {
+      html += `\n  <span property="elm:ISCEDFCode">${escape(field.code)}</span>`;
+    });
+    model.knowledge?.forEach((subj) => {
+      html += `\n  <a property="subject" href="https://geospacebok.eu/${subj}">Knowledge</a>`;
+    });
 
-    if (model.fields?.length) {
-      model.fields.forEach((field: Field) => {
-        html += `  <span property="elm:ISCEDFCode">${escape(field.code)}</span><br/>\n`;
-      });
-    }
+  // Skills/competences unchanged nested divs
+    model.skills.concat(model.customSkills).forEach((skill) => {
+      html += `\n  <div property="esco:relatedEssentialSkill" typeof="esco:Skill">
+    <span property="dcterms:title">${escape(skill)}</span>
+  </div>`;
+    });
+    model.competences.forEach((comp) => {
+      if (comp.uri) html += `\n  <a property="esco:relatedEssentialSkills" href="${comp.uri}">Competence</a>`;
+    });
+    model.customCompetences.forEach((label) => {
+      html += `\n  <div property="esco:relatedEssentialSkill" typeof="esco:Skill">
+    <span property="dcterms:title">${escape(label)}</span>
+  </div>`;
+    });
 
-    if (model.knowledge?.length) {
-      model.knowledge.forEach((subj: string) => {
-        html += `  <link property="subject" href="${NS.geospacebok}${subj}"/>\n`;
-      });
-    }
+    // dataRequired/toolsRequired as links
+    model.dataRequired.forEach((ds) => {
+      html += `\n  <a property="requires" href="${ds.url}">Dataset</a>`;
+    });
+    model.toolsRequired.forEach((tool) => {
+      html += `\n  <a property="requires" href="${tool.url}">Tool</a>`;
+    });
 
-    if (model.skills.length || model.customSkills.length) {
-      model.skills.concat(model.customSkills).forEach((skill: string) => {
-        html += `
-    <div property="esco:relatedEssentialSkill" typeof="esco:Skill">
-      <span property="title">${escape(skill)}</span>
-    </div>
-  `;
-      });
-    }
+    // Languages with nested bnode-like structure
+    model.languages.forEach((lang) => {
+      html += `\n  <div property="requires" typeof="geospacebok:LanguageSkill">
+    <span property="dcterms:language">${escape(lang.name)}</span>
+  </div>`;
+    });
 
-    if (model.competences.length || model.customCompetences.length) {
-      model.competences.forEach((comp: Competence) => {
-        html += `  <link property="esco:relatedEssentialSkill" href="${comp.uri}"/>\n`;
-      });
-
-      model.customCompetences.forEach((label: string) => {
-        html += `
-    <div property="esco:relatedEssentialSkill" typeof="esco:Skill">
-      <span property="title">${escape(label)}</span>
-    </div>
-  `;
-      });
-    }
-
-    html += `</div>\n`;
-
+    html += `\n</div>`;
     return html;
   }
+
 
   /* ============================
      Escaping helpers
