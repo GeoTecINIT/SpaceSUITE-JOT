@@ -189,90 +189,97 @@ export class RdfService {
       geospacebok: 'https://geospacebok.eu/',
     };
 
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-    xml += `<rdf:RDF
-        xmlns:rdf="${NS.rdf}"
-        xmlns:rdfs="${NS.rdfs}"
-        xmlns:dcterms="${NS.dcterms}"
-        xmlns:elm="${NS.elm}"
-        xmlns:esco="${NS.esco}"
-        xmlns:geospacebok="${NS.geospacebok}"
-    >\n\n`;
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:rdf="${NS.rdf}"
+    xmlns:rdfs="${NS.rdfs}"
+    xmlns:dcterms="${NS.dcterms}"
+    xmlns:elm="${NS.elm}"
+    xmlns:esco="${NS.esco}"
+    xmlns:geospacebok="${NS.geospacebok}"
+>
 
-    xml += `  <rdf:Description rdf:about="${NS.geospacebok}JobOffer">\n`;
-    xml += `    <rdf:type rdf:resource="${NS.rdfs}Class"/>\n`;
-    xml += `  </rdf:Description>\n\n`;
+  <rdf:Description rdf:about="${NS.geospacebok}JobOffer">
+    <rdf:type rdf:resource="${NS.rdfs}Class"/>
+  </rdf:Description>
 
-    const profileUri = `${NS.geospacebok}ocuprofiles/${model._id}`;
+  <rdf:Description rdf:about="${NS.geospacebok}ocuprofiles/${model._id}">
+    <rdf:type rdf:resource="${NS.geospacebok}JobOffer"/>`;
 
-    xml += `  <rdf:Description rdf:about="${profileUri}">\n`;
-    xml += `    <rdf:type rdf:resource="${NS.geospacebok}JobOffer"/>\n`;
-
-    if (model.title)
-      xml += `    <dcterms:title>${this.escapeXml(model.title)}</dcterms:title>\n`;
-
-    if (model.description)
-      xml += `    <dcterms:description>${this.escapeXml(model.description)}</dcterms:description>\n`;
-
-    if (model.orgName)
-      xml += `    <dcterms:publisher>${this.escapeXml(
-        model.orgName + (model.division ? ' - ' + model.division : ''),
-      )}</dcterms:publisher>\n`;
-
+    // Inherited + new JobOffer fields (matching Turtle order)
+    if (model.title) xml += `\n    <dcterms:title>${this.escapeXml(model.title)}</dcterms:title>`;
+    if (model.description) xml += `\n    <dcterms:description>${this.escapeXml(model.description)}</dcterms:description>`;
+    if (model.additionalQuestions) xml += `\n    <rdfs:comment>${this.escapeXml(model.additionalQuestions)}</rdfs:comment>`;
+    if (model.orgName) xml += `\n    <dcterms:publisher>${this.escapeXml(model.orgName + (model.division ? ' - ' + model.division : ''))}</dcterms:publisher>`;
     if (model.updatedAt) {
-      const dt =
-        model.updatedAt instanceof Date
-          ? model.updatedAt.toISOString()
-          : model.updatedAt.toDate().toISOString();
-      xml += `    <dcterms:modified>${this.escapeXml(dt)}</dcterms:modified>\n`;
+      const dt = model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt.toDate().toISOString();
+      xml += `\n    <dcterms:modified>${this.escapeXml(dt)}</dcterms:modified>`;
     }
-
-    if (model.eqf)
-      xml += `    <elm:EQFLevel>${this.escapeXml(model.eqf)}</elm:EQFLevel>\n`;
-
-    if (model.fields?.length) {
-      model.fields.forEach((field: Field) => {
-        xml += `    <elm:ISCEDFCode>${this.escapeXml(field.code)}</elm:ISCEDFCode>\n`;
-      });
+    if (model.contactDetails) xml += `\n    <rdfs:seeAlso>${this.escapeXml(model.contactDetails)}</rdfs:seeAlso>`;
+    if (model.salaryMin || model.salaryMax) {
+      const salaryText = `Annual salary: ${model.salaryMin} - ${model.salaryMax}${model.currency ? ' ' + model.currency : ''}`;
+      xml += `\n    <rdfs:comment>${this.escapeXml(salaryText)}</rdfs:comment>`;
     }
+    if (model.yearsExperience) xml += `\n    <dcterms:requires>${this.escapeXml(model.yearsExperience + ' years of experience')}</dcterms:requires>`;
+    if (model.dedication) xml += `\n    <dcterms:type>${this.escapeXml(model.dedication)}</dcterms:type>`;
+    if (model.typeContract) xml += `\n    <dcterms:type>${this.escapeXml(model.typeContract)}</dcterms:type>`;
+    if (model.location) xml += `\n    <dcterms:spatial>${this.escapeXml(model.location)}</dcterms:spatial>`;
+    if (model.motivationLetter) xml += `\n    <dcterms:requires>motivation letter</dcterms:requires>`;
 
-    if (model.knowledge?.length) {
-      model.knowledge.forEach((subj: string) => {
-        xml += `    <dcterms:subject rdf:resource="${NS.geospacebok}${subj}"/>\n`;
-      });
-    }
+    // EQF, fields, knowledge (unchanged)
+    if (model.eqf) xml += `\n    <elm:EQFLevel>${this.escapeXml(model.eqf)}</elm:EQFLevel>`;
+    model.fields?.forEach((field) => {
+      xml += `\n    <elm:ISCEDFCode>${this.escapeXml(field.code)}</elm:ISCEDFCode>`;
+    });
+    model.knowledge?.forEach((subj) => {
+      xml += `\n    <dcterms:subject rdf:resource="${NS.geospacebok}${subj}"/>`;
+    });
 
-    if (model.skills.length || model.customSkills.length) {
-      model.skills.concat(model.customSkills).forEach((skill: string) => {
-        xml += `    <esco:relatedEssentialSkill>\n`;
-        xml += `      <rdf:Description>\n`;
-        xml += `        <rdf:type rdf:resource="${NS.esco}Skill"/>\n`;
-        xml += `        <dcterms:title>${this.escapeXml(skill)}</dcterms:title>\n`;
-        xml += `      </rdf:Description>\n`;
-        xml += `    </esco:relatedEssentialSkill>\n`;
-      });
-    }
+    // Skills & competences (unchanged bnode structure)
+    model.skills.concat(model.customSkills).forEach((skill) => {
+      xml += `\n    <esco:relatedEssentialSkill>
+      <rdf:Description>
+        <rdf:type rdf:resource="${NS.esco}Skill"/>
+        <dcterms:title>${this.escapeXml(skill)}</dcterms:title>
+      </rdf:Description>
+    </esco:relatedEssentialSkill>`;
+    });
+    model.competences.forEach((comp) => {
+      if (comp.uri) xml += `\n    <esco:relatedEssentialSkills rdf:resource="${comp.uri}"/>`;
+    });
+    model.customCompetences.forEach((label) => {
+      xml += `\n    <esco:relatedEssentialSkill>
+      <rdf:Description>
+        <rdf:type rdf:resource="${NS.esco}Skill"/>
+        <dcterms:title>${this.escapeXml(label)}</dcterms:title>
+      </rdf:Description>
+    </esco:relatedEssentialSkill>`;
+    });
 
-    if (model.competences.length || model.customCompetences.length) {
-      model.competences.forEach((comp: Competence) => {
-        xml += `    <esco:relatedEssentialSkill rdf:resource="${comp.uri}"/>\n`;
-      });
+    // dataRequired, toolsRequired (URI links)
+    model.dataRequired.forEach((ds) => {
+      xml += `\n    <dcterms:requires rdf:resource="${ds.url}"/>`;
+    });
+    model.toolsRequired.forEach((tool) => {
+      xml += `\n    <dcterms:requires rdf:resource="${tool.url}"/>`;
+    });
 
-      model.customCompetences.forEach((label: string) => {
-        xml += `    <esco:relatedEssentialSkill>\n`;
-        xml += `      <rdf:Description>\n`;
-        xml += `        <rdf:type rdf:resource="${NS.esco}Skill"/>\n`;
-        xml += `        <dcterms:title>${this.escapeXml(label)}</dcterms:title>\n`;
-        xml += `      </rdf:Description>\n`;
-        xml += `    </esco:relatedEssentialSkill>\n`;
-      });
-    }
+    // Languages (using your helper pattern)
+    model.languages.forEach((lang, i) => {
+      xml += `\n    <dcterms:requires >
+      <rdf:Description>
+        <rdf:type rdf:resource="${NS.geospacebok}LanguageSkill"/>
+        <dcterms:language>${this.escapeXml(lang.name)}</dcterms:language>
+      </rdf:Description>
+    </dcterms:requires>`;
+    });
 
-    xml += `  </rdf:Description>\n\n`;
-    xml += `</rdf:RDF>\n`;
+    xml += `\n  </rdf:Description>`;
 
+    xml += `\n</rdf:RDF>`;
     return xml;
   }
+
 
   /* ============================
       RDFa 
