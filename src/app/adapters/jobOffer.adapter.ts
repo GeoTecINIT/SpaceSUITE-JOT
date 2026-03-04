@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { JobOffer } from '../../models/jobOffer';
-import { JobOfferDB } from '../../models/jobOfferDB';
-import { OccupationalProfile } from '../../models/occupationalProfile';
-import { FirebaseService } from '../../services/firebase.service';
+import { JobOffer } from '../models/jobOffer';
+import { JobOfferDB } from '../models/jobOfferDB';
+import { OccupationalProfile } from '../models/occupationalProfile';
+import { FirebaseService } from '../services/firebase.service';
 
 @Injectable({
   providedIn: 'root',

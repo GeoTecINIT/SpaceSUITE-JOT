@@ -21,7 +21,7 @@ export class OccupationalProfile {
   constructor(data: Partial<OccupationalProfile> = {}) {
     this._id = data._id ?? '';
     this.competences = data.competences ?? [];
-    this.createdAt = data.createdAt;
+    this.createdAt = data.createdAt ?? null;
     this.customCompetences = data.customCompetences ?? [];
     this.customSkills = data.customSkills ?? [];
     this.description = data.description ?? '';
@@ -35,7 +35,7 @@ export class OccupationalProfile {
     this.orgName = data.orgName ?? '';
     this.skills = data.skills ?? [];
     this.title = data.title ?? '';
-    this.updatedAt = data.updatedAt;
+    this.updatedAt = data.updatedAt ?? null;
     this.userId = data.userId ?? '';
   }
 

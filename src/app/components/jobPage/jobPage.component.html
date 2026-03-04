@@ -35,7 +35,7 @@
 
       @if (job.salaryMin !== 0 && job.salaryMax !== 0) {
         <span class="white-space-nowrap">
-          <strong>Salary:</strong>
+          <strong>Annual salary:</strong>
 
           {{ job.salaryMin }} - {{ job.salaryMax }}
           {{ job.currency }}
@@ -50,16 +50,28 @@
         |
       }
 
-      <span class="white-space-nowrap">
-        <strong>Dedication:</strong>
+      @if (job.dedication !== "") {
+        <span class="white-space-nowrap">
+          <strong>Dedication:</strong>
 
-        {{ job.dedication }}
-      </span>
-      |
-      <span class="white-space-nowrap">
-        <strong>Contract type:</strong>
+          {{ job.dedication }}
+        </span>
+        |
+      }
 
-        {{ job.typeContract }}
+      @if (job.typeContract !== "") {
+        <span class="white-space-nowrap">
+          <strong>Contract type:</strong>
+
+          {{ job.typeContract }}
+        </span>
+        |
+      }
+
+      <span class="white-space-nowrap">
+        <strong>Motivation letter?</strong>
+
+        {{ job.motivationLetter ? "Yes" : "No" }}
       </span>
       |
       <span class="white-space-nowrap">
@@ -101,14 +113,14 @@
       </div>
     </div>
 
-    <div class="flex gap-3 text-justify">
-      <div class="flex flex-column w-6">
+    <div class="flex flex-column xl:flex-row gap-3 text-justify">
+      <div class="flex flex-column xl:w-6">
         <strong>Contact details:</strong>
 
         {{ job.contactDetails }}
       </div>
 
-      <div class="flex flex-column w-6">
+      <div class="flex flex-column xl:w-6">
         <strong>Additional information/questions:</strong>
 
         {{ job.additionalQuestions }}
@@ -330,57 +342,6 @@
               [rounded]="true"
             />
           }
-        </div>
-      </p-panel>
-
-      <p-panel
-        #specificInfoPanel
-        class="my-2 custom-panel"
-        header="Specific information"
-        [toggleable]="true"
-      >
-        <ng-template #headericons>
-          <p-button
-            [icon]="
-              specificInfoPanel.collapsed
-                ? 'pi pi-chevron-down'
-                : 'pi pi-chevron-up'
-            "
-            severity="secondary"
-            text
-          />
-        </ng-template>
-
-        <div class="flex flex-column">
-          <div>
-            <strong>Location:</strong>
-            {{ job.location === "" ? "-" : job.location }}
-          </div>
-
-          <div>
-            <strong>Years of experience:</strong>
-            {{ job.yearsExperience }}
-          </div>
-
-          <div>
-            <strong>Dedication:</strong>
-            {{ job.dedication === "" ? "-" : job.dedication }}
-          </div>
-
-          <div>
-            <strong>Type of contract:</strong>
-            {{ job.typeContract === "" ? "-" : job.typeContract }}
-          </div>
-
-          <div>
-            <strong>Annual salary range:</strong>
-            {{ job.salaryMin }} - {{ job.salaryMax }} {{ job.currency }}
-          </div>
-
-          <div>
-            <strong>Ask for motivation letter?</strong>
-            {{ job.motivationLetter ? "Yes" : "No" }}
-          </div>
         </div>
       </p-panel>
 

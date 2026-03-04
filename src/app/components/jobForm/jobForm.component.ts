@@ -9,7 +9,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, ExitWithoutSavingService } from '@eo4geo/ngx-bok-utils';
-import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
+import {
+  ConfirmationService,
+  MenuItem,
+  MessageService,
+  TreeNode,
+} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -32,16 +37,20 @@ import { catchError, finalize, of, Subscription, take } from 'rxjs';
 import { Filter } from '../../models/filter';
 import { FormType } from '../../models/formType';
 import { JobOffer } from '../../models/jobOffer';
+import { Dataset, Language, Tool } from '../../models/jobOfferDB';
 import { Competence, Field } from '../../models/occupationalProfile';
+import { DatasetsService } from '../../services/datasets.service';
 import { ESCOService } from '../../services/esco.service';
 import { FieldsService } from '../../services/fields.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
+import { ToolsService } from '../../services/tools.service';
 import { BokModalComponent } from '../bokModal/bokModal.component';
 import { CustomSelectComponent } from '../customSelect/customSelect.component';
 import { MultiselectChipsComponent } from '../multiselectChips/multiselectChips.component';
 import { TextChipsComponent } from '../textChips/textChips.component';
 import { TreeselectChipsComponent } from '../treeselectChips/treeselectChips.component';
+import { LanguagesService } from '../../services/languages.service';
 
 @Component({
   standalone: true,
@@ -97,13 +106,36 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   errorMap: Map<string, string | undefined> = new Map();
 
-  visibilityFieldOptions: any[] = [
+  visibilityFieldOptions: MenuItem[] = [
     { label: 'Public', value: true },
     { label: 'Private', value: false },
   ];
 
+  currency: MenuItem[] = [
+    { label: 'US Dollars', value: '$' },
+    { label: 'Euros', value: '€' },
+    { label: 'British Pounds', value: '£' },
+  ];
+
+  contractType: MenuItem[] = [
+    { label: 'Fixed' },
+    { label: 'Internship' },
+    { label: 'Scholarship' },
+    { label: 'Temporal' },
+  ];
+
+  dedication: MenuItem[] = [{ label: 'Full Time' }, { label: 'Part Time' }];
+
+  motivationLetterOptions: MenuItem[] = [
+    { label: 'Yes', value: true },
+    { label: 'No', value: false },
+  ];
+
   fieldNames: string[] = [];
   competenceLabels: string[] = [];
+  datasetNames: string[] = [];
+  toolNames: string[] = [];
+  languageNames: string[] = [];
 
   competenceTree: TreeNode[] = [];
   customCompetences: string[] = [];
@@ -115,6 +147,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private fields: Field[] = [];
   private competences: Competence[] = [];
+  private datasets: Dataset[] = [];
+  private tools: Tool[] = [];
+  private languages: Language[] = [];
 
   private formType: FormType = FormType.Create;
 
@@ -132,6 +167,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private fieldsService: FieldsService,
     private escoService: ESCOService,
     private route: ActivatedRoute,
+    private datasetService: DatasetsService,
+    private toolService: ToolsService,
+    private languageService: LanguagesService,
   ) {}
 
   ngOnInit() {
@@ -173,6 +211,16 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
       .getFields()
       .subscribe((fields) => (this.fields = fields));
 
+    this.datasetService
+      .getDatasets()
+      .subscribe((datasets) => (this.datasets = datasets));
+
+    this.toolService.getTools().subscribe((tools) => (this.tools = tools));
+
+    this.languageService
+      .getLanguages()
+      .subscribe((languages) => (this.languages = languages));
+
     this.escoService.getTransversalSkillsFromJson().subscribe((tree) => {
       this.competenceTree = tree;
       this.competences = this.extractCompetencesFromTree(tree);
@@ -187,6 +235,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       this.fieldNames = this.job.fields.map((field) => field.name);
+      this.datasetNames = this.job.dataRequired.map((d) => d.name);
+      this.toolNames = this.job.toolsRequired.map((t) => t.name);
+      this.languageNames = this.job.languages.map((l) => l.name);
     });
 
     this.exitWithoutSavingService.showModalSubject.subscribe((value) => {
@@ -243,6 +294,30 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   submitJob(): void {
+    this.job.dataRequired = this.datasetNames.map(
+      (name) =>
+        this.datasets.find((dataset) => dataset.name === name) ?? {
+          name: name,
+          custom: true,
+        },
+    );
+
+    this.job.toolsRequired = this.toolNames.map(
+      (name) =>
+        this.tools.find((tool) => tool.name === name) ?? {
+          name: name,
+          custom: true,
+        },
+    );
+
+    this.job.languages = this.languageNames.map(
+      (name) =>
+        this.languages.find((language) => language.name === name) ?? {
+          code: '',
+          name: name,
+        },
+    );
+
     this.job.competences = this.competences.filter((c) =>
       this.competenceLabels.includes(c.preferredLabel),
     );

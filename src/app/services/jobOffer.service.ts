@@ -11,7 +11,7 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { JobOfferAdapter } from '../components/adapters/jobOffer.adapter';
+import { JobOfferAdapter } from '../adapters/jobOffer.adapter';
 import { JobOffer } from '../models/jobOffer';
 
 @Injectable({

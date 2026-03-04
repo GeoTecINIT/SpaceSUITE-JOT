@@ -1,0 +1,2661 @@
+[
+  {
+    "name": "52°North SOS",
+    "pluginof": "",
+    "url": "http://52north.org/communities/sensorweb/sos/index.html",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "52°North WPS",
+    "pluginof": "",
+    "url": "http://52north.org/wps/",
+    "scope": "ETL, Web Servers",
+    "platform": "Service",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0, GNU GPLv2"
+  },
+  {
+    "name": "52°North WSS",
+    "pluginof": "",
+    "url": "http://52north.org/communities/security/wss/2.2/index.html",
+    "scope": "Other",
+    "platform": "Service",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "ACE - Aristotelian Class Editor",
+    "pluginof": "",
+    "url": "https://ace.minervaintelligence.com",
+    "scope": "Other",
+    "platform": "Service",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "ACT Open Source projects & tools",
+    "url": "http://www.esa.int/gsp/ACT/resources/software.html",
+    "author": "Multiple",
+    "format": "ESA Advanced Concepts Team (ACT) resources for Open Sources projects and tools. Together with the introduction of the github and the gitlab dedicated channels for the European Space Agency and the of specific programmes such as SOCIS (the ESA summer of code in space), the ACT, over the years, developed and is now maintaining a number of open source projects that are put at the service of a wider community."
+  },
+  {
+    "name": "ADAM API Toolkit",
+    "url": "https://adam.noveltis.fr/",
+    "author": "Noveltis",
+    "format": "Executable online",
+    "license": "Free online service after registration"
+  },
+  {
+    "name": "AHN-viewer",
+    "url": "https://ahn.arcgisonline.nl/ahnviewer/",
+    "author": "ArcGIS",
+    "format": "Executable online",
+    "license": "Free online service"
+  },
+  {
+    "name": "ARAMIS",
+    "url": "http://www.ip-solutions.jp/ionosphere_scintillation_monitor.html",
+    "author": "ip-solutions",
+    "format": "Executable in Windows",
+    "license": "Free for academic use"
+  },
+  {
+    "name": "Android Raw GNSS Measurement",
+    "url": "https://developer.android.com/guide/topics/sensors/gnss",
+    "author": "Google",
+    "format": "GnssLogger source code in Matlab, but you don’t need Matlab to use it",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Apache",
+    "pluginof": "",
+    "url": "https://httpd.apache.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Apache Ant",
+    "pluginof": "",
+    "url": "http://ant.apache.org",
+    "scope": "Other",
+    "platform": "",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Apache Hadoop",
+    "url": "https://hadoop.apache.org/",
+    "author": "Apache Software Foundation",
+    "format": "Source code download",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Apache Kafka",
+    "url": "https://kafka.apache.org/",
+    "author": "Apache Software Foundation",
+    "format": "Executable",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Apache NiFi",
+    "url": "https://nifi.apache.org/",
+    "author": "Apache Software Foundation",
+    "format": "Executable",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Apache Spark",
+    "url": "https://spark.apache.org/",
+    "author": "Apache Software Foundation",
+    "format": "Standalone cluster mode, on EC2, on Hadoop YARN, on Mesos, or on Kubernetes.",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Apache Storm",
+    "url": "http://storm.apache.org/",
+    "author": "Apache Software Foundation",
+    "format": "Implemented in Java, can be used with any programming language",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "ArcGIS Desktop",
+    "pluginof": "",
+    "url": "https://www.arcgis.com/features/index.html",
+    "scope": "Data Stores, ETL, GIS, Metadata management, Navigation and Maps, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "ArcGIS Metadata Toolkit",
+    "pluginof": "ArcGIS Desktop",
+    "url": "https://support.esri.com/en/download/7511",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "ArcGIS Publish Client",
+    "pluginof": "ArcGIS Desktop",
+    "url": "http://www.esri.com/software/arcgis/geoportal/free-addons",
+    "scope": "Metadata management, Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "ArcGIS for INSPIRE",
+    "pluginof": "ArcGIS Desktop",
+    "url": "http://www.esri.com/software/arcgis/arcgis-for-inspire",
+    "scope": "ETL, Metadata management, Spatial Tools, Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "AtlasMapper",
+    "pluginof": "",
+    "url": "https://code.google.com/p/atlasmapper/",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "Java, JavaScript",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "AtomFeedGenerator",
+    "pluginof": "",
+    "url": "https://gdiwiki.bsh.de/wiki/index.php/Neuigkeiten_aus_der_MDI-DE#.C3.9Cberarbeite_Version_2.0_des_AtomFeedGenerator_verf.C3.BCgbar.2C_11.06.2014",
+    "scope": "ETL, Metadata management, Other",
+    "platform": "Desktop, Server, Service",
+    "language": "Java, JavaScript",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Azure",
+    "pluginof": "",
+    "url": "https://azure.microsoft.com/en-us/",
+    "scope": "Data Stores, Other",
+    "platform": "Service",
+    "language": ".NET, Java, NodeJS, PHP, Python, Ruby",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "BKG Ntrip Software",
+    "url": "https://igs.bkg.bund.de/ntrip/download",
+    "author": "Federal Agency for Cartography and Geodesy (BKG)",
+    "format": "Source and Executable for Linux, Solaris, Windows and macOS",
+    "license": "GPU"
+  },
+  {
+    "name": "Batch Metadata Modifier Tool",
+    "pluginof": "ArcGIS Desktop",
+    "url": "https://cloud.insideidaho.org/helpdocs/batch_metadata_modifier_tool.html",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "Boost",
+    "pluginof": "",
+    "url": "http://boost.org",
+    "scope": "Other",
+    "platform": "",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "Boost Software License"
+  },
+  {
+    "name": "Boost.Geometry",
+    "pluginof": "Boost",
+    "url": "https://github.com/boostorg/geometry/",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "Boost Software License"
+  },
+  {
+    "name": "Boto3",
+    "url": "https://github.com/boto/boto3",
+    "author": "Amazon Web Services (AWS)",
+    "format": "Python libraries",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "CGAL",
+    "pluginof": "",
+    "url": "http://cgal.org",
+    "scope": "Geospatial Libraries",
+    "platform": "Server",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU GPL, GNU LGPL"
+  },
+  {
+    "name": "CGRAN",
+    "url": "http://www.cgran.org/",
+    "author": "Satellite communications",
+    "format": "The Comprehensive GNU Radio Archive Network (CGRAN) is a free open source repository for 3rd party GNU Radio applications (a.k.a Out Of Tree Modules) that are not officially supported by the GNU Radio project. Licensed under CC BY 4.0. For Linux OS."
+  },
+  {
+    "name": "CNES Software Catalogue",
+    "url": "https://logiciels.cnes.fr/en",
+    "author": "Multiple",
+    "format": "The \"Centre National d'Études Spatiales\" has produced various software for the space projects. This software covers a broad range of topics, from normalization to space dynamics and simulation tools. Some were developed to support CNES internal needs and are now available to the public."
+  },
+  {
+    "name": "CSRS-PPP",
+    "url": "https://webapp.geod.nrcan.gc.ca/geod/tools-outils/ppp.php?locale=en",
+    "author": "Canadian Geodetic Survey (CGS)",
+    "format": "Executable online or as a desktop application. Supports RINEX files",
+    "license": "Open Government Licence - Canada"
+  },
+  {
+    "name": "CSW Client for ArcGIS",
+    "pluginof": "ArcGIS Desktop",
+    "url": "http://www.esri.com/software/arcgis/geoportal/free-addons#csw",
+    "scope": "GIS, Metadata management, Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "CSW-4-Web",
+    "pluginof": "GeoDCAT-AP API, GeoDCAT-AP XSLT",
+    "url": "https://github.com/SEMICeu/csw-4-web",
+    "scope": "ETL, Metadata management",
+    "platform": "Server, Service",
+    "language": "PHP",
+    "lictype": "Open Source",
+    "license": "EUPL 1.2"
+  },
+  {
+    "name": "Cartaro",
+    "pluginof": "",
+    "url": "http://cartaro.org/",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "Drupal, PHP",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "CatMDEdit",
+    "pluginof": "",
+    "url": "http://catmdedit.sourceforge.net/",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "Cesium",
+    "pluginof": "",
+    "url": "http://cesium.agi.com/",
+    "scope": "Geospatial Libraries",
+    "platform": "Server",
+    "language": "JavaScript, WebGL",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Clavin",
+    "pluginof": "",
+    "url": "http://clavin.bericotechnologies.com/",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Community Tools",
+    "pluginof": "",
+    "url": "http://www.communitytools.info/en/toolbox",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "CouchDB",
+    "pluginof": "",
+    "url": "https://couchdb.apache.org/",
+    "scope": "Data Stores",
+    "platform": "Server",
+    "language": "Erlang",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "D3",
+    "pluginof": "",
+    "url": "http://d3js.org",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "DIMITRI - Database for Imaging Multi-spectral Instruments and Tools for Radiometric Intercomparison",
+    "url": "https://dimitri.argans.co.uk/",
+    "author": "ESA, ARGANS, Magellium",
+    "format": "Source code, compatible with Linux, Windows and macOS",
+    "license": "SLA"
+  },
+  {
+    "name": "DataScienceToolkit",
+    "pluginof": "",
+    "url": "http://www.datasciencetoolkit.org/",
+    "scope": "Spatial Tools",
+    "platform": "Server",
+    "language": "Python, API",
+    "lictype": "Open Source",
+    "license": "GNU GPL, MIT"
+  },
+  {
+    "name": "Datawrapper",
+    "pluginof": "",
+    "url": "http://www.datawrapper.de",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "HTML5, PHP",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Deeplearning 4j",
+    "url": "https://deeplearning4j.org/",
+    "author": "Eclipse Deeplearning4j Development Team",
+    "format": "Libraries",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Dia Diagram Editor",
+    "pluginof": "",
+    "url": "http://dia-installer.de/",
+    "scope": "Other",
+    "platform": "Desktop",
+    "language": "C, Python",
+    "lictype": "Open Source",
+    "license": "GPL2"
+  },
+  {
+    "name": "Docker Engine",
+    "url": "https://www.docker.com/",
+    "author": "Docker",
+    "format": "Executable for Linux, Windows, macOS",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "EOxServer",
+    "pluginof": "",
+    "url": "http://eoxserver.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "EOxServer Open License"
+  },
+  {
+    "name": "ESA Earth online portal",
+    "url": "https://earth.esa.int/web/guest/software-tools",
+    "author": "Earth observation",
+    "format": "List of software tools supported by ESA for Earth Observation"
+  },
+  {
+    "name": "ESA Online Dissemination",
+    "url": "https://esar-ds.eo.esa.int/oads/access/",
+    "author": "ESA",
+    "format": "Data online"
+  },
+  {
+    "name": "ESA STEP",
+    "url": "http://step.esa.int/main/",
+    "author": "Earth observation",
+    "format": "ESA is developing free open source toolboxes for the scientific exploitation of Earth Observation missions under the the Scientific Exploitation of Operational Missions (SEOM) programme element. STEP is the ESA community platform for accessing the software and its documentation, communicating with the developers, dialoguing within the science community, promoting results and achievements as well as providing tutorials and material for training scientists using the Toolboxes."
+  },
+  {
+    "name": "ETF",
+    "pluginof": "",
+    "url": "http://etf-validator.net",
+    "scope": "Metadata management, Spatial Tools",
+    "platform": "Desktop, Server, Service",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "EUPL 1.2"
+  },
+  {
+    "name": "EasySDI",
+    "pluginof": "",
+    "url": "http://www.easysdi.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Elasticsearch and Kibana",
+    "url": "https://opendistro.github.io/for-elasticsearch/",
+    "author": "Amazon Web Services (AWS)",
+    "format": "Docker images, RPM files, and Debian files",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "European Data Portal - Gazetteer",
+    "pluginof": "",
+    "url": "https://gitlab.com/european-data-portal/Gazetteer",
+    "scope": "Spatial Tools",
+    "platform": "Desktop, Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "European Data Portal - Geo-Harvesting",
+    "pluginof": "",
+    "url": "https://gitlab.com/european-data-portal/geo-harvesting",
+    "scope": "Other",
+    "platform": "Desktop, Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "European Data Portal - Map Viewer",
+    "pluginof": "map.apps",
+    "url": "https://gitlab.com/european-data-portal/mapapps-edp-bundles",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "European Space Software Repository",
+    "url": "https://essr.esa.int/",
+    "author": "Multiple",
+    "format": "ESA informational web portal created to promote reuse of Software - including Open Source Software (OSS) - and to provide all parties involved in the European Space software development (in particular SMEs) with access to results of previous investments. Registration available to ESA member states."
+  },
+  {
+    "name": "Eurostat grid generation tool for ArcGIS",
+    "pluginof": "ArcGIS Desktop",
+    "url": "https://www.efgs.info/information-base/best-practices/tools/eurostat-grid-generation-tool-arcgis/",
+    "scope": "Domain Specific GIS, GIS, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "FME Desktop",
+    "pluginof": "",
+    "url": "https://www.safe.com/fme/fme-desktop/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "FME Server",
+    "pluginof": "FME Desktop",
+    "url": "https://www.safe.com/fme/fme-server/",
+    "scope": "ETL, Web Servers",
+    "platform": "Server, Service",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Fieldtrip Open",
+    "pluginof": "",
+    "url": "http://fieldtrip.edina.ac.uk/",
+    "scope": "Spatial Tools",
+    "platform": "Mobile",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "Fusion",
+    "pluginof": "",
+    "url": "http://trac.osgeo.org/fusion/",
+    "scope": "Geospatial Libraries, Other",
+    "platform": "Server",
+    "language": "JavaScript, PHP",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "GDAL",
+    "url": "https://gdal.org/",
+    "author": "GDAL community",
+    "format": "Source and binaries for Windows, Debian and containers",
+    "license": "MIT"
+  },
+  {
+    "name": "GDAL Geospatial Data Abstraction Library",
+    "pluginof": "",
+    "url": "http://gdal.org",
+    "scope": "ETL, Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "Perl, Python, VB6 Binding, GDAL binding into R, Ruby, Java, C#",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "GEOS",
+    "pluginof": "",
+    "url": "http://trac.osgeo.org/geos/",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "GET-IT - Geoinformation Enabling ToolkIT starterkit®",
+    "pluginof": "",
+    "url": "http://www.get-it.it/",
+    "scope": "Spatial Tools, Web Servers",
+    "platform": "Server",
+    "language": "Java, Python, JavaScript",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "GI-cat",
+    "pluginof": "",
+    "url": "http://essi-lab.eu/do/view/GIcat/WebHome",
+    "scope": "Metadata management, Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "GIMED - Greek Inspire Metadata Editor",
+    "pluginof": "",
+    "url": "https://sourceforge.net/projects/gimed/",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "GMLAS",
+    "pluginof": "QGIS",
+    "url": "https://github.com/BRGM/gml_application_schema_toolbox",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "GNSS-SDR",
+    "url": "https://gnss-sdr.org/",
+    "author": "CTTC",
+    "format": "Source code and libs for Linux Debian, macOS. Runs on GNU Radio",
+    "license": "GPL v3"
+  },
+  {
+    "name": "GNSS-SDRLIB",
+    "url": "https://github.com/taroz/GNSS-SDRLIB",
+    "author": "Taro Suzuki",
+    "format": "Source and Executable for Windows",
+    "license": "GPL v2"
+  },
+  {
+    "name": "GNU Radio",
+    "url": "https://www.gnuradio.org/",
+    "author": "GNU Project",
+    "format": "Source code for Linux, macOS",
+    "license": "GPL v3"
+  },
+  {
+    "name": "GO PUBLISHER",
+    "pluginof": "",
+    "url": "https://snowflakesoftware.com/geospatial-products/",
+    "scope": "Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "GPS-SDR-SIM",
+    "url": "https://github.com/osqzss/gps-sdr-sim",
+    "author": "Takuji Ebinuma",
+    "format": "Source code",
+    "license": "MIT"
+  },
+  {
+    "name": "GPSTk",
+    "url": "https://github.com/SGL-UT/GPSTk",
+    "author": "Applied Research Laboratories at the University of Texas at Austin",
+    "format": "Source and Executable (Unix, Windows, macOS)",
+    "license": "LGPL v3"
+  },
+  {
+    "name": "GRASS GIS",
+    "pluginof": "",
+    "url": "http://grass.osgeo.org",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "GRASS GIS - Geographic Resources Analysis Support System",
+    "url": "https://grass.osgeo.org/",
+    "author": "GRASS GIS developers community",
+    "format": "Stand-alone application or backend for other software packages",
+    "license": "GPL v2"
+  },
+  {
+    "name": "GSAC",
+    "url": "https://www.unavco.org/software/data-management/gsac/gsac.html",
+    "author": "UNAVCO",
+    "format": "Java. For Linux and Unix"
+  },
+  {
+    "name": "Gaia",
+    "pluginof": "",
+    "url": "http://www.thecarbonproject.com/Products/Gaia",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Gapminder Tools Offline",
+    "url": "https://www.gapminder.org/downloads/",
+    "author": "Gapminder",
+    "format": "For Windows, macOS and Linux",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "GeMA - Gestor de Metadados dos Açores",
+    "pluginof": "",
+    "url": "http://www.ideia.azores.gov.pt/Paginas/gema.aspx",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": ".NET, C++",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "GeoAPI",
+    "pluginof": "",
+    "url": "http://www.geoapi.org/index.html",
+    "scope": "Geospatial Libraries, Spatial Tools",
+    "platform": "Service",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "GeoCat Bridge",
+    "pluginof": "ArcGIS Desktop",
+    "url": "http://geocat.net/bridge",
+    "scope": "Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "GeoCat Live",
+    "pluginof": "",
+    "url": "https://www.geocat.net/live/",
+    "scope": "Other",
+    "platform": "Service",
+    "language": "Docker",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "GeoDA",
+    "pluginof": "",
+    "url": "http://geodacenter.github.io/",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "GeoDCAT-AP API",
+    "pluginof": "GeoDCAT-AP XSLT",
+    "url": "https://github.com/SEMICeu/iso-19139-to-dcat-ap/tree/master/api",
+    "scope": "ETL, Metadata management",
+    "platform": "Server, Service",
+    "language": "PHP",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "GeoDCAT-AP XSLT",
+    "pluginof": "",
+    "url": "https://github.com/SEMICeu/iso-19139-to-dcat-ap",
+    "scope": "ETL, Metadata management",
+    "platform": "Desktop, Server",
+    "language": "XSLT",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "GeoDjango",
+    "pluginof": "",
+    "url": "https://docs.djangoproject.com/en/1.11/ref/contrib/gis/",
+    "scope": "Geospatial Libraries",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "GeoIP",
+    "pluginof": "",
+    "url": "https://github.com/cjheath/geoip",
+    "scope": "Other, Spatial Tools",
+    "platform": "Server, Service",
+    "language": "Ruby",
+    "lictype": "Open Source",
+    "license": "GNU LGPL 2.1"
+  },
+  {
+    "name": "GeoJSON",
+    "url": "https://geojson.org/",
+    "author": "Internet Engineering Task Force (IETF), in conjunction with the original specification authors.",
+    "format": "Format",
+    "license": "Open standards"
+  },
+  {
+    "name": "GeoKettle",
+    "pluginof": "",
+    "url": "http://www.spatialytics.org/projects/geokettle/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "GeoMesa",
+    "url": "https://www.geomesa.org/",
+    "author": "LocationTech, CCRi",
+    "format": "Spatio-temporal index for Linux",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "GeoMoose",
+    "pluginof": "",
+    "url": "http://geomoose.org",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "PHP, JavaScript",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "GeoNames",
+    "url": "https://www.geonames.org/",
+    "author": "GeoNames",
+    "format": "Webservice and database exports",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "GeoNetwork",
+    "pluginof": "",
+    "url": "http://geonetwork-opensource.org",
+    "scope": "Metadata management, Web Servers",
+    "platform": "Desktop, Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "GeoPDP / SDInterceptor",
+    "pluginof": "",
+    "url": "http://www.secure-dimensions.de/index.html.en",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "GeoServer",
+    "url": "http://geoserver.org/",
+    "author": "Open Source Geospatial Foundation",
+    "format": "Supports WFS, WMS and WCS standards",
+    "license": "GPL v2"
+  },
+  {
+    "name": "GeoTools",
+    "pluginof": "",
+    "url": "http://geotools.org",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "GeoTrellis",
+    "url": "https://geotrellis.io/",
+    "author": "LocationTech, Azavea",
+    "format": "Library for Linux",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "GeoWebCache",
+    "pluginof": "",
+    "url": "http://geowebcache.org/",
+    "scope": "Other, Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "Geobide Builder",
+    "pluginof": "",
+    "url": "http://www.geobide.es/geobuilder/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Geocortex",
+    "pluginof": "",
+    "url": "http://www.geocortex.com/",
+    "scope": "",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Geomajas",
+    "pluginof": "",
+    "url": "http://www.geomajas.org/",
+    "scope": "Web Servers, WebGIS",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "AGPL3"
+  },
+  {
+    "name": "Geonode",
+    "pluginof": "",
+    "url": "http://geonode.org/",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "Geonovum validator suite 1.5",
+    "pluginof": "",
+    "url": "http://www.geostandaarden.nl/validatie/inspire/",
+    "scope": "Metadata management, Other, Spatial Tools",
+    "platform": "Server, Service",
+    "language": "SOAPUI, groovy, Python",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Geopaparazzi",
+    "pluginof": "",
+    "url": "http://geopaparazzi.github.io/geopaparazzi/",
+    "scope": "Spatial Tools",
+    "platform": "Mobile",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Geoportal Server",
+    "pluginof": "",
+    "url": "http://www.esri.com/software/arcgis/geoportal",
+    "scope": "Metadata management, Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Geoserver",
+    "pluginof": "",
+    "url": "http://geoserver.org/",
+    "scope": "Web Servers",
+    "platform": "Desktop, Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Geoserver INSPIRE extension",
+    "pluginof": "Geoserver",
+    "url": "http://docs.geoserver.org/stable/en/user/extensions/inspire/index.html",
+    "scope": "Spatial Tools, Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "Geoserver app-schema plugin",
+    "pluginof": "Geoserver",
+    "url": "http://docs.geoserver.org/latest/en/user/data/app-schema/index.html",
+    "scope": "ETL, Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Get SDI Portal",
+    "pluginof": "",
+    "url": "http://www.getmap.eu/en/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "JavaScript, PHP",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Get3Di",
+    "url": "https://get3di.com/Account/Login",
+    "author": "GeoCue Group",
+    "format": "Executable online",
+    "license": "Free up to 100 MB/month"
+  },
+  {
+    "name": "GmlGeoX",
+    "pluginof": "INSPIRE Validator, ETF",
+    "url": "http://etf-validator.net",
+    "scope": "Spatial Tools",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Google Earth Engine",
+    "url": "https://earthengine.google.com/",
+    "author": "Google",
+    "format": "The Earth Engine (EE) API is available in Python and JavaScript.",
+    "license": "Google Earth Engine License"
+  },
+  {
+    "name": "GpsPrune",
+    "pluginof": "",
+    "url": "http://activityworkshop.net/software/gpsprune/",
+    "scope": "Navigation and Maps",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "GéoSource",
+    "pluginof": "",
+    "url": "http://www.geosource.fr/",
+    "scope": "Metadata management",
+    "platform": "Desktop, Server, Service",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "HALE",
+    "pluginof": "",
+    "url": "http://community.esdi-humboldt.eu/projects/hale",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Hadoop",
+    "pluginof": "",
+    "url": "http://hadoop.apache.org/",
+    "scope": "Data Stores",
+    "platform": "",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "Harvard WorldMap",
+    "pluginof": "",
+    "url": "http://worldmap.harvard.edu/",
+    "scope": "Other",
+    "platform": "Server, Service",
+    "language": "Python, Java, JavaScript",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Heron Mapping Client",
+    "pluginof": "",
+    "url": "http://heron-mc.org/",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "HydroSheds",
+    "url": "https://hydrosheds.cr.usgs.gov/overview.php",
+    "author": "WWF",
+    "format": "Vector and raster data",
+    "license": "HydroSHEDS"
+  },
+  {
+    "name": "ILWIS",
+    "pluginof": "",
+    "url": "http://52north.org/communities/ilwis/",
+    "scope": "Domain Specific GIS",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2, Apache License 2.0"
+  },
+  {
+    "name": "INSPIRE Atom Client for QGIS",
+    "pluginof": "QGIS",
+    "url": "http://www.weichand.de/2012/06/20/inspire-pre-defined-atom-download-service-client-for-qgis/",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "INSPIRE Dashboard",
+    "pluginof": "",
+    "url": "https://inspire-dashboard.eea.europa.eu",
+    "scope": "Other",
+    "platform": "Server, Service",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "INSPIRE Interactive Data Specifications",
+    "pluginof": "",
+    "url": "http://inspire-regadmin.jrc.ec.europa.eu/dataspecification/",
+    "scope": "Other, Spatial Tools",
+    "platform": "Service",
+    "language": "Java, JSP, JavaScript, HTML5",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "INSPIRE Nederland plugin for QGIS",
+    "pluginof": "QGIS",
+    "url": "https://plugins.qgis.org/plugins/inspireNL/",
+    "scope": "Metadata management, Other, Spatial Tools",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "INSPIRE Solution Pack for FME",
+    "pluginof": "FME Desktop",
+    "url": "https://www.conterra.de/en/produkte/fme-spatial-etl/inspire-solution-pack/beschreibung",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "INSPIRE Solution Pack for FME Server",
+    "pluginof": "FME Server",
+    "url": "https://www.conterra.de/en/produkte/fme-spatial-etl/inspire-solution-pack/beschreibung",
+    "scope": "ETL, Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "INSPIRE Validator",
+    "pluginof": "",
+    "url": "http://inspire-sandbox.jrc.ec.europa.eu/validator/",
+    "scope": "Spatial Tools",
+    "platform": "Service",
+    "language": "SOAPUI, XQuery, groovy",
+    "lictype": "Open Source",
+    "license": "EUPL 1.2"
+  },
+  {
+    "name": "INSPIRE register of registers (ROR)",
+    "pluginof": "",
+    "url": "http://inspire-regadmin.jrc.ec.europa.eu/ror",
+    "scope": "Metadata management, Other",
+    "platform": "Service",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "INSPIRE registry",
+    "pluginof": "",
+    "url": "http://inspire.ec.europa.eu/registry",
+    "scope": "Metadata management, Other",
+    "platform": "Service",
+    "language": "RESTful web service",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "ION GNSS SDR Standard",
+    "url": "https://github.com/IonMetadataWorkingGroup/GNSS-Metadata-Standard/tree/master/Specifications/documentation",
+    "author": "GNSS",
+    "format": "The GNSS SDR Metadata Standard defines parameters and schema to express the contents of SDR sample data files. The standard is designed to promote the interoperability of GNSS SDR data collection systems and processors."
+  },
+  {
+    "name": "Inkscape",
+    "pluginof": "",
+    "url": "http://inkscape.org/",
+    "scope": "Other",
+    "platform": "Desktop",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Isogeo for QGIS",
+    "pluginof": "QGIS",
+    "url": "https://github.com/isogeo/isogeo-plugin-qgis",
+    "scope": "GIS, Metadata management",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Isogeo platform",
+    "pluginof": "",
+    "url": "http://isogeo.com/en",
+    "scope": "Metadata management",
+    "platform": "Service",
+    "language": ".NET, JavaScript",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "JAG3D (Java Applied Geodesy 3D)",
+    "url": "https://software.applied-geodesy.org/en/",
+    "author": "Steinbeis Transfer Centre Applied Geodesy",
+    "format": "Java",
+    "license": "GPL v3"
+  },
+  {
+    "name": "JMeter",
+    "pluginof": "",
+    "url": "http://jmeter.apache.org/",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Josm",
+    "pluginof": "",
+    "url": "http://josm.openstreetmap.de/",
+    "scope": "Navigation and Maps, Other, Spatial Tools",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Kalypso",
+    "pluginof": "",
+    "url": "http://kalypso.bjoernsen.de/",
+    "scope": "Domain Specific GIS",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "LGPL"
+  },
+  {
+    "name": "Kartograph",
+    "pluginof": "",
+    "url": "http://kartograph.org/",
+    "scope": "Other, WebGIS",
+    "platform": "Server",
+    "language": "JavaScript, Python",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Keras",
+    "url": "https://keras.io/",
+    "author": "François Chollet and various",
+    "format": "Python libraries",
+    "license": "MIT"
+  },
+  {
+    "name": "Kosmo Desktop",
+    "pluginof": "",
+    "url": "http://opengis.es",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Kubernetes",
+    "url": "https://kubernetes.io/",
+    "author": "Kubernetes",
+    "format": "Container",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "LDproxy",
+    "pluginof": "",
+    "url": "https://hub.docker.com/r/iide/ldproxy/",
+    "scope": "Spatial Tools",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Leaflet",
+    "pluginof": "",
+    "url": "http://leafletjs.com/",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "author": "Vladimir Agafonkin and others",
+    "format": "JavaScript library",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Leandvb",
+    "url": "http://www.pabr.org/radio/leandvb/leandvb.en.html",
+    "author": "pabr@pabr.org",
+    "format": "Executable code",
+    "license": "GPL v3"
+  },
+  {
+    "name": "MACCS/MAJA",
+    "url": "http://www.cesbio.ups-tlse.fr/multitemp/?p=6203",
+    "author": "CNES and CESBIO",
+    "format": "Language: C++, Python and Cmake. OS:Linux RedHat 6+, CENTOS 6+ Ubuntu 12.04+",
+    "license": "CNES"
+  },
+  {
+    "name": "MDQC",
+    "pluginof": "",
+    "url": "http://www.avpreserve.com/avpsresources/tools/",
+    "scope": "Metadata management",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Map Knitter",
+    "pluginof": "",
+    "url": "http://mapknitter.org/",
+    "scope": "Other, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Map Store",
+    "pluginof": "",
+    "url": "http://mapstore.geo-solutions.it/mapstore/",
+    "scope": "Other, WebGIS",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "MapGuide",
+    "pluginof": "",
+    "url": "http://mapguide.osgeo.org",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "PHP, Java",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "MapMint",
+    "pluginof": "",
+    "url": "http://www.mapmint.com",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "C, Python, JavaScript",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "MapProxy",
+    "pluginof": "",
+    "url": "http://mapproxy.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "MapServer",
+    "pluginof": "",
+    "url": "http://mapserver.org",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Mapbender",
+    "pluginof": "",
+    "url": "http://mapbender3.org/",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "PHP, JavaScript",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Mapnik",
+    "pluginof": "",
+    "url": "http://mapnik.org",
+    "scope": "Geospatial Libraries",
+    "platform": "Server",
+    "language": "Python, C++, NodeJS",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "Marble",
+    "pluginof": "",
+    "url": "http://marble.kde.org/index.php",
+    "scope": "Navigation and Maps",
+    "platform": "Desktop",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU LGPL 2.1"
+  },
+  {
+    "name": "Marushka map server",
+    "pluginof": "",
+    "url": "http://marushka.geostore.cz/",
+    "scope": "Web Servers",
+    "platform": "",
+    "language": "C#",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Metatools",
+    "pluginof": "QGIS",
+    "url": "http://gis-lab.info/qa/metatools-eng.html",
+    "scope": "Metadata management, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "Microsoft CNTK",
+    "url": "https://docs.microsoft.com/en-us/cognitive-toolkit/",
+    "author": "Microsoft",
+    "format": "Toolkit compatible with Linux and Windows",
+    "license": "MIT"
+  },
+  {
+    "name": "MongoDB",
+    "pluginof": "",
+    "url": "https://www.mongodb.com/",
+    "scope": "Data Stores",
+    "platform": "Server",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "AGPL3",
+    "author": "MongoDB Inc.",
+    "format": "Source and Executable (Windows, Linux, macOS, Solaris, FreeBSD)"
+  },
+  {
+    "name": "MySQL Spatial",
+    "pluginof": "",
+    "url": "https://dev.mysql.com/doc/refman/5.6/en/spatial-extensions.html",
+    "scope": "Data Stores",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "NASA WorldWind",
+    "pluginof": "",
+    "url": "http://goworldwind.org",
+    "scope": "Geospatial Libraries, Navigation and Maps",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "NOAA collection of GPS software",
+    "url": "https://www.ngs.noaa.gov/gps-toolbox/",
+    "author": "GNSS",
+    "format": "Site is running since 1999. The main purpose of this site is to provide a means for distributing the source code and algorithms discussed in the GPS Toolbox column."
+  },
+  {
+    "name": "NVIDIA DIGITS",
+    "url": "https://developer.nvidia.com/digits",
+    "author": "NVIDIA",
+    "format": "Executable",
+    "license": "Free after joining the NVIDIA Developer Program"
+  },
+  {
+    "name": "Network Simulator 3 (ns-3)",
+    "url": "https://www.nsnam.org/",
+    "author": "ns-3 project",
+    "format": "Source code",
+    "license": "GPL v2"
+  },
+  {
+    "name": "NodeJS",
+    "url": "https://nodejs.org/en/",
+    "author": "Node.js is a trademark of Joyent, Inc",
+    "format": "For Windows, macOS and Linux.",
+    "license": "MIT"
+  },
+  {
+    "name": "Nominatim",
+    "pluginof": "",
+    "url": "http://nominatim.openstreetmap.org/",
+    "scope": "Navigation and Maps",
+    "platform": "Service",
+    "language": "PHP, C",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "Notepad++",
+    "pluginof": "",
+    "url": "https://notepad-plus-plus.org/",
+    "scope": "Other",
+    "platform": "Desktop",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "OGC",
+    "url": "http://www.opengeospatial.org/",
+    "author": "OGC members",
+    "format": "Standards",
+    "license": "Open standards"
+  },
+  {
+    "name": "OSGEO",
+    "url": "https://www.osgeo.org/about/",
+    "author": "Earth observation",
+    "format": "The Open Source Geospatial Foundation (OSGeo) is a not-for-profit organization whose mission is to foster global adoption of open geospatial technology by being an inclusive software foundation devoted to an open philosophy and participatory community driven development."
+  },
+  {
+    "name": "OSKARI",
+    "pluginof": "",
+    "url": "http://oskari.org",
+    "scope": "Web Servers, WebGIS",
+    "platform": "Server",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "license": "EUPL, MIT"
+  },
+  {
+    "name": "On-Line Geodesy Resources",
+    "url": "http://www3.sympatico.ca/craymer/geodesy/gps.html",
+    "author": "Earth observation",
+    "format": "A personal collection of geodesy and related resources on the Web. Created by Mike Craymer."
+  },
+  {
+    "name": "Online Positioning User Service (OPUS)",
+    "url": "https://www.ngs.noaa.gov/OPUS/",
+    "author": "NOAA",
+    "format": "Executable online"
+  },
+  {
+    "name": "Open Data Bridge",
+    "pluginof": "",
+    "url": "https://github.com/EsriDE/OpenDataBridge",
+    "scope": "Metadata management, Other, Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Open Data Cube",
+    "url": "https://github.com/opendatacube/datacube-core",
+    "author": "Open Data Cube",
+    "format": "Collection of software base on Python library",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Open Layers",
+    "url": "https://openlayers.org/",
+    "author": "Open Layers",
+    "format": "API and codes",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "Open Street Map",
+    "url": "https://wiki.openstreetmap.org/wiki/Main_Page",
+    "author": "OpenStreetMap Community",
+    "format": "Data online",
+    "license": "ODbL"
+  },
+  {
+    "name": "OpenCV",
+    "url": "https://opencv.org/",
+    "author": "Intel",
+    "format": "C++ library for Windows, Linux, macOS, FreeBSD, NetBSD, OpenBSD...",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "OpenDAP",
+    "pluginof": "",
+    "url": "http://www.opendap.org/",
+    "scope": "Metadata management",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "OpenDEM",
+    "url": "https://www.opendem.info/link_dem.html",
+    "author": "Earth observation",
+    "format": "List of free Digital Elevation Models. This project will focus on free high resolution datasets with a spatial resolution of 30 meters and below on county/state scale."
+  },
+  {
+    "name": "OpenERP",
+    "pluginof": "",
+    "url": "https://www.openerp.com/apps",
+    "scope": "",
+    "platform": "",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "OpenGTS",
+    "url": "http://opengts.sourceforge.net/",
+    "author": "GeoTelematic Solutions, Inc.",
+    "format": "Java",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "OpenJUMP GIS",
+    "pluginof": "",
+    "url": "http://openjump.org",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "OpenLayers",
+    "pluginof": "",
+    "url": "http://openlayers.org",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "JavaScript",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "OpenRefine",
+    "pluginof": "",
+    "url": "http://openrefine.org/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "OpenStack",
+    "url": "https://www.openstack.org/",
+    "author": "OpenStack",
+    "format": "Executable",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "OpenWebGlobe",
+    "pluginof": "",
+    "url": "http://www.openwebglobe.org/",
+    "scope": "Geospatial Libraries",
+    "platform": "Server",
+    "language": "HTML5, WebGL",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Opengeoportal",
+    "pluginof": "",
+    "url": "http://opengeoportal.org",
+    "scope": "WebGIS",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Oracle",
+    "pluginof": "",
+    "url": "https://www.oracle.com",
+    "scope": "Data Stores",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "OrbisGIS",
+    "pluginof": "",
+    "url": "http://orbisgis.org",
+    "scope": "Domain Specific GIS, GIS",
+    "platform": "Desktop",
+    "language": "JTS, ImageJ",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Orfeo ToolBox (OTB)",
+    "url": "https://www.orfeo-toolbox.org/",
+    "author": "CNES",
+    "format": "Source and Executable (Linux, Windows, macOS)",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Orfeo toolbox",
+    "pluginof": "",
+    "url": "http://orfeo-toolbox.org",
+    "scope": "Other, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "CeCILL"
+  },
+  {
+    "name": "PDOK Extension for ArcGIS",
+    "pluginof": "ArcGIS Desktop",
+    "url": "https://www.pdok.nl/nl/producten/pdok-software/pdok-extensie-voor-arcgis",
+    "scope": "Other, Spatial Tools, Web Servers",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "PID Management System",
+    "pluginof": "",
+    "url": "http://www.iaaa.es/pid-ms/",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "Java, AngularJS, Spring Framework, JHipster",
+    "lictype": "Open Source",
+    "license": "EUPL 1.2"
+  },
+  {
+    "name": "Pingdom",
+    "pluginof": "",
+    "url": "http://www.pingdom.com",
+    "scope": "Other",
+    "platform": "Service",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "PolSARpro",
+    "url": "https://earth.esa.int/web/polsarpro",
+    "author": "ESA / IETR",
+    "format": "Executable for Windows and Linux",
+    "license": "GPL v2"
+  },
+  {
+    "name": "PostGIS",
+    "pluginof": "",
+    "url": "http://postgis.net/",
+    "scope": "Data Stores",
+    "platform": "Desktop, Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Prodige",
+    "pluginof": "",
+    "url": "http://prodige.org/",
+    "scope": "Data Stores, GIS, Metadata management, Navigation and Maps, Web Servers, WebGIS",
+    "platform": "Desktop, Server",
+    "language": "Java, PHP",
+    "lictype": "Open Source",
+    "license": "CECILL V2.0"
+  },
+  {
+    "name": "Proj.4/Proj4J",
+    "pluginof": "",
+    "url": "http://trac.osgeo.org/proj4j",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "C, Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Project Jupyter",
+    "url": "https://jupyter.org/",
+    "author": "Jupyter Community",
+    "format": "Web application, executable online and for downloading.",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "PySAL",
+    "pluginof": "",
+    "url": "http://pysal.readthedocs.io/en/latest/users/tutorials/econometrics.html",
+    "scope": "Geospatial Libraries, Spatial Tools",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "PyTorch",
+    "url": "https://pytorch.org/",
+    "author": "Facebook AI research group",
+    "format": "Python libraries for Linux, macOS and Windows",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "PyWPS",
+    "pluginof": "",
+    "url": "http://pywps.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "QGIS",
+    "pluginof": "",
+    "url": "http://www.qgis.org/",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "C++, Python",
+    "lictype": "Open Source",
+    "license": "GNU GPL",
+    "author": "QGIS Community",
+    "format": "Linux, Unix, macOS and Windows"
+  },
+  {
+    "name": "QGIS Metasearch",
+    "pluginof": "QGIS",
+    "url": "http://plugins.qgis.org/plugins/MetaSearch/",
+    "scope": "Metadata management, Spatial Tools",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "QGIS Server",
+    "pluginof": "",
+    "url": "http://hub.qgis.org/projects/quantum-gis/wiki/QGIS_Server_Tutorial",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "QGIS WFS 2.0 Client plugin",
+    "pluginof": "QGIS",
+    "url": "https://plugins.qgis.org/plugins/wfsclient/",
+    "scope": "GIS, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "QGIS for Android",
+    "pluginof": "",
+    "url": "http://hub.qgis.org/projects/android-qgis",
+    "scope": "GIS",
+    "platform": "Mobile",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "QSphere",
+    "pluginof": "QGIS",
+    "url": "https://qgis.projets.developpement-durable.gouv.fr/projects/qsphere",
+    "scope": "Metadata management, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "R ArcGIS Bridge",
+    "pluginof": "ArcGIS Desktop",
+    "url": "https://spatialstats.github.io/r-arcgis-bridge/",
+    "scope": "Domain Specific GIS, Geospatial Libraries, Spatial Tools",
+    "platform": "Desktop",
+    "language": "C++, Python",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "R Project",
+    "pluginof": "",
+    "url": "http://r-project.org",
+    "scope": "Other",
+    "platform": "Desktop",
+    "language": "C, C++",
+    "lictype": "Open Source",
+    "license": "GNU GPL",
+    "author": "R foundation",
+    "format": "It compiles and runs on a wide variety of UNIX platforms, Windows and macOS."
+  },
+  {
+    "name": "R for Spatial Data",
+    "pluginof": "R Project",
+    "url": "http://cran.r-project.org/web/views/Spatial.html",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "R for Spatio-Temporal Data",
+    "pluginof": "R Project",
+    "url": "http://cran.r-project.org/web/views/SpatioTemporal.html",
+    "scope": "Geospatial Libraries",
+    "platform": "",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "ROHC library",
+    "url": "https://rohc-lib.org/",
+    "author": "CNES, TAS, Viveris Technologies",
+    "format": "Source code for Linux, Windows and macOS",
+    "license": "LGPL v2.1+"
+  },
+  {
+    "name": "RTKLIB",
+    "url": "http://www.rtklib.com/",
+    "author": "Tomoji Takasu",
+    "format": "Source and Executable for Windows",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "RTL-SDR Software",
+    "url": "https://www.rtl-sdr.com/big-list-rtl-sdr-supported-software/",
+    "author": "Signal processing",
+    "format": "RTL-SDR is a USB dongle based on the RTL2832U chipset, for which many SDR software have been developped for different applications (not only satellite)"
+  },
+  {
+    "name": "Rasdaman",
+    "url": "http://www.rasdaman.com/",
+    "author": "Supervised by Jacobs University, in incubation by the OSGeo fundation",
+    "format": "Download of packages that work on distributions with gcc 4.8+, Java 7+",
+    "license": "GPL v3",
+    "pluginof": "",
+    "scope": "Data Stores, Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source"
+  },
+  {
+    "name": "Re3gistry",
+    "pluginof": "",
+    "url": "https://joinup.ec.europa.eu/software/re3gistry/description",
+    "scope": "Metadata management, Other",
+    "platform": "Server",
+    "language": "Java, HTML5, JavaScript",
+    "lictype": "Open Source",
+    "license": "EUPL"
+  },
+  {
+    "name": "SAGA - System for automated Geoscientific Analyses",
+    "url": "http://www.saga-gis.org/en/index.html",
+    "author": "University of Hamburg, Germany",
+    "format": "Coded in C++. Source code and GUI executable for Windows and Linux",
+    "license": "GPL v2"
+  },
+  {
+    "name": "SAGA GIS",
+    "pluginof": "",
+    "url": "http://www.saga-gis.org/en/index.html",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "LGPL"
+  },
+  {
+    "name": "SEC4QGIS Plugin for QGIS",
+    "pluginof": "QGIS",
+    "url": "https://plugins.qgis.org/plugins/SEC4QGIS/",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "SEXTANTE Geoprocessing Platform",
+    "pluginof": "QGIS",
+    "url": "https://plugins.qgis.org/plugins/sextante/",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "SNAP and Sentinel Toolboxes",
+    "url": "http://step.esa.int/main/download/",
+    "author": "ESA Science Toolbox Exploitation Platform (STEP)",
+    "format": "Source and Executable (Windows, macOS, Unix)",
+    "license": "GPL v3"
+  },
+  {
+    "name": "SOS4R",
+    "pluginof": "R Project",
+    "url": "http://www.xn--nrdholmen-07a.net/sos4r/",
+    "scope": "Geospatial Libraries, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "SRTM Data",
+    "url": "http://srtm.csi.cgiar.org/srtmdata/",
+    "author": "CGIAR Consortium for Spatial Information",
+    "format": "ACII and GeoTIFF"
+  },
+  {
+    "name": "Sahana Eden",
+    "pluginof": "",
+    "url": "http://eden.sahanafoundation.org/",
+    "scope": "Domain Specific GIS",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Satellite Network Simulator (SNS3)",
+    "url": "http://www.sns3.org/",
+    "author": "Jani Puttonen, Janne Kurjenniemi (Magister Solutions), ESA, CNES",
+    "format": "Source code",
+    "license": "GPL v3"
+  },
+  {
+    "name": "SciDB Community Edition",
+    "url": "https://www.paradigm4.com/technology/",
+    "author": "Paradigm4",
+    "format": "Software that can run on existing hardware or in the cloud",
+    "license": "GPL v3"
+  },
+  {
+    "name": "Scikit-learn",
+    "url": "https://scikit-learn.org/stable/",
+    "author": "David Cournapeau and various",
+    "format": "Python libraries for Linux, macOS and Windows",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "Sen2Agri system",
+    "url": "http://www.esa-sen2agri.org/operational-system/system-download/",
+    "author": "ESA",
+    "format": "Linux",
+    "license": "GPL v3"
+  },
+  {
+    "name": "SensLog",
+    "pluginof": "",
+    "url": "http://www.senslog.org",
+    "scope": "Data Stores, Spatial Tools, Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "Sentinel Hub",
+    "url": "https://www.sentinel-hub.com/",
+    "author": "Earth observation",
+    "format": "Sentinel Hub is operated by Sinergise - a GIS IT company with more than 10 years of experience in working with spatial data.\nDifferent applications are available online.\nThe satellite imagery distribution service is based on Sinergise's cloud GIS platform - Geopedia - web based spatial management solution, which is being used by more than one million users annualy and is therefore perfectly suitable for large scale spatial deployments."
+  },
+  {
+    "name": "ShapeChange",
+    "pluginof": "",
+    "url": "http://shapechange.net/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Shibboleth",
+    "pluginof": "",
+    "url": "http://shibboleth.net/",
+    "scope": "Other, Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "SiteScope",
+    "pluginof": "",
+    "url": "https://saas.hpe.com/en-us/software/sitescope",
+    "scope": "Other, Web Servers",
+    "platform": "Server, Service",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "SmartMet Server",
+    "pluginof": "",
+    "url": "https://github.com/fmidev/smartmet-server",
+    "scope": "Web Servers",
+    "platform": "",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "SpatiaLite",
+    "pluginof": "",
+    "url": "https://www.gaia-gis.it/fossil/libspatialite/index",
+    "scope": "Data Stores",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "MPL"
+  },
+  {
+    "name": "SpatialHadoop",
+    "pluginof": "Hadoop",
+    "url": "http://spatialhadoop.cs.umn.edu/",
+    "scope": "Spatial Tools",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "Spatineo Monitor",
+    "pluginof": "",
+    "url": "http://www.spatineo.com/monitor/",
+    "scope": "Metadata management, Other, Web Servers, WebGIS",
+    "platform": "Service",
+    "language": "Java, JavaScript",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Spatineo Performance",
+    "pluginof": "",
+    "url": "https://www.spatineo.com/performance/",
+    "scope": "GIS, Other, Web Servers, WebGIS",
+    "platform": "Service",
+    "language": "Java, JavaScript",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "Sphinx",
+    "pluginof": "",
+    "url": "http://sphinxsearch.com/",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "C++",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "Splunk",
+    "pluginof": "",
+    "url": "http://www.splunk.com",
+    "scope": "Other, Web Servers",
+    "platform": "",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "TEAM Engine",
+    "pluginof": "",
+    "url": "http://cite.opengeospatial.org/teamengine/",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0"
+  },
+  {
+    "name": "TEQC",
+    "url": "https://www.unavco.org/software/data-processing/teqc/teqc.html",
+    "author": "UNAVCO",
+    "format": "Executable (Windows, macOS, Linux…). Supports RINEX and BINEX formats"
+  },
+  {
+    "name": "Talend Open Studio - Spatial integrator",
+    "pluginof": "",
+    "url": "http://talend-spatial.github.io/",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "TauDEM - Terrain Analysis Using Digital Elevation Models",
+    "url": "http://hydrology.usu.edu/taudem/taudem5/index.html",
+    "author": "Utah State University, USA",
+    "format": "Source code, command line executable and ArcGIS toolbox GUI",
+    "license": "GPL v3"
+  },
+  {
+    "name": "Tensor Flow",
+    "url": "https://www.tensorflow.org/",
+    "author": "Google",
+    "format": "Collection of workflows",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "Terrasigna Pathfinder",
+    "url": "http://pathfinder.terrasigna.com/oss/",
+    "author": "Earth observation",
+    "format": "References more than 350 open source software for processing of Earth Observation data, with categorisation and graph representation"
+  },
+  {
+    "name": "ThManager",
+    "pluginof": "",
+    "url": "http://thmanager.sourceforge.net/",
+    "scope": "Metadata management, Other",
+    "platform": "",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "Theano",
+    "url": "https://github.com/Theano/",
+    "author": "Several authors",
+    "format": "Python library",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "TileMill",
+    "pluginof": "",
+    "url": "https://tilemill-project.github.io/tilemill/",
+    "scope": "GIS, Other",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": ""
+  },
+  {
+    "name": "TinyOWS",
+    "pluginof": "MapServer",
+    "url": "http://mapserver.org/tinyows/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "UNAVCO software",
+    "url": "https://www.unavco.org/software/software.html",
+    "author": "GNSS",
+    "format": "Web-based data visualization and mapping tools provide users with the ability to view post–processed data while web-based geodetic utilities provide ancillary information."
+  },
+  {
+    "name": "Unfolding",
+    "pluginof": "",
+    "url": "http://unfoldingmaps.org/",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Server",
+    "language": "Java, Processing",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Ushahidi",
+    "pluginof": "",
+    "url": "http://www.ushahidi.com/",
+    "scope": "Domain Specific GIS",
+    "platform": "Mobile, Server, Service",
+    "language": "PHP",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "Viking",
+    "pluginof": "",
+    "url": "https://sourceforge.net/p/viking/wikiallura/Main_Page/",
+    "scope": "Navigation and Maps",
+    "platform": "Desktop",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "Viking GPS data editor and analyzer",
+    "url": "https://sourceforge.net/projects/viking/",
+    "author": "Various authors",
+    "format": "Executable (written mostly in C)",
+    "license": "GPL v2"
+  },
+  {
+    "name": "WebGL Earth",
+    "pluginof": "",
+    "url": "http://www.webglearth.com",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "Whitebox GAT",
+    "pluginof": "",
+    "url": "http://www.uoguelph.ca/~hydrogeo/Whitebox/",
+    "scope": "GIS, Other, Spatial Tools",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "Whitebox GAT - Geospatial Analysis Tools",
+    "url": "https://jblindsay.github.io/ghrg/Whitebox/index.html",
+    "author": "University of Guelph, Canada",
+    "format": "Executable (Windows, Linux, macOS)",
+    "license": "GPL v3"
+  },
+  {
+    "name": "XGBoost",
+    "url": "https://github.com/dmlc/xgboost",
+    "author": "XGBoost community",
+    "format": "Library, for Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Flink and DataFlow.",
+    "license": "Apache v2.0"
+  },
+  {
+    "name": "ZOO Project",
+    "pluginof": "",
+    "url": "http://zoo-project.org/",
+    "scope": "Geospatial Libraries, Spatial Tools, Web Servers",
+    "platform": "Server",
+    "language": "C, JavaScript",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "Zabbix",
+    "pluginof": "",
+    "url": "http://www.zabbix.com/",
+    "scope": "Other, Web Servers",
+    "platform": "Server",
+    "language": "PHP",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "awstats",
+    "pluginof": "",
+    "url": "http://www.awstats.org/",
+    "scope": "Other",
+    "platform": "Server",
+    "language": "Perl",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "deegree",
+    "pluginof": "",
+    "url": "http://www.deegree.org/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU LGPL"
+  },
+  {
+    "name": "e-foto",
+    "pluginof": "",
+    "url": "http://www.efoto.eng.uerj.br",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "eENVplus Validation Service",
+    "pluginof": "",
+    "url": "https://validation-service.inspire-helpdesk.eu/",
+    "scope": "Metadata management, Spatial Tools, Web Servers",
+    "platform": "Service",
+    "language": "Java - Compliance Test Language (CTL) - schematron",
+    "lictype": "Open Source",
+    "license": "Apache License 2.0, Creative Commons. Some rights reserved"
+  },
+  {
+    "name": "gLAB",
+    "url": "https://gage.upc.es/gLAB/",
+    "author": "Universitat Politecnica de Catalunya (UPC)",
+    "format": "Source and Executable for Linux, Windows and macOS",
+    "license": "Apache, GPL and LGPL"
+  },
+  {
+    "name": "geOrchestra",
+    "pluginof": "",
+    "url": "http://www.georchestra.org/",
+    "scope": "GIS, Metadata management, Navigation and Maps, Web Servers, WebGIS",
+    "platform": "Desktop, Mobile, Server",
+    "language": "Docker, Java",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "goGPS",
+    "url": "https://github.com/goGPS-Project",
+    "author": "Geomatics Laboratory of Politecnico di Milano, Como campus (Italy)",
+    "format": "Source code for Matlab 2016a+ and Java",
+    "license": "GPL v3"
+  },
+  {
+    "name": "gr-dvbs2",
+    "url": "https://github.com/drmpeg/gr-dvbs2",
+    "author": "Ron Economos",
+    "format": "Source code, also part of GNU Radio",
+    "license": "GPL v3"
+  },
+  {
+    "name": "gvSIG Desktop",
+    "url": "http://www.gvsig.com/en",
+    "author": "gvSIG Association",
+    "format": "Platforms: Linux / Unix, macOSX, Windows, Android. Languages: Java, Python, Groovy, Renjin, Scala",
+    "pluginof": "",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "gvSIG Mini",
+    "pluginof": "",
+    "url": "https://confluence.prodevelop.es/display/GVMN/Download",
+    "scope": "GIS",
+    "platform": "Mobile",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "i3Geo",
+    "pluginof": "",
+    "url": "http://i3geo.org/i3geo/init/index.php?home=",
+    "scope": "Web Servers, WebGIS",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPL"
+  },
+  {
+    "name": "inspire gis",
+    "pluginof": "",
+    "url": "http://inspire-gis.eu/",
+    "scope": "Data Stores, ETL, Web Servers, WebGIS",
+    "platform": "Server, Service",
+    "language": "Java",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "istSOS",
+    "pluginof": "",
+    "url": "http://istsos.org/",
+    "scope": "Web Servers",
+    "platform": "",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GPL"
+  },
+  {
+    "name": "libLAS - LiDAR Data Access",
+    "pluginof": "",
+    "url": "https://www.liblas.org/",
+    "scope": "Geospatial Libraries",
+    "platform": "Desktop",
+    "language": "C, C++",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "map.apps",
+    "pluginof": "",
+    "url": "https://www.conterra.de/en/produkte/con-terra-solutionplatform/mapapps/beschreibung",
+    "scope": "Geospatial Libraries, WebGIS",
+    "platform": "Mobile",
+    "language": "JavaScript",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "ncWMS",
+    "pluginof": "",
+    "url": "https://reading-escience-centre.github.io/ncwms/",
+    "scope": "Web Servers",
+    "platform": "Server",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "BSD"
+  },
+  {
+    "name": "oXygen XML Developer/Editor",
+    "pluginof": "",
+    "url": "https://www.oxygenxml.com/#bidx-xml-editor",
+    "scope": "Other",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "pandas",
+    "url": "https://pandas.pydata.org/",
+    "author": "Wes McKinney and various",
+    "format": "Python library",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "pgRouting",
+    "pluginof": "PostGIS",
+    "url": "http://pgrouting.org/",
+    "scope": "Data Stores, Navigation and Maps",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv2"
+  },
+  {
+    "name": "pprepair",
+    "pluginof": "",
+    "url": "https://github.com/tudelft3d/pprepair",
+    "scope": "Spatial Tools",
+    "platform": "Desktop",
+    "language": "C",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "pycsw",
+    "pluginof": "",
+    "url": "http://pycsw.org/index.html",
+    "scope": "Metadata management, Web Servers",
+    "platform": "Server",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "MIT"
+  },
+  {
+    "name": "security.manager",
+    "pluginof": "",
+    "url": "https://www.conterra.de/en/produkte/con-terra-solutionplatform/securitymanager/beschreibung",
+    "scope": "Other, Web Servers",
+    "platform": "Service",
+    "language": "Java, HTML5, JavaScript",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "service.monitor",
+    "pluginof": "",
+    "url": "https://www.conterra.de/en/produkte/con-terra-solutionplatform/servicemonitor/beschreibung",
+    "scope": "Other",
+    "platform": "Service",
+    "language": "Java, JavaScript, HTML5",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "smart.finder",
+    "pluginof": "European Data Portal - Gazetteer",
+    "url": "https://www.conterra.de/en/produkte/con-terra-solutionplatform/smartfinder-sdi/beschreibung",
+    "scope": "Metadata management, Spatial Tools",
+    "platform": "",
+    "language": "",
+    "lictype": "Proprietary",
+    "license": ""
+  },
+  {
+    "name": "stetl",
+    "pluginof": "",
+    "url": "http://stetl.org",
+    "scope": "ETL",
+    "platform": "Desktop",
+    "language": "Python",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  },
+  {
+    "name": "swe4citizenscience",
+    "pluginof": "",
+    "url": "https://github.com/opengeospatial/swe4citizenscience",
+    "scope": "Other",
+    "platform": "",
+    "language": "",
+    "lictype": "Unknown",
+    "license": ""
+  },
+  {
+    "name": "tslearn",
+    "url": "https://tslearn.readthedocs.io/en/latest/",
+    "author": "Romain Tavenard",
+    "format": "Python package",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "uDig",
+    "pluginof": "",
+    "url": "http://udig.refractions.net/",
+    "scope": "GIS",
+    "platform": "Desktop",
+    "language": "Java",
+    "lictype": "Open Source",
+    "license": "EPL"
+  },
+  {
+    "name": "zyGrib",
+    "pluginof": "",
+    "url": "http://www.zygrib.org/",
+    "scope": "Domain Specific GIS, Spatial Tools",
+    "platform": "Desktop",
+    "language": "",
+    "lictype": "Open Source",
+    "license": "GNU GPLv3"
+  }
+]
