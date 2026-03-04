@@ -19,7 +19,11 @@ export class JobOffer extends OccupationalProfile {
 
   constructor(data: Partial<JobOffer> = {}) {
     super(data);
-    this.additionalQuestions = data.additionalQuestions ?? '';
+    if (Array.isArray(data.additionalQuestions)) {
+      this.additionalQuestions = '';
+    } else {
+      this.additionalQuestions = data.additionalQuestions ?? '';
+    }
     this.contactDetails = data.contactDetails ?? '';
     this.currency = data.currency ?? '';
     this.dataRequired = data.dataRequired ?? [];

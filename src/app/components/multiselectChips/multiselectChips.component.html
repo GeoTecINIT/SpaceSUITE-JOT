@@ -1,6 +1,8 @@
 <div
-  [ngClass]="chips.length > 0 ? 'p-2 custom-border' : ''"
-  [class.custom-border-error]="error"
+  [ngClass]="{
+    'p-2 custom-border': chips.length > 0,
+    'custom-border-error': error,
+  }"
 >
   <p-floatlabel
     variant="on"
@@ -9,91 +11,80 @@
   >
     <p-multiselect
       #pmulti
-      [options]="multiselectOptions"
-      [ngModel]="chips"
-      inputId="{{ fieldName }}"
       class="w-full custom-multiselect"
-      [maxSelectedLabels]="0"
-      (ngModelChange)="multiselectChange($event)"
-      [class.invalid-multiselect]="error"
-      showToggleAll="false"
-      [filter]="filter"
-      resetFilterOnHide="true"
-      (onFilter)="currentText = pmulti.filterValue || ''"
-      [filterPlaceHolder]="
-        allowCustom
-          ? 'Choose a ' + getSingularFieldName() + ' or specify a custom value'
-          : 'Choose a ' + getSingularFieldName()
-      "
-      [showClear]="true"
-      (onClear)="this.chipsChange.emit([])"
       optionValue="value"
       optionLabel="label"
-      (onPanelShow)="onDropdownOpen()"
-      (onClear)="pmulti.hide()"
       appendTo="body"
       panelStyleClass="custom-multiselect"
-      [virtualScroll]="optionsSource === 'fields'"
-      [virtualScrollItemSize]="optionsSource === 'fields' ? 34 : null"
-      [group]="optionsSource === 'fields'"
-      [optionGroupLabel]="optionsSource === 'fields' ? 'label' : undefined"
-      [optionGroupChildren]="optionsSource === 'fields' ? 'items' : ''"
+      [showToggleAll]="false"
+      [options]="multiselectOptions"
+      [ngModel]="chips"
+      [inputId]="fieldName"
+      [maxSelectedLabels]="0"
+      [class.invalid-multiselect]="error"
+      [resetFilterOnHide]="true"
+      [filterPlaceHolder]="filterPlaceholder"
+      [showClear]="true"
+      [virtualScroll]="isFieldsSource"
+      [virtualScrollItemSize]="isFieldsSource ? 34 : null"
+      [group]="isFieldsSource"
+      [optionGroupLabel]="isFieldsSource ? 'label' : undefined"
+      [optionGroupChildren]="isFieldsSource ? 'items' : ''"
+      (ngModelChange)="multiselectChange($event)"
+      (onPanelShow)="onDropdownOpen()"
+      (onFilter)="currentText = pmulti.filterValue || ''"
+      (onClear)="clear()"
     >
       <ng-template #footer>
-        <div
-          class="flex"
-          *ngIf="
-            allowCustom &&
-            pmulti.filterValue !== '' &&
-            pmulti.filterValue !== undefined &&
-            !pmulti.isEmpty()
-          "
-        >
+        @if (showCustomButton && !pmulti.isEmpty()) {
+          <div class="flex p-3">
+            <p-button
+              class="custom-button"
+              icon="pi pi-plus"
+              size="small"
+              [label]="`Add custom ${fieldNameSingular}`"
+              (onClick)="clickButton()"
+            ></p-button>
+          </div>
+        }
+      </ng-template>
+
+      <ng-template #emptyfilter>
+        @if (showCustomButton) {
           <p-button
+            class="custom-button"
             icon="pi pi-plus"
-            label="Add custom {{ getSingularFieldName() }}"
             size="small"
-            class="custom-button p-3"
+            [label]="`Add custom ${fieldNameSingular}`"
             (onClick)="clickButton()"
           ></p-button>
-        </div>
+        }
       </ng-template>
-      <ng-template #emptyfilter>
-        <p-button
-          icon="pi pi-plus"
-          label="Add custom {{ getSingularFieldName() }}"
-          size="small"
-          class="custom-button"
-          (onClick)="clickButton()"
-          *ngIf="
-            allowCustom &&
-            pmulti.filterValue !== '' &&
-            pmulti.filterValue !== undefined
-          "
-        ></p-button>
-      </ng-template>
+
       <ng-template #filtericon>
         <i class="pi pi-bookmark"></i>
       </ng-template>
+
       <ng-template #selecteditems>
-        {{ chips.length }} items selected
+        {{ chips.length }}
+        {{ chips.length === 1 ? "item selected" : "items selected" }}
       </ng-template>
     </p-multiselect>
-    <label for="{{ fieldName }}">{{ fieldName }}</label>
+
+    <label [for]="fieldName">{{ fieldName }}</label>
   </p-floatlabel>
-  <div
-    class="mt-3 flex-wrap gap-2 align-items-center"
-    [style.display]="chips.length === 0 ? 'none' : 'flex'"
-  >
-    <ng-content *ngFor="let chip of chips">
-      <p-chip
-        [label]="chip"
-        [removable]="true"
-        (onRemove)="deleteElement(chip)"
-        class="custom-chip"
-        [ngClass]="chipAnimations[chip] ? 'chip-animation' : ''"
-        [style.background]="selectedConceptsColor.get(chip)"
-      />
-    </ng-content>
-  </div>
+
+  @if (chips.length !== 0) {
+    <div class="flex flex-wrap gap-2 mt-3">
+      @for (chip of chips; track chip) {
+        <p-chip
+          class="custom-chip"
+          [class.chip-animation]="chipAnimations[chip]"
+          [label]="chip"
+          [removable]="true"
+          (onRemove)="deleteChip(chip)"
+        />
+      }
+    </div>
+  }
 </div>

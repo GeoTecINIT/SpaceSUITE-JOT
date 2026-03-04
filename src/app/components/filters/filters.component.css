@@ -5,11 +5,6 @@
   --p-togglebutton-icon-hover-color: var(--primary-color);
 }
 
-.custom-input {
-  --p-inputtext-focus-border-color: var(--hover-color);
-  --p-inputtext-hover-border-color: var(--hover-color);
-}
-
 .disabled-addon {
   opacity: 1;
   background: var(--p-inputtext-disabled-background);

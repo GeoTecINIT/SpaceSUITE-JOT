@@ -24,26 +24,31 @@
         <div class="flex flex-wrap align-items-center gap-2 text-sm">
           <span class="white-space-nowrap">
             <strong>Knowledge:</strong>
+
             {{ job.knowledge.length }}
           </span>
           |
           <span class="white-space-nowrap">
             <strong>Skills:</strong>
+
             {{ job.skills.length + job.customSkills.length }}
           </span>
           |
           <span class="white-space-nowrap">
             <strong>Transversal Skills:</strong>
+
             {{ job.competences.length + job.customCompetences.length }}
           </span>
           |
           <span class="white-space-nowrap">
             <strong>EQF level:</strong>
+
             {{ job.eqf }}
           </span>
           |
           <span class="white-space-nowrap">
             <strong>Experience:</strong>
+
             {{ job.yearsExperience }}
             {{ job.yearsExperience === 1 ? "year" : "years" }}
           </span>
@@ -51,7 +56,8 @@
 
           @if (job.salaryMin !== 0 && job.salaryMax !== 0) {
             <span class="white-space-nowrap">
-              <strong>Salary:</strong>
+              <strong>Annual salary:</strong>
+
               {{ job.salaryMin }} - {{ job.salaryMax }}
               {{ job.currency }}
             </span>
@@ -60,18 +66,21 @@
 
           @if (job.location !== "") {
             <i class="pi pi-map-marker"></i>
+
             <strong>{{ job.location }}</strong>
             |
           }
 
           @if (!job.isPublic) {
             <i class="pi pi-eye-slash"></i>
+
             <strong>Private</strong>
             |
           }
 
           <span class="white-space-nowrap">
             <strong>Last updated:</strong>
+
             {{ job.updatedAt?.toDate().toLocaleDateString() }}
           </span>
         </div>
