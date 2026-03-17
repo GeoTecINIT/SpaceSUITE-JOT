@@ -33,13 +33,11 @@
       </span>
       |
 
-      @if (job.salaryMin !== 0 && job.salaryMax !== 0) {
-        <span class="white-space-nowrap">
-          <strong>Annual salary:</strong>
-
+      @if (validSalary) {
+        <strong class="white-space-nowrap">
           {{ job.salaryMin }} - {{ job.salaryMax }}
           {{ job.currency }}
-        </span>
+        </strong>
         |
       }
 
@@ -51,20 +49,16 @@
       }
 
       @if (job.dedication !== "") {
-        <span class="white-space-nowrap">
-          <strong>Dedication:</strong>
-
+        <strong class="white-space-nowrap">
           {{ job.dedication }}
-        </span>
+        </strong>
         |
       }
 
       @if (job.typeContract !== "") {
-        <span class="white-space-nowrap">
-          <strong>Contract type:</strong>
-
+        <strong class="white-space-nowrap">
           {{ job.typeContract }}
-        </span>
+        </strong>
         |
       }
 
@@ -110,20 +104,6 @@
             <li>{{ domain }}</li>
           }
         </ul>
-      </div>
-    </div>
-
-    <div class="flex flex-column xl:flex-row gap-3 text-justify">
-      <div class="flex flex-column xl:w-6">
-        <strong>Contact details:</strong>
-
-        {{ job.contactDetails }}
-      </div>
-
-      <div class="flex flex-column xl:w-6">
-        <strong>Additional information/questions:</strong>
-
-        {{ job.additionalQuestions }}
       </div>
     </div>
 
@@ -245,107 +225,129 @@
         </div>
       </p-panel>
 
-      <p-panel
-        #datasetPanel
-        class="my-2 custom-panel"
-        [header]="`Datasets Knowledge (${datasets.length})`"
-        [toggleable]="true"
-        [collapsed]="overTagLimit(datasets.length)"
-      >
-        <ng-template #headericons>
-          <p-button
-            [icon]="
-              datasetPanel.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
-            "
-            severity="secondary"
-            text
-          />
-        </ng-template>
-
-        <div
-          [class]="
-            overTagLimit(datasets.length)
-              ? 'flex flex-column align-items-start gap-2'
-              : 'flex flex-wrap gap-2'
-          "
+      <div class="flex flex-column my-2 gap-3 xl:flex-row">
+        <p-panel
+          #datasetPanel
+          class="custom-panel w-full"
+          [header]="`Datasets Knowledge (${datasets.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(datasets.length)"
         >
-          @for (dataset of datasets; track dataset.url) {
-            <p-tag
-              class="tag skill-tag"
-              [value]="dataset.name"
-              [rounded]="true"
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                datasetPanel.collapsed
+                  ? 'pi pi-chevron-down'
+                  : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
             />
-          }
-        </div>
-      </p-panel>
+          </ng-template>
 
-      <p-panel
-        #toolPanel
-        class="my-2 custom-panel"
-        [header]="`Tools Knowledge (${tools.length})`"
-        [toggleable]="true"
-        [collapsed]="overTagLimit(tools.length)"
-      >
-        <ng-template #headericons>
-          <p-button
-            [icon]="
-              toolPanel.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
+          <div
+            [class]="
+              overTagLimit(datasets.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
             "
-            severity="secondary"
-            text
-          />
-        </ng-template>
+          >
+            @for (dataset of datasets; track dataset.url) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="dataset.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
 
-        <div
-          [class]="
-            overTagLimit(tools.length)
-              ? 'flex flex-column align-items-start gap-2'
-              : 'flex flex-wrap gap-2'
-          "
+        <p-panel
+          #toolPanel
+          class="custom-panel w-full"
+          [header]="`Tools Knowledge (${tools.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(tools.length)"
         >
-          @for (tool of tools; track tool.url) {
-            <p-tag class="tag skill-tag" [value]="tool.name" [rounded]="true" />
-          }
-        </div>
-      </p-panel>
-
-      <p-panel
-        #languagePanel
-        class="my-2 custom-panel"
-        [header]="`Languages (${languages.length})`"
-        [toggleable]="true"
-        [collapsed]="overTagLimit(languages.length)"
-      >
-        <ng-template #headericons>
-          <p-button
-            [icon]="
-              languagePanel.collapsed
-                ? 'pi pi-chevron-down'
-                : 'pi pi-chevron-up'
-            "
-            severity="secondary"
-            text
-          />
-        </ng-template>
-
-        <div
-          [class]="
-            overTagLimit(languages.length)
-              ? 'flex flex-column align-items-start gap-2'
-              : 'flex flex-wrap gap-2'
-          "
-        >
-          @for (language of languages; track language.code) {
-            <p-tag
-              class="tag skill-tag"
-              [value]="language.name"
-              [rounded]="true"
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                toolPanel.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
             />
-          }
-        </div>
-      </p-panel>
+          </ng-template>
 
-      <div class="xl:hidden flex flex-column gap-2 mb-2">
+          <div
+            [class]="
+              overTagLimit(tools.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
+            "
+          >
+            @for (tool of tools; track tool.url) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="tool.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
+
+        <p-panel
+          #languagePanel
+          class="custom-panel w-full"
+          [header]="`Languages (${languages.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(languages.length)"
+        >
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                languagePanel.collapsed
+                  ? 'pi pi-chevron-down'
+                  : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
+            />
+          </ng-template>
+
+          <div
+            [class]="
+              overTagLimit(languages.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
+            "
+          >
+            @for (language of languages; track language.code) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="language.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
+      </div>
+
+      <div class="flex flex-column gap-3 text-justify">
+        <div class="flex flex-column">
+          <strong>Contact details:</strong>
+
+          {{ job.contactDetails }}
+        </div>
+
+        <div class="flex flex-column">
+          <strong>Additional information/questions:</strong>
+
+          {{ job.additionalQuestions }}
+        </div>
+      </div>
+
+      <div class="xl:hidden flex flex-column gap-2 my-2">
         <p-button
           class="flex justify-content-center custom-button"
           label="Share Job"

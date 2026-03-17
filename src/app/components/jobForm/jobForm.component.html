@@ -16,10 +16,6 @@
           [class.ng-invalid]="errorMap.get('title') !== undefined"
           [class.ng-dirty]="errorMap.get('title') !== undefined"
           [(ngModel)]="job.title"
-          pTooltip="Name of the job."
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
           maxlength="200"
         />
 
@@ -40,14 +36,14 @@
     }
   </div>
 
-  <div class="flex flex-column xl:flex-row gap-3">
+  <div class="flex flex-column xl:flex-row gap-3 align-items-start">
     <div class="flex w-full">
       <p-selectbutton
         [options]="visibilityFieldOptions"
         [(ngModel)]="job.isPublic"
         optionLabel="label"
         optionValue="value"
-        pTooltip="Specifies whether the job is public or restricted to your organization."
+        pTooltip="Specifies whether the job offer is public or restricted to your organization."
         [allowEmpty]="false"
         tooltipPosition="top"
         showDelay="200"
@@ -93,7 +89,7 @@
           optionLabel="label"
           [checkmark]="true"
           [class.invalid-select]="errorMap.get('organization') !== undefined"
-          pTooltip="The organization to which the job belongs."
+          pTooltip="The organization to which the job offer belongs."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -116,7 +112,7 @@
           [disabled]="divisionSelector.values.length === 0"
           [checkmark]="true"
           inputId="division"
-          pTooltip="The organization division to which the job belongs."
+          pTooltip="The organization division to which the job offer belongs."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -124,158 +120,6 @@
 
         <label for="division">{{ divisionSelector.label }}</label>
       </p-floatlabel>
-    </div>
-  </div>
-
-  <div class="flex flex-column xl:flex-row gap-3">
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-iconfield>
-          <input
-            class="custom-input w-full"
-            pInputText
-            id="location"
-            autocomplete="off"
-            [(ngModel)]="job.location"
-            pTooltip="Location of the job."
-            tooltipPosition="top"
-            showDelay="200"
-            hideDelay="200"
-            maxlength="200"
-          />
-
-          <p-inputicon class="pi pi-pencil" />
-        </p-iconfield>
-
-        <label for="location">Location</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-inputnumber
-          class="custom-input"
-          id="experience"
-          [min]="0"
-          [max]="100"
-          [showButtons]="true"
-          [(ngModel)]="job.yearsExperience"
-          fluid
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-          pTooltip="Amount of years of experience required for the job."
-          [allowEmpty]="false"
-        />
-
-        <label for="experience">Years of experience</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-inputnumber
-          class="custom-input"
-          id="salaryMin"
-          [min]="0"
-          [showButtons]="true"
-          [(ngModel)]="job.salaryMin"
-          fluid
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-          pTooltip="Annual minimum salary of the job."
-          [allowEmpty]="false"
-        />
-
-        <label for="salaryMin">Min salary</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-inputnumber
-          class="custom-input"
-          id="salaryMax"
-          [min]="0"
-          [showButtons]="true"
-          [(ngModel)]="job.salaryMax"
-          fluid
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-          pTooltip="Annual maximum salary of the job."
-          [allowEmpty]="false"
-        />
-
-        <label for="salaryMax">Max salary</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-select
-          class="custom-select w-full"
-          inputId="currency"
-          [options]="currency"
-          [(ngModel)]="job.currency"
-          optionValue="value"
-          optionLabel="label"
-          [checkmark]="true"
-          pTooltip="Currency of the salary."
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-        />
-
-        <label for="currency">Currency</label>
-      </p-floatlabel>
-    </div>
-  </div>
-
-  <div class="flex flex-column xl:flex-row gap-3">
-    <div class="w-full">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <p-select
-          class="custom-select w-full"
-          inputId="contractType"
-          [options]="contractType"
-          [(ngModel)]="job.typeContract"
-          optionValue="label"
-          optionLabel="label"
-          [checkmark]="true"
-          pTooltip="Type of contract of the job."
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-        />
-
-        <label for="contractType">Type of contract</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="flex gap-1 align-items-center w-full">
-      <span>Dedication:</span>
-
-      <p-selectbutton
-        [options]="dedication"
-        [(ngModel)]="job.dedication"
-        optionLabel="label"
-        optionValue="label"
-        [allowEmpty]="true"
-      />
-    </div>
-
-    <div class="flex gap-1 align-items-center w-full">
-      <span>Ask for motivation letter?</span>
-
-      <p-selectbutton
-        [options]="motivationLetterOptions"
-        [(ngModel)]="job.motivationLetter"
-        optionLabel="label"
-        optionValue="value"
-        [allowEmpty]="false"
-      />
     </div>
   </div>
 
@@ -327,54 +171,6 @@
         showDelay="200"
         hideDelay="200"
       ></multiselect-chips>
-    </div>
-  </div>
-
-  <div class="flex flex-column xl:flex-row gap-3">
-    <div class="xl:w-6">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <textarea
-          class="custom-textarea w-full"
-          id="contactDetails"
-          pTextarea
-          [(ngModel)]="job.contactDetails"
-          rows="7"
-          pTooltip="Contact details of the job offer."
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-          maxlength="1000"
-        ></textarea>
-
-        <span class="textarea-length">
-          {{ job.contactDetails.length + " " }} / 1000
-        </span>
-
-        <label for="contactDetails">Contact details</label>
-      </p-floatlabel>
-    </div>
-
-    <div class="xl:w-6">
-      <p-floatlabel variant="on" class="custom-floatlabel">
-        <textarea
-          class="custom-textarea w-full"
-          id="additionalInfo"
-          pTextarea
-          [(ngModel)]="job.additionalQuestions"
-          rows="7"
-          pTooltip="Additional information or questions of the job offer."
-          tooltipPosition="top"
-          showDelay="200"
-          hideDelay="200"
-          maxlength="1000"
-        ></textarea>
-
-        <span class="textarea-length">
-          {{ job.additionalQuestions.length + " " }} / 1000
-        </span>
-
-        <label for="additionalInfo">Additional information/questions</label>
-      </p-floatlabel>
     </div>
   </div>
 
@@ -458,46 +254,259 @@
     }
   </div>
 
-  <div>
+  <div class="flex flex-column gap-3 xl:flex-row">
     <multiselect-chips
+      class="w-full"
       optionsSource="datasets"
       fieldName="Datasets Knowledge"
       fieldNameSingular="dataset"
       [(chips)]="datasetNames"
       [allowCustom]="true"
-      pTooltip="Knowledge about datasets contained in the EO Handbook."
+      pTooltip="Required knowledge about datasets contained in the EO Handbook."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
     ></multiselect-chips>
-  </div>
 
-  <div>
     <multiselect-chips
+      class="w-full"
       optionsSource="tools"
       fieldName="Tools Knowledge"
       fieldNameSingular="tool"
       [(chips)]="toolNames"
       [allowCustom]="true"
-      pTooltip="Knowledge about tools included in INSPIRE reference and ESA Open Source Resources."
+      pTooltip="Required knowledge about tools included in INSPIRE reference and ESA Open Source Resources."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></multiselect-chips>
+
+    <multiselect-chips
+      class="w-full"
+      optionsSource="languages"
+      fieldName="Languages"
+      fieldNameSingular="language"
+      [(chips)]="languageNames"
+      [allowCustom]="false"
+      pTooltip="Required languages."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
     ></multiselect-chips>
   </div>
 
-  <div>
-    <multiselect-chips
-      optionsSource="languages"
-      fieldName="Languages"
-      fieldNameSingular="language"
-      [(chips)]="languageNames"
-      [allowCustom]="false"
-      pTooltip="List of languages."
-      tooltipPosition="top"
-      showDelay="200"
-      hideDelay="200"
-    ></multiselect-chips>
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="flex flex-column xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-iconfield>
+          <input
+            class="custom-input w-full"
+            pInputText
+            id="location"
+            autocomplete="off"
+            [(ngModel)]="job.location"
+            maxlength="200"
+            [class.ng-invalid]="errorMap.get('location') !== undefined"
+            [class.ng-dirty]="errorMap.get('location') !== undefined"
+          />
+
+          <p-inputicon
+            [class]="
+              errorMap.get('location') !== undefined
+                ? 'danger pi pi-pencil'
+                : 'pi pi-pencil'
+            "
+          />
+        </p-iconfield>
+
+        <label for="location">Location *</label>
+      </p-floatlabel>
+
+      @if (errorMap.get("location"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-select
+          class="custom-select w-full"
+          inputId="contractType"
+          [options]="contractType"
+          [(ngModel)]="job.typeContract"
+          optionValue="label"
+          optionLabel="label"
+          [checkmark]="true"
+        />
+
+        <label for="contractType">Type of contract</label>
+      </p-floatlabel>
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-inputnumber
+          class="custom-input"
+          id="experience"
+          [min]="0"
+          [max]="100"
+          [showButtons]="true"
+          [(ngModel)]="job.yearsExperience"
+          fluid
+          [allowEmpty]="false"
+        />
+
+        <label for="experience">Years of experience</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="flex flex-column xl:w-6">
+      <div class="flex gap-3">
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-inputnumber
+              class="custom-input"
+              id="salaryMin"
+              [min]="0"
+              [showButtons]="true"
+              [(ngModel)]="job.salaryMin"
+              fluid
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+              pTooltip="Annual minimum salary."
+              [allowEmpty]="true"
+              [class.ng-invalid]="errorMap.get('salary') !== undefined"
+              [class.ng-dirty]="errorMap.get('salary') !== undefined"
+            />
+
+            <label for="salaryMin">Min salary</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-inputnumber
+              class="custom-input"
+              id="salaryMax"
+              [min]="0"
+              [showButtons]="true"
+              [(ngModel)]="job.salaryMax"
+              fluid
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+              pTooltip="Annual maximum salary."
+              [allowEmpty]="true"
+              [class.ng-invalid]="errorMap.get('salary') !== undefined"
+              [class.ng-dirty]="errorMap.get('salary') !== undefined"
+            />
+
+            <label for="salaryMax">Max salary</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-select
+              class="custom-select w-full"
+              inputId="currency"
+              [options]="currency"
+              [(ngModel)]="job.currency"
+              optionValue="value"
+              optionLabel="label"
+              [checkmark]="true"
+              pTooltip="Currency of the salary."
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+            />
+
+            <label for="currency">Currency</label>
+          </p-floatlabel>
+        </div>
+      </div>
+
+      @if (errorMap.get("salary"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3 align-items-start">
+    <div class="flex flex-column align-items-center xl:w-6 w-full">
+      <div class="flex gap-2 align-items-center w-full">
+        <span>Dedication *:</span>
+
+        <p-selectbutton
+          [options]="dedication"
+          [(ngModel)]="job.dedication"
+          optionLabel="label"
+          optionValue="label"
+          [allowEmpty]="false"
+          [class.ng-invalid]="errorMap.get('dedication') !== undefined"
+          [class.ng-dirty]="errorMap.get('dedication') !== undefined"
+        />
+      </div>
+
+      @if (errorMap.get("dedication"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="flex gap-2 align-items-center xl:w-6 w-full">
+      <span>Ask for motivation letter?</span>
+
+      <p-selectbutton
+        [options]="motivationLetterOptions"
+        [(ngModel)]="job.motivationLetter"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+      />
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <textarea
+          class="custom-textarea w-full"
+          id="contactDetails"
+          pTextarea
+          [(ngModel)]="job.contactDetails"
+          rows="2"
+          maxlength="200"
+        ></textarea>
+
+        <span class="textarea-length">
+          {{ job.contactDetails.length + " " }} / 200
+        </span>
+
+        <label for="contactDetails">Contact details</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <textarea
+          class="custom-textarea w-full"
+          id="additionalInfo"
+          pTextarea
+          [(ngModel)]="job.additionalQuestions"
+          rows="2"
+          maxlength="200"
+        ></textarea>
+
+        <span class="textarea-length">
+          {{ job.additionalQuestions.length + " " }} / 200
+        </span>
+
+        <label for="additionalInfo">Additional information/questions</label>
+      </p-floatlabel>
+    </div>
   </div>
 </div>
 

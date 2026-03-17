@@ -44,13 +44,13 @@ import { ESCOService } from '../../services/esco.service';
 import { FieldsService } from '../../services/fields.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
+import { LanguagesService } from '../../services/languages.service';
 import { ToolsService } from '../../services/tools.service';
 import { BokModalComponent } from '../bokModal/bokModal.component';
 import { CustomSelectComponent } from '../customSelect/customSelect.component';
 import { MultiselectChipsComponent } from '../multiselectChips/multiselectChips.component';
 import { TextChipsComponent } from '../textChips/textChips.component';
 import { TreeselectChipsComponent } from '../treeselectChips/treeselectChips.component';
-import { LanguagesService } from '../../services/languages.service';
 
 @Component({
   standalone: true,
@@ -87,7 +87,7 @@ import { LanguagesService } from '../../services/languages.service';
   providers: [MessageService, ConfirmationService],
 })
 export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() pageName: string = 'Create New Job';
+  @Input() pageName: string = 'Create New Job Offer';
   @Input() inputJob?: JobOffer;
 
   job: JobOffer = new JobOffer();

@@ -75,6 +75,15 @@ export class JobOfferService {
     );
     setError('eqf', !job.eqf.trim(), 'EQF level is required.');
     setError('organization', !job.orgId?.trim(), 'Organization is required.');
+    setError('location', !job.location.trim(), 'Location is required.');
+    setError(
+      'salary',
+      job.salaryMin !== null &&
+        job.salaryMax !== null &&
+        job.salaryMin > job.salaryMax,
+      'Minimum salary cannot be greater than maximum salary.',
+    );
+    setError('dedication', !job.dedication.trim(), 'Dedication is required.');
     setError(
       'knowledge',
       job.knowledge.length === 0,

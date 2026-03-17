@@ -30,10 +30,7 @@ import {
 } from 'rxjs';
 import { JobOffer } from '../../models/jobOffer';
 import { Dataset, Language, Tool } from '../../models/jobOfferDB';
-import {
-  Competence,
-  OccupationalProfile,
-} from '../../models/occupationalProfile';
+import { Competence } from '../../models/occupationalProfile';
 import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
 import { PdfService } from '../../services/pdf.service';
@@ -451,5 +448,15 @@ export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
     link.download = name;
     link.href = uri;
     link.click();
+  }
+
+  get validSalary(): boolean {
+    return !!(
+      this.job &&
+      this.job.salaryMin != null &&
+      this.job.salaryMax != null &&
+      this.job.salaryMin > 0 &&
+      this.job.salaryMax > 0
+    );
   }
 }

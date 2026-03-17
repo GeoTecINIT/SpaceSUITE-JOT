@@ -11,8 +11,8 @@ export class JobOffer extends OccupationalProfile {
   location: string;
   motivationLetter: boolean;
   profiles: string[];
-  salaryMax: number;
-  salaryMin: number;
+  salaryMax: number | null;
+  salaryMin: number | null;
   toolsRequired: Tool[];
   typeContract: string;
   yearsExperience: number;
@@ -32,8 +32,8 @@ export class JobOffer extends OccupationalProfile {
     this.location = data.location ?? '';
     this.motivationLetter = data.motivationLetter ?? false;
     this.profiles = data.profiles ?? [];
-    this.salaryMax = data.salaryMax ?? 0;
-    this.salaryMin = data.salaryMin ?? 0;
+    this.salaryMax = data.salaryMax ?? null;
+    this.salaryMin = data.salaryMin ?? null;
     this.toolsRequired = data.toolsRequired ?? [];
     this.typeContract = data.typeContract ?? '';
     this.yearsExperience = data.yearsExperience ?? 0;

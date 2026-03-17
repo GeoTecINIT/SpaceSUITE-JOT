@@ -17,8 +17,8 @@ export class JobOfferDB {
   occuProf?: OccupationalProfile;
   orgId: string;
   orgName: string;
-  salaryMax: number;
-  salaryMin: number;
+  salaryMax: number | null;
+  salaryMin: number | null;
   toolsRequired: Tool[];
   typeContract: string;
   updatedAt?: any;
@@ -42,8 +42,8 @@ export class JobOfferDB {
     this.occuProf = data.occuProf;
     this.orgId = data.orgId ?? '';
     this.orgName = data.orgName ?? '';
-    this.salaryMax = data.salaryMax ?? 0;
-    this.salaryMin = data.salaryMin ?? 0;
+    this.salaryMax = data.salaryMax ?? null;
+    this.salaryMin = data.salaryMin ?? null;
     this.toolsRequired = data.toolsRequired ?? [];
     this.typeContract = data.typeContract ?? '';
     this.updatedAt = data.updatedAt;
