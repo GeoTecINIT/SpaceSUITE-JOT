@@ -32,14 +32,14 @@ export class AppComponent {
         {
           label: 'Occupational Profile Tool',
           icon: 'pi pi-users',
-          style: { '--p-tieredmenu-item-color': 'var(--hover-color)' },
-          iconStyle: { color: 'var(--hover-color)' },
+          url: 'https://eo4geo-opt.web.app',
+          target: '_blank',
         },
         {
           label: 'Job Offer Tool',
           icon: 'pi pi-book',
-          url: 'https://eo4geo-jot.web.app',
-          target: '_blank',
+          style: { '--p-tieredmenu-item-color': 'var(--hover-color)' },
+          iconStyle: { color: 'var(--hover-color)' },
         },
         {
           label: 'Curriculum Design Tool',
