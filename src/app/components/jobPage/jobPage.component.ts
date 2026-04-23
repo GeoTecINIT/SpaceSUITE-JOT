@@ -97,6 +97,10 @@ export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 0);
+
     const routeData$ = combineLatest([
       this.route.paramMap,
       this.route.queryParams,

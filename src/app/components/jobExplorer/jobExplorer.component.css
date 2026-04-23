@@ -24,6 +24,18 @@
   --p-select-focus-border-color: var(--hover-color);
 }
 
+.floating-container {
+  position: fixed;
+  z-index: 1;
+  right: 2rem;
+}
+
+.floating-button {
+  border-radius: var(--p-button-border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
 ::ng-deep .p-confirmdialog {
   color: var(--primary-color) !important;
 }
@@ -55,16 +67,4 @@
     var(--danger-color) 80%,
     black 20%
   );
-}
-
-.floating-container {
-  position: fixed;
-  z-index: 1;
-  right: 2rem;
-}
-
-.floating-button {
-  border-radius: var(--p-button-border-radius);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
 }

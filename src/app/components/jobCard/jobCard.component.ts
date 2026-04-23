@@ -18,7 +18,6 @@ import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { catchError, defaultIfEmpty, finalize, of, take } from 'rxjs';
 import { JobOffer } from '../../models/jobOffer';
-import { OccupationalProfile } from '../../models/occupationalProfile';
 import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
 import { PdfService } from '../../services/pdf.service';

@@ -60,6 +60,7 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   filterOptions: Filter[] = [];
   searchOption: string = 'Title';
   searchValue: string = '';
+  showPrivate: boolean = false;
   visibilityFilter: string = 'all';
   filteredJobs: JobOffer[] = [];
 
@@ -108,8 +109,12 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!this.isLogged()) {
         this.visibilityFilter = 'all';
         this.filterService.visibilityFilter = 'all';
+
+        this.showPrivate = false;
+        this.filterService.showPrivate = false;
       } else {
         this.visibilityFilter = this.filterService.visibilityFilter;
+        this.showPrivate = this.filterService.showPrivate;
       }
 
       this.filterPipeline();
@@ -198,6 +203,13 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterPipeline();
   }
 
+  setPrivateFilter(filter: boolean): void {
+    this.showPrivate = filter;
+    this.filterService.showPrivate = filter;
+
+    this.filterPipeline();
+  }
+
   setVisibilityFilter(filter: string): void {
     setTimeout(() => {
       this.visibilityFilter = filter;
@@ -211,7 +223,8 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   filterPipeline(): void {
     this.first = 0;
 
-    const sorted = this.sortJobs(this.jobs);
+    const changed = this.handlePrivateJobs(this.jobs);
+    const sorted = this.sortJobs(changed);
     const searched = this.searchJobs(sorted);
     const filtered = this.filterJobs(searched);
     this.filteredJobs = this.filterByBoKConcept(filtered);
@@ -222,10 +235,16 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  createJobOffer() {
+  createJobOffer(): void {
     this.router.navigate(['job/new'], {
       queryParams: { origin: 'explorer' },
     });
+  }
+
+  scrollToTop(): void {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 0);
   }
 
   private updateButtonPosition = () => {
@@ -243,6 +262,12 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.first,
       this.first + this.rows,
     );
+  }
+
+  private handlePrivateJobs(jobs: JobOffer[]): JobOffer[] {
+    return this.showPrivate
+      ? jobs
+      : jobs.filter((job) => job.isPublic === true);
   }
 
   private sortJobs(jobs: JobOffer[]): JobOffer[] {

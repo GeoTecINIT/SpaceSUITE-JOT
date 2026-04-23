@@ -105,15 +105,13 @@ export class MultiselectChipsComponent implements OnInit {
         break;
 
       case 'languages':
-        this.languagesService
-          .getLanguages()
-          .subscribe(
-            (languages) =>
-              (this.multiselectOptions = languages.map((l) => ({
-                label: l.name,
-                value: l.name,
-              }))),
-          );
+        this.languagesService.getLanguages().subscribe(
+          (languages) =>
+            (this.multiselectOptions = languages.map((l) => ({
+              label: l.name,
+              value: l.name,
+            }))),
+        );
 
         break;
     }

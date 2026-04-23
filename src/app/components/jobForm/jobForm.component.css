@@ -1,69 +1,3 @@
-.custom-button-2 {
-  --p-button-text-primary-color: var(--secondary-color);
-  --p-button-text-primary-hover-background: color-mix(
-    in srgb,
-    var(--secondary-color) 10%,
-    rgba(255, 255, 255, 0) 90%
-  );
-  --p-button-text-primary-active-background: color-mix(
-    in srgb,
-    var(--secondary-color) 20%,
-    rgba(255, 255, 255, 0) 80%
-  );
-}
-
-.custom-textarea {
-  --p-textarea-invalid-placeholder-color: var(--danger-color);
-  --p-textarea-invalid-border-color: var(--danger-color);
-}
-
-.custom-textarea:hover,
-.custom-textarea:focus {
-  border-color: var(--hover-color) !important;
-}
-
-.textarea-length {
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.75rem;
-  font-size: 0.75rem;
-  color: #64748b;
-  pointer-events: none;
-}
-
-.danger {
-  color: var(--danger-color);
-}
-
-.custom-fileupload {
-  --p-fileupload-color: var(--primary-color);
-  --p-fileupload-header-color: var(--primary-color);
-  --p-button-text-danger-color: var(--danger-color);
-  --p-fileupload-border-color: #cbd5e1;
-  --p-fileupload-content-padding: 0;
-}
-
-.custom-fileupload:hover {
-  --p-fileupload-border-color: var(--hover-color);
-}
-
-::ng-deep .p-fileupload-advanced {
-  transition: border-color 0.2s;
-}
-
-.custom-stepper {
-  --p-stepper-step-number-active-color: var(--hover-color);
-  --p-stepper-step-title-active-color: var(--hover-color);
-  --p-stepper-separator-active-background: var(--hover-color);
-  width: 50vw;
-}
-
-@media (max-width: 992px) {
-  .custom-stepper {
-    width: 100%;
-  }
-}
-
 .custom-datepicker {
   --p-datepicker-select-month-color: var(--primary-color);
   --p-datepicker-select-year-color: var(--primary-color);
@@ -86,6 +20,52 @@
 
 .custom-datepicker-icon-error {
   --p-datepicker-input-icon-color: var(--danger-color);
+}
+
+.custom-fileupload {
+  --p-fileupload-color: var(--primary-color);
+  --p-fileupload-header-color: var(--primary-color);
+  --p-button-text-danger-color: var(--danger-color);
+  --p-fileupload-border-color: #cbd5e1;
+  --p-fileupload-content-padding: 0;
+}
+
+.custom-fileupload:hover {
+  --p-fileupload-border-color: var(--hover-color);
+}
+
+.custom-stepper {
+  --p-stepper-step-number-active-color: var(--hover-color);
+  --p-stepper-step-title-active-color: var(--hover-color);
+  --p-stepper-separator-active-background: var(--hover-color);
+  width: 50vw;
+}
+
+.custom-textarea {
+  --p-textarea-invalid-placeholder-color: var(--danger-color);
+  --p-textarea-invalid-border-color: var(--danger-color);
+}
+
+.custom-textarea:hover,
+.custom-textarea:focus {
+  border-color: var(--hover-color) !important;
+}
+
+.danger {
+  color: var(--danger-color);
+}
+
+.textarea-length {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  pointer-events: none;
+}
+
+::ng-deep .p-fileupload-advanced {
+  transition: border-color 0.2s;
 }
 
 ::ng-deep .p-toast-close-button .p-button-label {
@@ -142,4 +122,10 @@
 
 ::ng-deep .p-togglebutton {
   flex: auto;
+}
+
+@media (max-width: 992px) {
+  .custom-stepper {
+    width: 100%;
+  }
 }

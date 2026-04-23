@@ -209,7 +209,7 @@
   <div>
     <text-chips
       fieldName="Skills *"
-      [icon]="'pi pi-book'"
+      icon="pi pi-book"
       [(chips)]="job.skills"
       [(customChips)]="job.customSkills"
       [error]="errorMap.get('skills') !== undefined"
@@ -241,7 +241,7 @@
         [text]="true"
         size="small"
         (onClick)="showCustomCompetences = true"
-        class="text-button ml-auto mt-1 p-0 text-xs font-italic custom-button-2"
+        class="text-button ml-auto mt-1 p-0 text-xs font-italic custom-option"
       >
         Add custom transversal skills
       </p-button>

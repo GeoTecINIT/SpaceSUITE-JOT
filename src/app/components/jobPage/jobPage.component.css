@@ -34,32 +34,6 @@
   --p-progressbar-height: 0.5rem;
 }
 
-.delete-button {
-  --p-button-primary-background: var(--danger-color);
-  --p-button-primary-border-color: var(--danger-color);
-  --p-button-primary-focus-ring-color: var(--danger-color);
-  --p-button-primary-hover-background: color-mix(
-    in srgb,
-    var(--danger-color) 90%,
-    black 10%
-  );
-  --p-button-primary-hover-border-color: color-mix(
-    in srgb,
-    var(--danger-color) 90%,
-    black 10%
-  );
-  --p-button-primary-active-background: color-mix(
-    in srgb,
-    var(--danger-color) 70%,
-    black 30%
-  );
-  --p-button-primary-active-border-color: color-mix(
-    in srgb,
-    var(--danger-color) 80%,
-    black 20%
-  );
-}
-
 .popover-element:hover {
   color: var(--hover-color);
   cursor: pointer;
