@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { AuthService, ExitWithoutSavingService } from '@eo4geo/ngx-bok-utils';
 import {
   ConfirmationService,
@@ -153,8 +153,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private formType: FormType = FormType.Create;
 
-  private origin: string = '';
-  private jobId: string = '';
+  private previousNavigationUrl?: UrlTree;
 
   constructor(
     private exitWithoutSavingService: ExitWithoutSavingService,
@@ -173,9 +172,6 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.origin = this.route.snapshot.queryParamMap.get('origin') || '';
-    this.jobId = this.route.snapshot.paramMap.get('jobId') || '';
-
     this.formType = this.detectFormType(this.inputJob);
 
     this.job = new JobOffer(
@@ -243,6 +239,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.exitWithoutSavingService.showModalSubject.subscribe((value) => {
       if (value) this.confirmExitWithoutSaving();
     });
+
+    this.previousNavigationUrl =
+      this.router.lastSuccessfulNavigation?.previousNavigation?.initialUrl;
   }
 
   ngAfterViewInit() {
@@ -284,13 +283,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   returnToHomepage(): void {
-    if (this.origin === 'details') {
-      this.router.navigate([`job/${this.jobId}`]);
-    } else if (this.origin === 'explorer') {
-      this.router.navigate(['job']);
-    } else {
-      this.router.navigate(['not_found']);
-    }
+    if (this.previousNavigationUrl)
+      this.router.navigateByUrl(this.previousNavigationUrl);
+    else this.router.navigate(['']);
   }
 
   submitJob(): void {

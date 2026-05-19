@@ -270,15 +270,11 @@ export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   editJob() {
-    this.router.navigate([`job/edit/${this.job?._id}`], {
-      queryParams: { origin: 'details' },
-    });
+    this.router.navigate([`job/edit/${this.job?._id}`]);
   }
 
   duplicateJob() {
-    this.router.navigate([`job/new/${this.job?._id}`], {
-      queryParams: { origin: 'details' },
-    });
+    this.router.navigate([`job/new/${this.job?._id}`]);
   }
 
   deleteModal(event: Event) {

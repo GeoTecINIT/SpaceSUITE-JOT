@@ -236,9 +236,7 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   createJobOffer(): void {
-    this.router.navigate(['job/new'], {
-      queryParams: { origin: 'explorer' },
-    });
+    this.router.navigate(['job/new']);
   }
 
   scrollToTop(): void {

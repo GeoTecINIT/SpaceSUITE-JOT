@@ -129,15 +129,11 @@ export class JobCardComponent implements OnInit {
   }
 
   editJob() {
-    this.router.navigate([`job/edit/${this.job._id}`], {
-      queryParams: { origin: 'explorer' },
-    });
+    this.router.navigate([`job/edit/${this.job._id}`]);
   }
 
   duplicateJob() {
-    this.router.navigate([`job/new/${this.job._id}`], {
-      queryParams: { origin: 'explorer' },
-    });
+    this.router.navigate([`job/new/${this.job._id}`]);
   }
 
   deleteModal(event: Event) {
