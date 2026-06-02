@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { AuthService, ExitWithoutSavingService } from '@eo4geo/ngx-bok-utils';
 import {
   ConfirmationService,
@@ -16,6 +16,7 @@ import {
   TreeNode,
 } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ChipModule } from 'primeng/chip';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DividerModule } from 'primeng/divider';
@@ -27,24 +28,38 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
+import { Select, SelectModule } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
 import { StepperModule } from 'primeng/stepper';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { catchError, finalize, of, Subscription, take } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  filter,
+  finalize,
+  map,
+  of,
+  Subscription,
+  take,
+} from 'rxjs';
 import { Filter } from '../../models/filter';
 import { FormType } from '../../models/formType';
 import { JobOffer } from '../../models/jobOffer';
 import { Dataset, Language, Tool } from '../../models/jobOfferDB';
-import { Competence, Field } from '../../models/occupationalProfile';
+import {
+  Competence,
+  Field,
+  OccupationalProfile,
+} from '../../models/occupationalProfile';
 import { DatasetsService } from '../../services/datasets.service';
 import { ESCOService } from '../../services/esco.service';
 import { FieldsService } from '../../services/fields.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
 import { LanguagesService } from '../../services/languages.service';
+import { OccupationalProfileService } from '../../services/occupationalProfile.service';
 import { ToolsService } from '../../services/tools.service';
 import { BokModalComponent } from '../bokModal/bokModal.component';
 import { CustomSelectComponent } from '../customSelect/customSelect.component';
@@ -83,6 +98,7 @@ import { TreeselectChipsComponent } from '../treeselectChips/treeselectChips.com
     SelectButton,
     IftaLabelModule,
     TreeselectChipsComponent,
+    ChipModule,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -142,6 +158,12 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   showCustomCompetences: boolean = false;
 
+  profiles: OccupationalProfile[] = [];
+  selectedProfile?: OccupationalProfile;
+  selectedProfiles: OccupationalProfile[] = [];
+
+  chipAnimations: Record<string, boolean> = {};
+
   private authSubscription!: Subscription;
   private userOrgsSubscription!: Subscription;
 
@@ -155,6 +177,8 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private previousNavigationUrl?: UrlTree;
 
+  private profileSubscription!: Subscription;
+
   constructor(
     private exitWithoutSavingService: ExitWithoutSavingService,
     private firebaseService: FirebaseService,
@@ -165,10 +189,10 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private authService: AuthService,
     private fieldsService: FieldsService,
     private escoService: ESCOService,
-    private route: ActivatedRoute,
     private datasetService: DatasetsService,
     private toolService: ToolsService,
     private languageService: LanguagesService,
+    private occupationalProfileService: OccupationalProfileService,
   ) {}
 
   ngOnInit() {
@@ -193,6 +217,17 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
           this.router.navigate(['job']);
         }
       });
+
+    this.profileSubscription = combineLatest([
+      this.firebaseService
+        .getUserOrganizationList()
+        .pipe(map((orgs) => orgs.map((o) => o._id))),
+      this.occupationalProfileService
+        .getOccupationalProfiles()
+        .pipe(filter((profiles) => profiles !== undefined)),
+    ]).subscribe(([orgs, profiles]) => {
+      this.filterProfiles(profiles, orgs);
+    });
 
     this.userOrgsSubscription = this.firebaseService
       .getUserOrganizationList()
@@ -253,6 +288,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
     this.userOrgsSubscription.unsubscribe();
+    this.profileSubscription.unsubscribe();
   }
 
   onOrganizationChange(newValue: { label: string; value: string }): void {
@@ -272,14 +308,12 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.job.skills = skills;
   }
 
-  onDeletedConcept(skills: string[]): void {
-    const matchedSkills = skills.filter((skill) =>
-      this.job.skills.includes(skill),
+  onDeletedConcept(label: string): void {
+    const matchedSkills = this.job.skills.filter((skill) =>
+      skill.startsWith(`[${label}]`),
     );
 
-    if (matchedSkills.length > 0) {
-      this.confirmDeleteConcept(matchedSkills);
-    }
+    if (matchedSkills.length > 0) this.confirmDeleteConcept(matchedSkills);
   }
 
   returnToHomepage(): void {
@@ -372,6 +406,79 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         closable: true,
       });
     }
+  }
+
+  onProfileChange(
+    selectedProfile: OccupationalProfile,
+    profileSelect: Select,
+  ): void {
+    if (!selectedProfile) return;
+    if (this.selectedProfiles.includes(selectedProfile)) {
+      this.chipAnimations[selectedProfile._id] = true;
+
+      setTimeout(() => {
+        this.chipAnimations[selectedProfile._id] = false;
+      }, 800);
+      profileSelect.clear();
+      return;
+    }
+
+    this.selectedProfiles.push(selectedProfile);
+
+    this.job.title === ''
+      ? (this.job.title = selectedProfile.title)
+      : (this.job.title += ' ' + selectedProfile?.title);
+
+    this.job.eqf = 'EQF ' + selectedProfile.eqf;
+
+    this.job.description === ''
+      ? (this.job.description = selectedProfile.description)
+      : (this.job.description += '\n' + selectedProfile.description);
+
+    this.fieldNames = [
+      ...new Set([
+        ...this.fieldNames,
+        ...selectedProfile.fields.map((field) => field.name),
+      ]),
+    ];
+
+    this.job.knowledge = [
+      ...new Set([...this.job.knowledge, ...selectedProfile.knowledge]),
+    ];
+
+    this.job.skills = [
+      ...new Set([...this.job.skills, ...selectedProfile.skills]),
+    ];
+
+    this.job.customSkills = [
+      ...new Set([...this.job.customSkills, ...selectedProfile.customSkills]),
+    ];
+
+    const labels = selectedProfile.competences
+      .map((c) => c.preferredLabel)
+      .filter((label) => this.labelInTree(this.competenceTree, label));
+
+    this.competenceLabels = [...new Set([...this.competenceLabels, ...labels])];
+
+    this.customCompetences = [
+      ...new Set([
+        ...this.customCompetences,
+        ...selectedProfile!.customCompetences,
+      ]),
+    ];
+    this.showCustomCompetences = this.customCompetences.length > 0;
+
+    this.chipAnimations[selectedProfile._id] = false;
+
+    profileSelect.clear();
+  }
+
+  private labelInTree(tree: TreeNode[], label: string): boolean {
+    return tree.some((node) => {
+      if (node.label === label) return true;
+
+      return node.children?.length && this.labelInTree(node.children, label);
+    });
   }
 
   private detectFormType(job?: JobOffer): FormType {
@@ -478,5 +585,21 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         )),
       reject: () => {},
     });
+  }
+
+  private filterProfiles(
+    profiles: OccupationalProfile[],
+    orgs: string[],
+  ): void {
+    const userId = this.firebaseService.getUserData()?.uid;
+    if (userId) {
+      this.profiles = profiles.filter((profile) => {
+        return (
+          profile.isPublic ||
+          profile.userId === userId ||
+          orgs.includes(profile.orgId)
+        );
+      });
+    }
   }
 }

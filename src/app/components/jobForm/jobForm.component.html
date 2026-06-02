@@ -4,6 +4,46 @@
 
 <h2 class="flex justify-content-center mb-4">{{ pageName }}</h2>
 
+<div class="flex flex-column gap-2">
+  <div class="flex gap-2 align-items-center">
+    Load data from profiles:
+    <p-select
+      #profileSelect
+      class="custom-select"
+      [options]="profiles"
+      [(ngModel)]="selectedProfile"
+      (onChange)="onProfileChange($event.value, profileSelect)"
+      [checkmark]="true"
+      placeholder="Select one or more profiles"
+      optionLabel="title"
+      pTooltip="Add data from profiles. Each selection concatenates the profile's data to the fields."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    >
+      <ng-template let-option pTemplate="option">
+        <span>{{ option.title + " (" + option.orgName + ")" }}</span>
+      </ng-template>
+    </p-select>
+  </div>
+
+  @if (selectedProfiles.length) {
+    <div class="flex flex-wrap gap-2 align-items-center">
+      Job Offer based on:
+
+      @for (profile of selectedProfiles; track profile._id) {
+        <p-chip
+          class="custom-chip"
+          [label]="profile.title + ' (' + profile.orgName + ')'"
+          [class.chip-animation]="chipAnimations[profile._id]"
+        />
+      }
+    </div>
+  }
+</div>
+
+<p-divider class="my-5" />
+
 <div class="flex flex-column gap-3">
   <div class="flex flex-column">
     <p-floatlabel variant="on" class="custom-floatlabel">

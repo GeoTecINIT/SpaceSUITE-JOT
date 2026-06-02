@@ -73,6 +73,11 @@ export class JobOfferService {
       !job.description.trim(),
       'Description is required.',
     );
+    setError(
+      'description',
+      job.description.length > 2000,
+      'Description cannot be longer than 2000 characters.',
+    );
     setError('eqf', !job.eqf.trim(), 'EQF level is required.');
     setError('organization', !job.orgId?.trim(), 'Organization is required.');
     setError('location', !job.location.trim(), 'Location is required.');
