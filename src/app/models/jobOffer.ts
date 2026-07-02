@@ -38,4 +38,24 @@ export class JobOffer extends OccupationalProfile {
     this.typeContract = data.typeContract ?? '';
     this.yearsExperience = data.yearsExperience ?? 0;
   }
+
+  override toPlain(): Record<string, any> {
+    return {
+      ...super.toPlain(),
+      additionalQuestions: this.additionalQuestions,
+      contactDetails: this.contactDetails,
+      currency: this.currency,
+      dataRequired: this.dataRequired,
+      dedication: this.dedication,
+      languages: this.languages,
+      location: this.location,
+      motivationLetter: this.motivationLetter,
+      profiles: this.profiles,
+      salaryMax: this.salaryMax,
+      salaryMin: this.salaryMin,
+      toolsRequired: this.toolsRequired,
+      typeContract: this.typeContract,
+      yearsExperience: this.yearsExperience,
+    };
+  }
 }

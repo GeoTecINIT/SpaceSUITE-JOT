@@ -251,6 +251,27 @@ export class JobCardComponent implements OnInit {
     document.body.style.cursor = '';
   }
 
+  downloadJSON() {
+    this.op.hide();
+
+    const fileName = (this.job.title || 'default_name')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '_')
+      .replace(/[^\w_-]/g, '')
+      .toLowerCase();
+
+    const plainOffer = this.job.toPlain();
+    delete plainOffer['_id'];
+    delete plainOffer['userId'];
+    delete plainOffer['orgId'];
+    const jsonStr = JSON.stringify(plainOffer, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+
+    this.downloadURI(url, fileName + '_jobOffer.json');
+  }
+
   private downloadURI(uri: string, name: string): void {
     const link = document.createElement('a');
     link.download = name;
