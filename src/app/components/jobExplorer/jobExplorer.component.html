@@ -1,0 +1,106 @@
+<p-toast class="custom-toast" position="bottom-right" />
+
+<p-confirmdialog />
+
+<div #container class="flex flex-column xl:flex-row gap-4 m-2">
+  <filters
+    class="flex justify-content-center"
+    [bokConcepts]="bokConcepts"
+    [loading]="loading"
+    [logged]="isLogged()"
+    [multiSelectOptions]="filterOptions"
+    [searchOption]="searchOption"
+    [searchValue]="searchValue"
+    [showPrivate]="showPrivate"
+    [visibilityFilter]="visibilityFilter"
+    (bokConceptsChange)="setBoKConcepts($event)"
+    (multiSelectOptionsChange)="filterPipeline()"
+    (searchOptionChange)="setSearchOption($event)"
+    (searchValueChange)="setSearchValue($event)"
+    (showPrivateChange)="setPrivateFilter($event)"
+    (visibilityFilterChange)="setVisibilityFilter($event)"
+  />
+
+  <p-divider layout="vertical" class="hidden xl:flex" />
+  <p-divider class="flex xl:hidden" />
+
+  <div class="flex flex-column w-full">
+    <p-buttongroup class="ml-auto mt-2 align-self-center">
+      <p-button
+        severity="secondary"
+        (click)="switchSortOrientation()"
+        [icon]="sortAsc ? 'pi pi-sort-amount-up' : 'pi pi-sort-amount-down'"
+        size="small"
+        [label]="'Order By ' + sortOption"
+        class="custom-secondary-button"
+      />
+
+      <p-button
+        severity="secondary"
+        (click)="menu.toggle($event)"
+        icon="pi pi-chevron-down"
+        class="flex custom-secondary-button"
+        size="small"
+      />
+    </p-buttongroup>
+
+    <p-menu #menu [model]="sortOptions" popup styleClass="!min-w-fit">
+      <ng-template #item let-item>
+        <a
+          pRipple
+          class="flex items-center p-menu-item-link"
+          (click)="setSortOption(item.label)"
+        >
+          <i
+            class="w-1rem"
+            [ngClass]="item.label == sortOption ? 'pi pi-check' : ''"
+          ></i>
+
+          <span class="ml-2">{{ item.label }}</span>
+        </a>
+      </ng-template>
+    </p-menu>
+
+    <p-divider />
+
+    @if (loading) {
+      <div class="flex flex-column gap-3">
+        @for (item of skeletonElements; track $index) {
+          <p-skeleton width="100%" height="11rem" borderRadius="12px" />
+        }
+      </div>
+    } @else if (filteredJobs.length === 0) {
+      <p class="font-italic mx-auto">No jobs found</p>
+    } @else {
+      <div class="flex flex-column gap-4">
+        <div class="flex flex-column gap-3">
+          @for (job of paginatedJobs; track job._id) {
+            <job-card [job]="job" [logged]="isLogged()" />
+          }
+        </div>
+
+        <p-paginator
+          class="custom-paginator"
+          [first]="first"
+          [rows]="rows"
+          [totalRecords]="filteredJobs.length"
+          (onPageChange)="onPageChange($event); scrollToTop()"
+        />
+      </div>
+    }
+  </div>
+</div>
+
+@if (isLogged()) {
+  <div
+    class="floating-container flex flex-column gap-2 align-items-end"
+    [ngStyle]="{ bottom: buttonBottom + 'px' }"
+  >
+    <p-button
+      class="custom-button floating-button"
+      icon="pi pi-plus"
+      label="Add Job"
+      (click)="createJobOffer()"
+    />
+  </div>
+}

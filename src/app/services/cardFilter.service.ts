@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { PaginatorState } from 'primeng/paginator';
 import { combineLatest, map, Observable, ReplaySubject } from 'rxjs';
 import { Filter } from '../models/filter';
-import { OccupationalProfile } from '../models/occupationalProfile';
-import { OccupationalProfileService } from './occupationalProfile.service';
+import { JobOffer } from '../models/jobOffer';
+import { JobOfferService } from './jobOffer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,7 @@ export class CardFilterService {
   paginatorState: PaginatorState = {};
   searchOption: string = 'Title';
   searchValue: string = '';
+  showPrivate: boolean = false;
   visibilityFilter: string = 'all';
 
   private filtersSubject: ReplaySubject<Filter[]> = new ReplaySubject<Filter[]>(
@@ -22,11 +23,11 @@ export class CardFilterService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly profileService: OccupationalProfileService,
+    private readonly jobService: JobOfferService,
   ) {
     combineLatest([
       this.http.get<Filter[]>('/assets/filters.json'),
-      this.profileService.getOrganizations(),
+      this.jobService.getOrganizations(),
     ])
       .pipe(
         map(([filters, organizations]) => {
@@ -39,15 +40,14 @@ export class CardFilterService {
       .subscribe(this.filtersSubject);
   }
 
-  checkProfile(profile: OccupationalProfile, filter: Filter): boolean {
+  checkJob(job: JobOffer, filter: Filter): boolean {
     switch (filter.label) {
       case 'EQF Level':
-        return filter.selection.some((s) => profile.eqf === s.slice(-1));
+        return filter.selection.some((s) => job.eqf === s.slice(-1));
 
       case 'Organizations':
         return filter.selection.some(
-          (s) =>
-            profile.orgName?.trim().toLowerCase() === s.trim().toLowerCase(),
+          (s) => job.orgName?.trim().toLowerCase() === s.trim().toLowerCase(),
         );
 
       default:

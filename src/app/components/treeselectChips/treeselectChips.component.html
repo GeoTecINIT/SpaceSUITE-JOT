@@ -10,12 +10,12 @@
     <p-treeselect
       #treeSelect
       [options]="treeNodes"
-      [(ngModel)]="treeSelection"
+      [ngModel]="treeSelection"
       inputId="{{ fieldName }}"
       class="w-full custom-treeselect"
-      (onNodeSelect)="addChip($event.node.label!)"
+      (ngModelChange)="treeselectChange($event)"
       (onNodeUnselect)="deleteChip($event.node.label!)"
-      (onClear)="treeSelect.hide(); clear()"
+      (onClear)="treeSelect.hide()"
       [class.invalid-treeselect]="error"
       [filter]="true"
       resetFilterOnHide="true"

@@ -2,43 +2,101 @@
 
 <p-confirmdialog />
 
-@if (profile) {
+@if (job) {
   <div class="flex flex-column gap-2">
-    <h1 class="mb-0">{{ profile.title }}</h1>
+    <h1 class="mb-0">{{ job.title }}</h1>
 
     <div class="flex flex-wrap gap-2 text-sm">
       <span class="white-space-nowrap">
-        <strong>Last updated: </strong>
-        {{ profile.updatedAt?.toDate().toLocaleDateString() }}
+        <strong>Last updated:</strong>
+
+        {{ job.updatedAt?.toDate().toLocaleDateString() }}
       </span>
       |
       <span class="white-space-nowrap">
-        <strong>Visibility: </strong>
-        {{ profile.isPublic ? "Public" : "Private" }}
+        <strong>Visibility:</strong>
+
+        {{ job.isPublic ? "Public" : "Private" }}
       </span>
       |
       <span class="white-space-nowrap">
-        <strong>EQF Level: </strong>
-        {{ profile.eqf }}
+        <strong>EQF Level:</strong>
+
+        {{ job.eqf }}
       </span>
       |
       <span class="white-space-nowrap">
-        <strong>Organization: </strong>
-        {{ profile.orgName }}
+        <strong>Experience:</strong>
+
+        {{ job.yearsExperience }}
+        {{ job.yearsExperience === 1 ? "year" : "years" }}
+      </span>
+      |
+
+      @if (validSalary) {
+        <strong class="white-space-nowrap">
+          {{ job.salaryMin }} - {{ job.salaryMax }}
+          {{ job.currency }}
+        </strong>
+        |
+      }
+
+      @if (job.location !== "") {
+        <i class="pi pi-map-marker"></i>
+
+        <strong>{{ job.location }}</strong>
+        |
+      }
+
+      @if (job.dedication !== "") {
+        <strong class="white-space-nowrap">
+          {{ job.dedication }}
+        </strong>
+        |
+      }
+
+      @if (job.typeContract !== "") {
+        <strong class="white-space-nowrap">
+          {{ job.typeContract }}
+        </strong>
+        |
+      }
+
+      <span class="white-space-nowrap">
+        <strong>Motivation letter?</strong>
+
+        {{ job.motivationLetter ? "Yes" : "No" }}
       </span>
       |
       <span class="white-space-nowrap">
-        <strong>Division: </strong>
-        {{ profile.division || "-" }}
+        <strong>Organization:</strong>
+
+        {{ job.orgName }}
+      </span>
+      |
+      <span class="white-space-nowrap">
+        <strong>Division:</strong>
+
+        {{ job.division || "-" }}
       </span>
     </div>
 
-    <div class="flex flex-column xl:flex-row gap-2 xl:gap-4">
-      <div class="xl:w-9 text-justify">
-        {{ profile.description }}
+    <div
+      [class]="
+        applicationDomains.length > 4
+          ? 'flex flex-column gap-3'
+          : 'flex flex-column xl:flex-row gap-3 xl:gap-4'
+      "
+    >
+      <div
+        [class]="
+          applicationDomains.length > 4 ? 'text-justify' : 'xl:w-9 text-justify'
+        "
+      >
+        {{ job.description }}
       </div>
 
-      <div class="xl:w-3">
+      <div [class]="applicationDomains.length > 4 ? '' : 'xl:w-3'">
         <strong>Application domain(s):</strong>
 
         <ul class="m-0">
@@ -70,7 +128,11 @@
         </ng-template>
 
         <div class="flex flex-column xl:flex-row gap-3">
-          <skill-tags class="xl:w-9" [tags]="concepts" [compactBoKTags]="true"></skill-tags>
+          <skill-tags
+            class="xl:w-9"
+            [tags]="concepts"
+            [compactBoKTags]="true"
+          ></skill-tags>
 
           <div class="flex flex-column xl:w-3">
             @for (item of knowledgeDistributionArray; track $index) {
@@ -163,10 +225,132 @@
         </div>
       </p-panel>
 
-      <div class="xl:hidden flex flex-column gap-2 mb-2">
+      <div class="flex flex-column my-2 gap-3 xl:flex-row">
+        <p-panel
+          #datasetPanel
+          class="custom-panel w-full"
+          [header]="`Datasets Knowledge (${datasets.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(datasets.length)"
+        >
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                datasetPanel.collapsed
+                  ? 'pi pi-chevron-down'
+                  : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
+            />
+          </ng-template>
+
+          <div
+            [class]="
+              overTagLimit(datasets.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
+            "
+          >
+            @for (dataset of datasets; track dataset.url) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="dataset.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
+
+        <p-panel
+          #toolPanel
+          class="custom-panel w-full"
+          [header]="`Tools Knowledge (${tools.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(tools.length)"
+        >
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                toolPanel.collapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
+            />
+          </ng-template>
+
+          <div
+            [class]="
+              overTagLimit(tools.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
+            "
+          >
+            @for (tool of tools; track tool.url) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="tool.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
+
+        <p-panel
+          #languagePanel
+          class="custom-panel w-full"
+          [header]="`Languages (${languages.length})`"
+          [toggleable]="true"
+          [collapsed]="overTagLimit(languages.length)"
+        >
+          <ng-template #headericons>
+            <p-button
+              [icon]="
+                languagePanel.collapsed
+                  ? 'pi pi-chevron-down'
+                  : 'pi pi-chevron-up'
+              "
+              severity="secondary"
+              text
+            />
+          </ng-template>
+
+          <div
+            [class]="
+              overTagLimit(languages.length)
+                ? 'flex flex-column align-items-start gap-2'
+                : 'flex flex-wrap gap-2'
+            "
+          >
+            @for (language of languages; track language.code) {
+              <p-tag
+                class="tag skill-tag"
+                [value]="language.name"
+                [rounded]="true"
+              />
+            }
+          </div>
+        </p-panel>
+      </div>
+
+      <div class="flex flex-column gap-3 text-justify">
+        <div class="flex flex-column">
+          <strong>Contact details:</strong>
+
+          {{ job.contactDetails }}
+        </div>
+
+        <div class="flex flex-column">
+          <strong>Additional information/questions:</strong>
+
+          {{ job.additionalQuestions }}
+        </div>
+      </div>
+
+      <div class="xl:hidden flex flex-column gap-2 my-2">
         <p-button
           class="flex justify-content-center custom-button"
-          label="Share Profile"
+          label="Share Job"
           icon="pi pi-share-alt"
           (onClick)="copyLink()"
         />
@@ -174,7 +358,7 @@
         <div class="flex justify-content-center">
           <p-button
             class="custom-button"
-            label="Download Profile"
+            label="Download Job"
             icon="pi pi-download"
             (onClick)="op1.toggle($event)"
           />
@@ -186,6 +370,9 @@
               <ul class="flex flex-column p-0 m-0">
                 <li class="flex p-2 popover-element" (click)="downloadPDF(op1)">
                   PDF
+                </li>
+                <li class="flex p-2 popover-element" (click)="downloadJSON(op1)">
+                  JSON
                 </li>
                 <li
                   class="flex p-2 popover-element"
@@ -213,22 +400,22 @@
         @if (isLogged()) {
           <p-button
             class="flex justify-content-center custom-button"
-            label="Duplicate Profile"
+            label="Duplicate Job"
             icon="pi pi-clone"
-            (onClick)="duplicateProfile()"
+            (onClick)="duplicateJob()"
           />
 
           @if (checkUser()) {
             <p-button
               class="flex justify-content-center custom-button"
-              label="Edit Profile"
+              label="Edit Job"
               icon="pi pi-pencil"
-              (onClick)="editProfile()"
+              (onClick)="editJob()"
             />
 
             <p-button
               class="flex justify-content-center delete-button"
-              label="Delete Profile"
+              label="Delete Job"
               icon="pi pi-trash"
               (onClick)="deleteModal($event)"
             />
@@ -245,7 +432,7 @@
       </div>
     </div>
 
-    <div class="hidden xl:flex justify-content-between mb-2">
+    <div class="hidden xl:flex justify-content-between my-2">
       <p-button
         class="custom-secondary-button"
         label="Return to Homepage"
@@ -257,7 +444,7 @@
       <div class="flex flex-wrap gap-2">
         <p-button
           class="custom-button"
-          label="Share Profile"
+          label="Share Job"
           icon="pi pi-share-alt"
           (onClick)="copyLink()"
         />
@@ -265,7 +452,7 @@
         <div>
           <p-button
             class="custom-button"
-            label="Download Profile"
+            label="Download Job"
             icon="pi pi-download"
             (onClick)="op2.toggle($event)"
           />
@@ -277,6 +464,9 @@
               <ul class="flex flex-column p-0 m-0">
                 <li class="flex p-2 popover-element" (click)="downloadPDF(op2)">
                   PDF
+                </li>
+                <li class="flex p-2 popover-element" (click)="downloadJSON(op1)">
+                  JSON
                 </li>
                 <li
                   class="flex p-2 popover-element"
@@ -304,22 +494,22 @@
         @if (isLogged()) {
           <p-button
             class="custom-button"
-            label="Duplicate Profile"
+            label="Duplicate Job"
             icon="pi pi-clone"
-            (onClick)="duplicateProfile()"
+            (onClick)="duplicateJob()"
           />
 
           @if (checkUser()) {
             <p-button
               class="custom-button"
-              label="Edit Profile"
+              label="Edit Job"
               icon="pi pi-pencil"
-              (onClick)="editProfile()"
+              (onClick)="editJob()"
             />
 
             <p-button
               class="delete-button"
-              label="Delete Profile"
+              label="Delete Job"
               icon="pi pi-trash"
               (onClick)="deleteModal($event)"
             />

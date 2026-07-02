@@ -17,8 +17,8 @@ export class JobOfferDB {
   occuProf?: OccupationalProfile;
   orgId: string;
   orgName: string;
-  salaryMax: number;
-  salaryMin: number;
+  salaryMax: number | null;
+  salaryMin: number | null;
   toolsRequired: Tool[];
   typeContract: string;
   updatedAt?: any;
@@ -42,8 +42,8 @@ export class JobOfferDB {
     this.occuProf = data.occuProf;
     this.orgId = data.orgId ?? '';
     this.orgName = data.orgName ?? '';
-    this.salaryMax = data.salaryMax ?? 0;
-    this.salaryMin = data.salaryMin ?? 0;
+    this.salaryMax = data.salaryMax ?? null;
+    this.salaryMin = data.salaryMin ?? null;
     this.toolsRequired = data.toolsRequired ?? [];
     this.typeContract = data.typeContract ?? '';
     this.updatedAt = data.updatedAt;
@@ -66,7 +66,7 @@ export class JobOfferDB {
       lastModified: this.lastModified,
       location: this.location,
       motivationLetter: this.motivationLetter,
-      occuProf: this.occuProf,
+      occuProf: this.occuProf?.toPlain(),
       orgId: this.orgId,
       orgName: this.orgName,
       salaryMax: this.salaryMax,
@@ -81,9 +81,10 @@ export class JobOfferDB {
 }
 
 export interface Dataset {
+  custom?: boolean;
   name: string;
-  opensearch_url: string;
-  url: string;
+  opensearch_url?: string;
+  url?: string;
 }
 
 export interface Language {
@@ -93,6 +94,7 @@ export interface Language {
 
 export interface Tool {
   author?: string;
+  custom?: boolean;
   format?: string;
   language?: string;
   license?: string;
@@ -101,5 +103,5 @@ export interface Tool {
   platform?: string;
   pluginof?: string;
   scope?: string;
-  url: string;
+  url?: string;
 }

@@ -1,0 +1,537 @@
+[
+  {
+    "name": "ADEOS-II",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=241",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=ADEOS-II&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "ALOS",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=242",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=ALOS&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Aqua",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=206",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Aqua&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Aura",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=207",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Aura&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "CBERS-4",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=393",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=CBERS-4&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "CFOSAT",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=723",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=CFOSAT&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Deimos-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=665",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Deimos-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "ERS-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=220",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=ERS-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "ERS-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=221",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=ERS-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Envisat",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=2",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Envisat&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "FY-3A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=366",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=FY-3A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "FY-3B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=367",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=FY-3B&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "FY-3C",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=368",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=FY-3C&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "FY-3D",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=369",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=FY-3D&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "FY-3D",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=369",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=FY-3D&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GCOM-C",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=360",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GCOM-C&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GEO-KOMPSAT-2A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=525",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GEO-KOMPSAT-2A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-10",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=94",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-10&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-11",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=95",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-11&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-12",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=96",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-12&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-13",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=495",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-13&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-14",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=266",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-14&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-15",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=335",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-15&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-16",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=470",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-16&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-17",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=546",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-17&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-8",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=200",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-8&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "GOES-9",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=222",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=GOES-9&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "HJ-1A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=463",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=HJ-1A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "HY-2A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=609",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=HY-2A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "HY-2B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=718",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=HY-2B&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "IRS-1C",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=235",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=IRS-1C&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "IRS-1D",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=274",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=IRS-1D&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "IRS-P4",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=257",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=IRS-P4&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "JERS-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=245",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=JERS-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "JPSS-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=667",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=JPSS-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Jason-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=286",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Jason-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Jason-3",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=592",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Jason-3&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Kanopus-V N3",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=792",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Kanopus-V%20N3&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Kanopus-V N4",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=793",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Kanopus-V%20N4&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Kanopus-V N6",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=795",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Kanopus-V%20N6&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Kanopus-V-IR",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=625",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Kanopus-V-IR&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Landsat 4",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=88",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=LANDSAT-4&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Landsat 5",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=226",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=LANDSAT-5&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Landsat 7",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=349",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=LANDSAT-7&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Landsat 8",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=547",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=LANDSAT-8&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-3M",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=130",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-3M&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-3M N1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=129",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-3M%20N1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-M N1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=476",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-M%20N1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-M N2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=477",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-M%20N2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-M N2-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=735",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-M%20N2-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteor-M N2-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=736",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteor-M%20N2-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteosat-10",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=260",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteosat-10&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteosat-11",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=451",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteosat-11&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteosat-8",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=229",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteosat-8&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Meteosat-9",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=259",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Meteosat-9&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Metop-A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=261",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Metop-A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Metop-B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=230",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Metop-B&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Metop-C",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=231",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Metop-C&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NMP EO-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=203",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NMP%20EO-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-10",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=98",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-10&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-11",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=99",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-11&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-13",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=101",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-13&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-14",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=224",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-14&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-15",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=225",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-15&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-16",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=104",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-16&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-17",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=105",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-17&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-18",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=106",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-18&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-19",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=113",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-19&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-7",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=513",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-7&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "NOAA-9",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=97",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=NOAA-9&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "OCEAN-01",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=134",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=OCEAN-01&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "OCEANSAT-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=551",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=OCEANSAT-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "OKEAN-01 N7",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=432",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=OKEAN-01%20N7&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "OKEAN-O",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=122",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=OKEAN-O&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "OSTM (Jason-2)",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=419",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=OSTM%20(Jason-2)&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "PROBA",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=403",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=PROBA&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RADARSAT-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=243",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RADARSAT-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RADARSAT-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=352",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RADARSAT-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RCM-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=584",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RCM-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RCM-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=585",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RCM-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RCM-3",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=586",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RCM-3&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RESOURCESAT-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=276",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RESOURCESAT-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RESOURCESAT-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=439",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RESOURCESAT-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "RESOURCESAT-2A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=710",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=RESOURCESAT-2A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Resurs-P N1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=624",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Resurs-P%20N1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Resurs-P N2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=626",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Resurs-P%20N2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Resurs-P N3",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=760",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Resurs-P%20N3&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SAC-D/Aquarius",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=453",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SAC-D/Aquarius&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SAOCOM 1A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=405",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SAOCOM%201A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SCISAT-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=394",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SCISAT-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SPOT-4",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=251",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SPOT-4&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SPOT-5",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=253",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SPOT-5&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-1 A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=575",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-1A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-1 B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=576",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-1B&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-2 A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=552",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-2 B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=553",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-3 A",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=554",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-3A&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sentinel-3 B",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=555",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SENTINEL-3B&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sich-1",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=121",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Sich-1&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sich-1M",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=318",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Sich-1M&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Sich-2",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=123",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Sich-2&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "SumbandilaSat",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=559",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=SumbandilaSat&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Suomi NPP",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=413",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Suomi%20NPP&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "TRMM",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=215",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=TRMM&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Terra",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=204",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Terra&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "Topex-Poseidon",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=210",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=Topex-Poseidon&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  },
+  {
+    "name": "UARS",
+    "url": "http://database.eohandbook.com/database/missionsummary.aspx?missionID=213",
+    "opensearch_url": "https://cmr.earthdata.nasa.gov/opensearch/collections?utf8=%E2%9C%93&clientId=our_html_ui&provider=&satellite=UARS&startTime=&endTime=&spatial_type=bbox&boundingBox=&geometry=&placeName=&uid=&numberOfResults=10&cursor=1&hasGranules=&isCwic=&isEosdis=&isCeos=&isGeoss=&commit=Search"
+  }
+]

@@ -11,7 +11,7 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { JobOfferAdapter } from '../components/adapters/jobOffer.adapter';
+import { JobOfferAdapter } from '../adapters/jobOffer.adapter';
 import { JobOffer } from '../models/jobOffer';
 
 @Injectable({
@@ -28,8 +28,8 @@ export class JobOfferService {
     this.jobOfferAdapter
       .getJobOffers()
       .pipe(
-        tap((jobOffers) => {
-          const formattedJobOffers = this.formatJobOffers(jobOffers);
+        tap((jobs) => {
+          const formattedJobOffers = this.formatJobOffers(jobs);
           const map = new Map(formattedJobOffers.map((j) => [j._id, j]));
 
           this.jobsSubject.next(map);
@@ -60,44 +60,51 @@ export class JobOfferService {
     );
   }
 
-  validateJobOffer(jobOffer: JobOffer): Map<string, string | undefined> {
+  validateJobOffer(job: JobOffer): Map<string, string | undefined> {
     const errors: Map<string, string | undefined> = new Map();
 
     const setError = (field: string, condition: boolean, message: string) => {
       errors.set(field, condition ? message : undefined);
     };
 
-    setError('title', !jobOffer.title.trim(), 'Title is required.');
+    setError('title', !job.title.trim(), 'Title is required.');
     setError(
       'description',
-      !jobOffer.description.trim(),
+      !job.description.trim(),
       'Description is required.',
     );
-    setError('eqf', !jobOffer.eqf.trim(), 'EQF level is required.');
     setError(
-      'organization',
-      !jobOffer.orgId?.trim(),
-      'Organization is required.',
+      'description',
+      job.description.length > 2000,
+      'Description cannot be longer than 2000 characters.',
     );
+    setError('eqf', !job.eqf.trim(), 'EQF level is required.');
+    setError('organization', !job.orgId?.trim(), 'Organization is required.');
+    setError('location', !job.location.trim(), 'Location is required.');
+    setError(
+      'salary',
+      job.salaryMin !== null &&
+        job.salaryMax !== null &&
+        job.salaryMin > job.salaryMax,
+      'Minimum salary cannot be greater than maximum salary.',
+    );
+    setError('dedication', !job.dedication.trim(), 'Dedication is required.');
     setError(
       'knowledge',
-      jobOffer.knowledge.length === 0,
+      job.knowledge.length === 0,
       'At least one concept is required.',
     );
     setError(
       'skills',
-      jobOffer.skills.length === 0 && jobOffer.customSkills.length === 0,
+      job.skills.length === 0 && job.customSkills.length === 0,
       'At least one skill is required.',
     );
 
     return errors;
   }
 
-  submitJobOffer(
-    jobOffer: JobOffer,
-    update: boolean = false,
-  ): Observable<string> {
-    const newJobOffer = new JobOffer(jobOffer);
+  submitJobOffer(job: JobOffer, update: boolean = false): Observable<string> {
+    const newJobOffer = new JobOffer(job);
     newJobOffer.eqf = newJobOffer.eqf.replace('EQF', '').trim();
 
     const conceptObservables =
@@ -120,13 +127,13 @@ export class JobOfferService {
     );
   }
 
-  deleteJobOffer(jobOffer: JobOffer): Observable<void> {
-    return this.jobOfferAdapter.deleteJobOffer(jobOffer);
+  deleteJobOffer(job: JobOffer): Observable<void> {
+    return this.jobOfferAdapter.deleteJobOffer(job);
   }
 
-  private formatJobOffers(jobOffers: JobOffer[]): JobOffer[] {
-    return jobOffers.map((jobOffer) => {
-      const newJobOffer = new JobOffer(jobOffer);
+  private formatJobOffers(jobs: JobOffer[]): JobOffer[] {
+    return jobs.map((job) => {
+      const newJobOffer = new JobOffer(job);
 
       newJobOffer.knowledge = this.formatFirestoreConcepts(
         newJobOffer.knowledge,

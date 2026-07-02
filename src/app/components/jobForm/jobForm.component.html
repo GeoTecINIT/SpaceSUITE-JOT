@@ -1,0 +1,563 @@
+<p-toast class="custom-toast" position="bottom-right" />
+
+<p-confirmdialog />
+
+<h2 class="flex justify-content-center mb-4">{{ pageName }}</h2>
+
+<div class="flex flex-column gap-2">
+  <div class="flex gap-2 align-items-center">
+    Load data from profiles:
+    <p-select
+      #profileSelect
+      class="custom-select"
+      [options]="profiles"
+      [(ngModel)]="selectedProfile"
+      (onChange)="onProfileChange($event.value, profileSelect)"
+      [checkmark]="true"
+      placeholder="Select one or more profiles"
+      optionLabel="title"
+      pTooltip="Add data from profiles. Each selection concatenates the profile's data to the fields."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    >
+      <ng-template let-option pTemplate="option">
+        <span>{{ option.title + " (" + option.orgName + ")" }}</span>
+      </ng-template>
+    </p-select>
+  </div>
+
+  @if (selectedProfiles.length) {
+    <div class="flex flex-wrap gap-2 align-items-center">
+      Job Offer based on:
+
+      @for (profile of selectedProfiles; track profile._id) {
+        <p-chip
+          class="custom-chip"
+          [label]="profile.title + ' (' + profile.orgName + ')'"
+          [class.chip-animation]="chipAnimations[profile._id]"
+        />
+      }
+    </div>
+  }
+</div>
+
+<p-divider class="my-5" />
+
+<div class="flex flex-column gap-3">
+  <div class="flex flex-column">
+    <p-floatlabel variant="on" class="custom-floatlabel">
+      <p-iconfield>
+        <input
+          class="custom-input w-full"
+          pInputText
+          id="title"
+          autocomplete="off"
+          [class.ng-invalid]="errorMap.get('title') !== undefined"
+          [class.ng-dirty]="errorMap.get('title') !== undefined"
+          [(ngModel)]="job.title"
+          maxlength="200"
+        />
+
+        <p-inputicon
+          [class]="
+            errorMap.get('title') !== undefined
+              ? 'danger pi pi-pencil'
+              : 'pi pi-pencil'
+          "
+        />
+      </p-iconfield>
+
+      <label for="title">Title *</label>
+    </p-floatlabel>
+
+    @if (errorMap.get("title"); as error) {
+      <span class="danger text-xs font-italic">{{ error }}</span>
+    }
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3 align-items-start">
+    <div class="flex w-full">
+      <p-selectbutton
+        [options]="visibilityFieldOptions"
+        [(ngModel)]="job.isPublic"
+        optionLabel="label"
+        optionValue="value"
+        pTooltip="Specifies whether the job offer is public or restricted to your organization."
+        [allowEmpty]="false"
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      />
+    </div>
+
+    <div class="w-full">
+      <custom-select
+        fieldName="EQF Level"
+        [(selection)]="job.eqf"
+        [allowCustom]="false"
+        icon="'pi pi-bookmark'"
+        [error]="errorMap.get('eqf') !== undefined"
+        optionsName="EQF Level"
+        pTooltip="The level of knowledge and skills of the job. Ranges from 1 (basic) to 8 (advanced)."
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      ></custom-select>
+
+      @if (errorMap.get("eqf"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="w-full">
+      <p-floatlabel
+        variant="on"
+        class="custom-floatlabel"
+        [class.invalid-floatlabel]="errorMap.get('organization') !== undefined"
+      >
+        <p-select
+          class="custom-select w-full"
+          inputId="org"
+          [options]="organizationSelector.values"
+          [ngModel]="
+            job.orgId === undefined
+              ? undefined
+              : { value: job.orgId, label: job.orgName }
+          "
+          (ngModelChange)="onOrganizationChange($event)"
+          optionLabel="label"
+          [checkmark]="true"
+          [class.invalid-select]="errorMap.get('organization') !== undefined"
+          pTooltip="The organization to which the job offer belongs."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+        />
+
+        <label for="org">{{ organizationSelector.label }} *</label>
+      </p-floatlabel>
+
+      @if (errorMap.get("organization"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="w-full">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-select
+          class="custom-select w-full"
+          [options]="divisionSelector.values"
+          [(ngModel)]="job.division"
+          [disabled]="divisionSelector.values.length === 0"
+          [checkmark]="true"
+          inputId="division"
+          pTooltip="The organization division to which the job offer belongs."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+        />
+
+        <label for="division">{{ divisionSelector.label }}</label>
+      </p-floatlabel>
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-7">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <textarea
+          class="custom-textarea w-full"
+          id="description"
+          pTextarea
+          [(ngModel)]="job.description"
+          [class.ng-invalid]="errorMap.get('description') !== undefined"
+          [class.ng-dirty]="errorMap.get('description') !== undefined"
+          rows="7"
+          pTooltip="Summary or overview of the job."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
+          maxlength="2000"
+        ></textarea>
+
+        <span
+          [class]="
+            errorMap.get('description') !== undefined
+              ? 'danger-text textarea-length'
+              : 'textarea-length'
+          "
+        >
+          {{ job.description.length + " " }} / 2000
+        </span>
+
+        <label for="description">Description *</label>
+      </p-floatlabel>
+
+      @if (errorMap.get("description"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="xl:w-5">
+      <multiselect-chips
+        optionsSource="fields"
+        fieldName="Application Domains"
+        fieldNameSingular="application domain"
+        [(chips)]="fieldNames"
+        [allowCustom]="false"
+        pTooltip="Fields of education and training of the job as defined by UNESCO's ISCED-F."
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
+      ></multiselect-chips>
+    </div>
+  </div>
+
+  <div>
+    <div
+      class="custom-border p-2"
+      style="color: #64748b"
+      [style.border-color]="
+        errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
+      "
+      pTooltip="Body of Knowledge concepts related to a field of work of the job. Related skills are automatically added."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    >
+      <bokModal
+        id="knowledge"
+        [allowKnowledgeAreas]="true"
+        label="Knowledge *"
+        [selectedConcepts]="job.knowledge"
+        [selectedSkills]="job.skills"
+        (selectedConceptsChange)="onConceptsChange($event)"
+        (selectedSkillsChange)="onSkillsChange($event)"
+        (deletedConcept)="onDeletedConcept($event)"
+        [style.color]="
+          errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
+        "
+      ></bokModal>
+    </div>
+
+    @if (errorMap.get("knowledge"); as error) {
+      <span class="danger text-xs font-italic mt-1">{{ error }}</span>
+    }
+  </div>
+
+  <div>
+    <text-chips
+      fieldName="Skills *"
+      icon="pi pi-book"
+      [(chips)]="job.skills"
+      [(customChips)]="job.customSkills"
+      [error]="errorMap.get('skills') !== undefined"
+      pTooltip="Skills associated with Body of Knowledge concepts of the job. Custom values can be manually added."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></text-chips>
+
+    @if (errorMap.get("skills"); as error) {
+      <span class="danger text-xs font-italic">{{ error }}</span>
+    }
+  </div>
+
+  <div class="flex flex-column gap-2">
+    <treeselect-chips
+      [(chips)]="this.competenceLabels"
+      [treeNodes]="competenceTree"
+      fieldName="Transversal Skills"
+      pTooltip="Skills that can be used in a wide variety of situations and work settings based on the ESCO classification. Custom values can be manually added below."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></treeselect-chips>
+
+    @if (!showCustomCompetences) {
+      <p-button
+        [rounded]="true"
+        [text]="true"
+        size="small"
+        (onClick)="showCustomCompetences = true"
+        class="text-button ml-auto mt-1 p-0 text-xs font-italic custom-option"
+      >
+        Add custom transversal skills
+      </p-button>
+    } @else {
+      <text-chips
+        fieldName="Custom Transversal Skill"
+        icon="pi pi-chart-bar"
+        [(customChips)]="customCompetences"
+      ></text-chips>
+    }
+  </div>
+
+  <div class="flex flex-column gap-3 xl:flex-row">
+    <multiselect-chips
+      class="w-full"
+      optionsSource="datasets"
+      fieldName="Datasets Knowledge"
+      fieldNameSingular="dataset"
+      [(chips)]="datasetNames"
+      [allowCustom]="true"
+      pTooltip="Required knowledge about datasets contained in the EO Handbook."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></multiselect-chips>
+
+    <multiselect-chips
+      class="w-full"
+      optionsSource="tools"
+      fieldName="Tools Knowledge"
+      fieldNameSingular="tool"
+      [(chips)]="toolNames"
+      [allowCustom]="true"
+      pTooltip="Required knowledge about tools included in INSPIRE reference and ESA Open Source Resources."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></multiselect-chips>
+
+    <multiselect-chips
+      class="w-full"
+      optionsSource="languages"
+      fieldName="Languages"
+      fieldNameSingular="language"
+      [(chips)]="languageNames"
+      [allowCustom]="false"
+      pTooltip="Required languages."
+      tooltipPosition="top"
+      showDelay="200"
+      hideDelay="200"
+    ></multiselect-chips>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="flex flex-column xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-iconfield>
+          <input
+            class="custom-input w-full"
+            pInputText
+            id="location"
+            autocomplete="off"
+            [(ngModel)]="job.location"
+            maxlength="200"
+            [class.ng-invalid]="errorMap.get('location') !== undefined"
+            [class.ng-dirty]="errorMap.get('location') !== undefined"
+          />
+
+          <p-inputicon
+            [class]="
+              errorMap.get('location') !== undefined
+                ? 'danger pi pi-pencil'
+                : 'pi pi-pencil'
+            "
+          />
+        </p-iconfield>
+
+        <label for="location">Location *</label>
+      </p-floatlabel>
+
+      @if (errorMap.get("location"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-select
+          class="custom-select w-full"
+          inputId="contractType"
+          [options]="contractType"
+          [(ngModel)]="job.typeContract"
+          optionValue="label"
+          optionLabel="label"
+          [checkmark]="true"
+        />
+
+        <label for="contractType">Type of contract</label>
+      </p-floatlabel>
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <p-inputnumber
+          class="custom-input"
+          id="experience"
+          [min]="0"
+          [max]="100"
+          [showButtons]="true"
+          [(ngModel)]="job.yearsExperience"
+          fluid
+          [allowEmpty]="false"
+        />
+
+        <label for="experience">Years of experience</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="flex flex-column xl:w-6">
+      <div class="flex gap-3">
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-inputnumber
+              class="custom-input"
+              id="salaryMin"
+              [min]="0"
+              [showButtons]="true"
+              [(ngModel)]="job.salaryMin"
+              fluid
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+              pTooltip="Annual minimum salary."
+              [allowEmpty]="true"
+              [class.ng-invalid]="errorMap.get('salary') !== undefined"
+              [class.ng-dirty]="errorMap.get('salary') !== undefined"
+            />
+
+            <label for="salaryMin">Min salary</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-inputnumber
+              class="custom-input"
+              id="salaryMax"
+              [min]="0"
+              [showButtons]="true"
+              [(ngModel)]="job.salaryMax"
+              fluid
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+              pTooltip="Annual maximum salary."
+              [allowEmpty]="true"
+              [class.ng-invalid]="errorMap.get('salary') !== undefined"
+              [class.ng-dirty]="errorMap.get('salary') !== undefined"
+            />
+
+            <label for="salaryMax">Max salary</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full">
+          <p-floatlabel variant="on" class="custom-floatlabel">
+            <p-select
+              class="custom-select w-full"
+              inputId="currency"
+              [options]="currency"
+              [(ngModel)]="job.currency"
+              optionValue="value"
+              optionLabel="label"
+              [checkmark]="true"
+              pTooltip="Currency of the salary."
+              tooltipPosition="top"
+              showDelay="200"
+              hideDelay="200"
+            />
+
+            <label for="currency">Currency</label>
+          </p-floatlabel>
+        </div>
+      </div>
+
+      @if (errorMap.get("salary"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3 align-items-start">
+    <div class="flex flex-column align-items-center xl:w-6 w-full">
+      <div class="flex gap-2 align-items-center w-full">
+        <span>Dedication *:</span>
+
+        <p-selectbutton
+          [options]="dedication"
+          [(ngModel)]="job.dedication"
+          optionLabel="label"
+          optionValue="label"
+          [allowEmpty]="false"
+          [class.ng-invalid]="errorMap.get('dedication') !== undefined"
+          [class.ng-dirty]="errorMap.get('dedication') !== undefined"
+        />
+      </div>
+
+      @if (errorMap.get("dedication"); as error) {
+        <span class="danger text-xs font-italic">{{ error }}</span>
+      }
+    </div>
+
+    <div class="flex gap-2 align-items-center xl:w-6 w-full">
+      <span>Ask for motivation letter?</span>
+
+      <p-selectbutton
+        [options]="motivationLetterOptions"
+        [(ngModel)]="job.motivationLetter"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+      />
+    </div>
+  </div>
+
+  <div class="flex flex-column xl:flex-row gap-3">
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <textarea
+          class="custom-textarea w-full"
+          id="contactDetails"
+          pTextarea
+          [(ngModel)]="job.contactDetails"
+          rows="2"
+          maxlength="200"
+        ></textarea>
+
+        <span class="textarea-length">
+          {{ job.contactDetails.length + " " }} / 200
+        </span>
+
+        <label for="contactDetails">Contact details</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="xl:w-6">
+      <p-floatlabel variant="on" class="custom-floatlabel">
+        <textarea
+          class="custom-textarea w-full"
+          id="additionalInfo"
+          pTextarea
+          [(ngModel)]="job.additionalQuestions"
+          rows="2"
+          maxlength="200"
+        ></textarea>
+
+        <span class="textarea-length">
+          {{ job.additionalQuestions.length + " " }} / 200
+        </span>
+
+        <label for="additionalInfo">Additional information/questions</label>
+      </p-floatlabel>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-content-between my-2">
+  <p-button
+    class="custom-secondary-button"
+    label="Return"
+    severity="secondary"
+    icon="pi pi-arrow-left"
+    (onClick)="returnToHomepage()"
+  />
+
+  <p-button class="custom-button" label="Submit" (onClick)="submitJob()" />
+</div>

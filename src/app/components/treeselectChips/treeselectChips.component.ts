@@ -49,37 +49,50 @@ export class TreeselectChipsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['treeNodes']?.currentValue?.length) {
-      this.treeSelection = this.getTreeSelection(
-        changes['treeNodes'].currentValue,
-        this.chips,
-      );
+    if (changes['treeNodes']) {
+      const currentValue: TreeNode[] = changes['treeNodes'].currentValue;
+      this.treeSelection = this.getTreeSelection(currentValue, this.chips);
     }
-  }
+    if (changes['chips'] && !changes['chips'].firstChange) {
+      const currentValue: string[] = changes['chips'].currentValue;
 
-  addChip(chip: string): void {
-    if (!this.chips.includes(chip)) {
-      this.chips.push(chip);
-      this.chipsChange.emit(this.chips);
+      if (
+        this.treeSelection.some(
+          (node) => !currentValue.includes(node.label!),
+        ) ||
+        currentValue.some(
+          (chip) => !this.treeSelection.some((node) => node.label === chip),
+        )
+      ) {
+        const seen = new Set<string>();
+        const selection = this.getTreeSelection(
+          this.treeNodes,
+          currentValue,
+        ).filter((node) => {
+          if (seen.has(node.label!)) return false;
 
-      const duplicates = this.getTreeSelection(this.treeNodes, [chip]).filter(
-        (n) => n.key !== this.treeSelection[this.treeSelection.length - 1].key,
-      );
+          seen.add(node.label!);
+          return true;
+        });
 
-      if (duplicates.length) {
-        this.treeSelection = this.treeSelection.concat(duplicates);
+        this.treeSelection = this.getTreeSelection(
+          this.treeNodes,
+          currentValue,
+        );
       }
     }
   }
 
   deleteChip(chip: string): void {
-    this.chips = this.chips.filter((c) => c !== chip);
-    this.chipsChange.emit(this.chips);
-    this.treeSelection = this.treeSelection.filter((n) => n.label !== chip);
+    this.treeSelection = this.treeSelection.filter(
+      (node) => node.label !== chip,
+    );
+    this.chipsChange.emit(this.chips.filter((value) => value !== chip));
   }
 
-  clear(): void {
-    this.chips = [];
+  treeselectChange(values: TreeNode[]) {
+    this.treeSelection = values || [];
+    this.chips = [...new Set(this.treeSelection.map((node) => node.label!))];
     this.chipsChange.emit(this.chips);
   }
 

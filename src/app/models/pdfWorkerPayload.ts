@@ -1,7 +1,7 @@
-import { OccupationalProfile } from './occupationalProfile';
+import { JobOffer } from './jobOffer';
 
 export interface PdfWorkerPayload {
-  profile: OccupationalProfile;
+  offer: JobOffer;
   scaleFactor: number;
   assets: {
     poppinsRegular?: string;

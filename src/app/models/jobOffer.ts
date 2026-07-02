@@ -11,15 +11,19 @@ export class JobOffer extends OccupationalProfile {
   location: string;
   motivationLetter: boolean;
   profiles: string[];
-  salaryMax: number;
-  salaryMin: number;
+  salaryMax: number | null;
+  salaryMin: number | null;
   toolsRequired: Tool[];
   typeContract: string;
   yearsExperience: number;
 
   constructor(data: Partial<JobOffer> = {}) {
-    super();
-    this.additionalQuestions = data.additionalQuestions ?? '';
+    super(data);
+    if (Array.isArray(data.additionalQuestions)) {
+      this.additionalQuestions = '';
+    } else {
+      this.additionalQuestions = data.additionalQuestions ?? '';
+    }
     this.contactDetails = data.contactDetails ?? '';
     this.currency = data.currency ?? '';
     this.dataRequired = data.dataRequired ?? [];
@@ -28,10 +32,30 @@ export class JobOffer extends OccupationalProfile {
     this.location = data.location ?? '';
     this.motivationLetter = data.motivationLetter ?? false;
     this.profiles = data.profiles ?? [];
-    this.salaryMax = data.salaryMax ?? 0;
-    this.salaryMin = data.salaryMin ?? 0;
+    this.salaryMax = data.salaryMax ?? null;
+    this.salaryMin = data.salaryMin ?? null;
     this.toolsRequired = data.toolsRequired ?? [];
     this.typeContract = data.typeContract ?? '';
     this.yearsExperience = data.yearsExperience ?? 0;
+  }
+
+  override toPlain(): Record<string, any> {
+    return {
+      ...super.toPlain(),
+      additionalQuestions: this.additionalQuestions,
+      contactDetails: this.contactDetails,
+      currency: this.currency,
+      dataRequired: this.dataRequired,
+      dedication: this.dedication,
+      languages: this.languages,
+      location: this.location,
+      motivationLetter: this.motivationLetter,
+      profiles: this.profiles,
+      salaryMax: this.salaryMax,
+      salaryMin: this.salaryMin,
+      toolsRequired: this.toolsRequired,
+      typeContract: this.typeContract,
+      yearsExperience: this.yearsExperience,
+    };
   }
 }
