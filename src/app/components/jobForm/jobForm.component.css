@@ -112,10 +112,6 @@
   );
 }
 
-::ng-deep .p-selectbutton {
-  flex: auto;
-}
-
 ::ng-deep p-togglebutton {
   flex: auto;
 }

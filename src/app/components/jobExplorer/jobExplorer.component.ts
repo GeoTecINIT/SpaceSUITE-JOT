@@ -60,7 +60,7 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   filterOptions: Filter[] = [];
   searchOption: string = 'Title';
   searchValue: string = '';
-  showPrivate: boolean = false;
+  hidePrivate: boolean = true;
   visibilityFilter: string = 'all';
   filteredJobs: JobOffer[] = [];
 
@@ -110,11 +110,10 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.visibilityFilter = 'all';
         this.filterService.visibilityFilter = 'all';
 
-        this.showPrivate = false;
-        this.filterService.showPrivate = false;
+        this.hidePrivate = true;
       } else {
         this.visibilityFilter = this.filterService.visibilityFilter;
-        this.showPrivate = this.filterService.showPrivate;
+        this.hidePrivate = this.filterService.hidePrivate;
       }
 
       this.filterPipeline();
@@ -204,8 +203,8 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setPrivateFilter(filter: boolean): void {
-    this.showPrivate = filter;
-    this.filterService.showPrivate = filter;
+    this.hidePrivate = filter;
+    if (this.isLogged()) this.filterService.hidePrivate = filter;
 
     this.filterPipeline();
   }
@@ -263,9 +262,9 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private handlePrivateJobs(jobs: JobOffer[]): JobOffer[] {
-    return this.showPrivate
-      ? jobs
-      : jobs.filter((job) => job.isPublic === true);
+    return this.hidePrivate
+      ? jobs.filter((job) => job.isPublic === true)
+      : jobs;
   }
 
   private sortJobs(jobs: JobOffer[]): JobOffer[] {
