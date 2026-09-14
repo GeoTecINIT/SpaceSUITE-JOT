@@ -5,10 +5,12 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, UrlTree } from '@angular/router';
-import { AuthService, ExitWithoutSavingService } from '@eo4geo/ngx-bok-utils';
+import { AuthService, ExitWithoutSavingService, PermissionService } from '@eo4geo/ngx-bok-utils';
 import {
   ConfirmationService,
   MenuItem,
@@ -164,6 +166,8 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
   chipAnimations: Record<string, boolean> = {};
 
+  selectedOrgCanPublish: WritableSignal<boolean> = signal(false);
+
   private authSubscription!: Subscription;
   private userOrgsSubscription!: Subscription;
 
@@ -193,6 +197,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private toolService: ToolsService,
     private languageService: LanguagesService,
     private occupationalProfileService: OccupationalProfileService,
+    private permissionService: PermissionService
   ) {}
 
   ngOnInit() {
@@ -263,6 +268,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
           .getOrganizationDivisions(this.job.orgId)
           .pipe(take(1))
           .subscribe((divisions) => (this.divisionSelector.values = divisions));
+        this.permissionService.organizationHasPermission(this.job.orgId, 'jot').pipe(take(1)).subscribe(hasPermission => this.selectedOrgCanPublish.set(hasPermission));
       }
 
       this.fieldNames = this.job.fields.map((field) => field.name);
@@ -298,6 +304,12 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.firebaseService
       .getOrganizationDivisions(this.job.orgId!)
       .subscribe((divisions) => (this.divisionSelector.values = divisions));
+    this.permissionService.organizationHasPermission(this.job.orgId, 'jot').pipe(take(1)).subscribe(hasPermission => {
+      this.selectedOrgCanPublish.set(hasPermission);
+      if (!hasPermission) {
+        this.job.isPublic = false;
+      }
+    });
   }
 
   onConceptsChange(concepts: string[]): void {
