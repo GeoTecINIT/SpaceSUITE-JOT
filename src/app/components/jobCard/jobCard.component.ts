@@ -82,7 +82,7 @@ export class JobCardComponent implements OnInit {
 
   ngOnInit() {
     this.firebaseService.getUserOrganizationList().subscribe((orgs) => {
-      orgs.forEach((org) => this.organizations.push(org._id));
+      this.organizations = orgs.map((org) => org._id);
     });
 
     this.utilsService
@@ -277,5 +277,9 @@ export class JobCardComponent implements OnInit {
     link.download = name;
     link.href = uri;
     link.click();
+  }
+
+  public get disableAddButton() {
+    return this.organizations.length == 0;
   }
 }

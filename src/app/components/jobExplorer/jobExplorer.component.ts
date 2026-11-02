@@ -27,6 +27,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
 import { FiltersComponent } from '../filters/filters.component';
 import { JobCardComponent } from '../jobCard/jobCard.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   standalone: true,
@@ -45,6 +46,7 @@ import { JobCardComponent } from '../jobCard/jobCard.component';
     ButtonModule,
     ButtonGroupModule,
     MenuModule,
+    TooltipModule
   ],
   providers: [ConfirmationService, MessageService],
 })
@@ -380,5 +382,9 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     return jobs.filter((job) =>
       this.bokConcepts.some((concept) => job.knowledge.includes(concept)),
     );
+  }
+
+  public get disableAddButton() {
+    return this.organizations.length == 0;
   }
 }

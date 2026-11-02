@@ -101,6 +101,9 @@
       icon="pi pi-plus"
       label="Add Job"
       (click)="createJobOffer()"
+      [disabled]="disableAddButton" 
+      [pTooltip]="disableAddButton ? 'You must be part of an organization to create an offer' : ''"
+      tooltipPosition="top"
     />
   </div>
 }

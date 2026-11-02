@@ -237,10 +237,16 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.userOrgsSubscription = this.firebaseService
       .getUserOrganizationList()
       .subscribe((organizations) => {
-        this.organizationSelector.values = organizations.map((org) => ({
-          label: org.name,
-          value: org._id,
-        }));
+        if (organizations.length == 0) {
+          this.exitWithoutSavingService.bypassGuard.next(true);
+          this.router.navigate(['job']);
+        }
+        else {
+          this.organizationSelector.values = organizations.map((org) => ({
+            label: org.name,
+            value: org._id,
+          }));
+        }
       });
 
     this.fieldsService

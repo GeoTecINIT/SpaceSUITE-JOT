@@ -20,6 +20,7 @@ import { JobExplorerComponent } from './app/components/jobExplorer/jobExplorer.c
 import { JobPageComponent } from './app/components/jobPage/jobPage.component';
 import { JobFormComponent } from './app/components/jobForm/jobForm.component';
 import { environment } from './environments/environment';
+import { UserOrgsGuard } from './app/guards/userOrgs.guard';
 
 const routes: Routes = [
   { path: '', component: JobExplorerComponent },
@@ -37,19 +38,19 @@ const routes: Routes = [
   {
     path: 'job/new',
     component: JobFormComponent,
-    canMatch: [AuthGuard],
+    canMatch: [AuthGuard, UserOrgsGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
   {
     path: 'job/new/:jobId',
     component: EditJobPageComponent,
-    canMatch: [AuthGuard],
+    canMatch: [AuthGuard, UserOrgsGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
   {
     path: 'job/edit/:jobId',
     component: EditJobPageComponent,
-    canMatch: [AuthGuard],
+    canMatch: [AuthGuard, UserOrgsGuard],
     canDeactivate: [exitWithoutSavingGuard],
   },
   { path: 'job/:jobId', component: JobPageComponent },
