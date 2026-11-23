@@ -18,6 +18,7 @@ import { MenuModule } from 'primeng/menu';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 import { combineLatest, filter, map, Subscription, take } from 'rxjs';
 import { Filter } from '../../models/filter';
 import { JobOffer } from '../../models/jobOffer';
@@ -27,7 +28,6 @@ import { FirebaseService } from '../../services/firebase.service';
 import { JobOfferService } from '../../services/jobOffer.service';
 import { FiltersComponent } from '../filters/filters.component';
 import { JobCardComponent } from '../jobCard/jobCard.component';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   standalone: true,
@@ -46,7 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ButtonModule,
     ButtonGroupModule,
     MenuModule,
-    TooltipModule
+    TooltipModule,
   ],
   providers: [ConfirmationService, MessageService],
 })
@@ -303,7 +303,7 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
         jobs.forEach((job) => {
           if (
             job.skills.some((skill) =>
-              skill.trim().toLowerCase().includes(value),
+              skill.label.trim().toLowerCase().includes(value),
             ) ||
             job.customSkills.some((skill) =>
               skill.trim().toLowerCase().includes(value),

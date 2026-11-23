@@ -36,6 +36,7 @@ import { JobOfferService } from '../../services/jobOffer.service';
 import { PdfService } from '../../services/pdf.service';
 import { RdfService } from '../../services/rdf.service';
 import { UtilsService } from '../../services/utils.service';
+import { SkillsTreeComponent } from '../skillsTree/skillsTree.component';
 
 interface AuthState {
   logged: boolean;
@@ -60,6 +61,7 @@ interface AuthState {
     PopoverModule,
     TooltipModule,
     SkillTagComponent,
+    SkillsTreeComponent,
   ],
   providers: [ConfirmationService, MessageService],
 })
@@ -224,7 +226,7 @@ export class JobPageComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.job.skills.forEach((skill) => {
-      if (skill !== '') this.allSkills.push(skill);
+      this.allSkills.push(skill.label);
     });
 
     this.job.customSkills.forEach((customSkill) => {

@@ -1,3 +1,5 @@
+import { BloomSkill } from './bloomSkill';
+
 export class OccupationalProfile {
   _id: string;
   competences: Competence[];
@@ -13,7 +15,7 @@ export class OccupationalProfile {
   lastModified: string;
   orgId: string;
   orgName: string;
-  skills: string[];
+  skills: BloomSkill[];
   title: string;
   updatedAt?: any;
   userId: string;
@@ -33,7 +35,7 @@ export class OccupationalProfile {
     this.lastModified = data.lastModified ?? '';
     this.orgId = data.orgId ?? '';
     this.orgName = data.orgName ?? '';
-    this.skills = data.skills ?? [];
+    this.skills = data.skills?.map((value) => new BloomSkill(value)) ?? [];
     this.title = data.title ?? '';
     this.updatedAt = data.updatedAt ?? null;
     this.userId = data.userId ?? '';
@@ -62,7 +64,7 @@ export class OccupationalProfile {
       lastModified: this.lastModified,
       orgId: this.orgId,
       orgName: this.orgName,
-      skills: this.skills,
+      skills: this.skills.map((value) => value.toPlainObject()),
       title: this.title,
       updatedAt: this.updatedAt,
       userId: this.userId,

@@ -1,9 +1,9 @@
 /// <reference lib="webworker" />
 
 import jsPDF from 'jspdf';
+import { JobOffer } from '../models/jobOffer';
 import { Competence } from '../models/occupationalProfile';
 import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
-import { JobOffer } from '../models/jobOffer';
 
 addEventListener('message', ({ data }: { data: PdfWorkerPayload }) => {
   const { offer, assets, scaleFactor } = data;
@@ -66,10 +66,12 @@ function applyMetadata(doc: jsPDF, offer: JobOffer) {
 }
 
 function getSubjectMetadata(offer: JobOffer) {
-  let subject = '@prefix dc: <http://purl.org/dc/terms/> . @prefix eo4geo: <http://bok.eo4geo.eu/> . ';
+  let subject =
+    '@prefix dc: <http://purl.org/dc/terms/> . @prefix eo4geo: <http://bok.eo4geo.eu/> . ';
   if (offer.knowledge && offer.knowledge.length > 0) {
-    subject = subject + '<> dc:type "Job Offer"; <> dc:title "' + offer.title + '"';
-    offer.knowledge.forEach(know => {
+    subject =
+      subject + '<> dc:type "Job Offer"; <> dc:title "' + offer.title + '"';
+    offer.knowledge.forEach((know) => {
       // const bokCode = concept.split('] ')[1];
       const bokCode = know.split(']', 1)[0].split('[', 2)[1];
       if (bokCode) {
@@ -126,16 +128,25 @@ function renderHeader(
   y += 4 * 1.35;
 
   const infoData = [
-    p.orgName, 
-    p.division ?? null, 
-    'EQF ' + p.eqf, 
-    'Required experience: ' + p.yearsExperience + ' years', 
-    (p.salaryMax != 0 && p.salaryMin != 0) ? ('Annual salary range: ' + p.salaryMin + ' - ' + p.salaryMax + ' ' + p.currency) : null,
-    (p.location !== '') ? ('Location: ' + p.location) : null,
-    (p.dedication != '') ? ('Dedication: ' + p.dedication) : null,
-    (p.typeContract != '') ? ('Contract type: ' + p.typeContract) : null,
-    'Ask for motivation letter? ' + (p.motivationLetter ? 'Yes' : 'No')
-  ].filter(Boolean).join(' | ');
+    p.orgName,
+    p.division ?? null,
+    'EQF ' + p.eqf,
+    'Required experience: ' + p.yearsExperience + ' years',
+    p.salaryMax != 0 && p.salaryMin != 0
+      ? 'Annual salary range: ' +
+        p.salaryMin +
+        ' - ' +
+        p.salaryMax +
+        ' ' +
+        p.currency
+      : null,
+    p.location !== '' ? 'Location: ' + p.location : null,
+    p.dedication != '' ? 'Dedication: ' + p.dedication : null,
+    p.typeContract != '' ? 'Contract type: ' + p.typeContract : null,
+    'Ask for motivation letter? ' + (p.motivationLetter ? 'Yes' : 'No'),
+  ]
+    .filter(Boolean)
+    .join(' | ');
   const infoLines = doc.splitTextToSize(infoData, 170);
   const infoLinesSize = infoLines.length * 4 * 1.35;
   y = checkEnd(doc, y, infoLinesSize, assets);
@@ -190,7 +201,7 @@ function renderFooter(
       targetWidth,
       targetHeight,
       undefined,
-      'FAST'
+      'FAST',
     );
   }
 
@@ -209,7 +220,7 @@ function renderFooter(
       targetWidth,
       targetHeight,
       undefined,
-      'FAST'
+      'FAST',
     );
   }
 }
@@ -648,7 +659,16 @@ function addWatermark(doc: jsPDF, watermark: string): void {
   if (watermark) {
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-    doc.addImage(watermark, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+    doc.addImage(
+      watermark,
+      'PNG',
+      0,
+      0,
+      pageWidth,
+      pageHeight,
+      undefined,
+      'FAST',
+    );
   }
 }
 

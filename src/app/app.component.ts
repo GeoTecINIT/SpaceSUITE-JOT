@@ -42,9 +42,9 @@ export class AppComponent {
           iconStyle: { color: 'var(--hover-color)' },
         },
         {
-          label: 'Curriculum Design Tool',
+          label: 'Educational Design Tool',
           icon: 'pi pi-sitemap',
-          url: 'https://eo4geo-cdt.web.app',
+          url: 'https://spacesuite-educational-design-tool.web.app',
           target: '_blank',
         },
         {

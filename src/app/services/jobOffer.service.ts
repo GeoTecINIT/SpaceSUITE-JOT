@@ -141,9 +141,6 @@ export class JobOfferService {
       newJobOffer.customSkills = newJobOffer.customSkills.filter(
         (s) => s !== '',
       );
-      newJobOffer.skills = newJobOffer.skills.filter(
-        (s) => s !== '' && newJobOffer.customSkills.every((c) => s !== c),
-      );
       newJobOffer.customCompetences = newJobOffer.customCompetences.filter(
         (c) => c !== '',
       );

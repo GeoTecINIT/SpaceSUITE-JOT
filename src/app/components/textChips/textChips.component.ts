@@ -35,11 +35,8 @@ import { ClickOutsideDirective } from '../../directives/clickOutside.directive';
 })
 export class TextChipsComponent {
   @Input() chips: string[] = [];
-  @Input() customChips: string[] = [];
   @Output() chipsChange: EventEmitter<string[]> = new EventEmitter<string[]>();
-  @Output() customChipsChange: EventEmitter<string[]> = new EventEmitter<
-    string[]
-  >();
+
   currentText: string = '';
 
   @Input() fieldName: string = 'Field Name';
@@ -52,24 +49,15 @@ export class TextChipsComponent {
   chipAnimations: Record<string, boolean> = {};
 
   ngOnInit() {
-    this.allChips.forEach((chip) => {
+    this.chips.forEach((chip) => {
       this.chipAnimations[chip] = false;
     });
   }
 
-  get allChips(): string[] {
-    return [...this.chips, ...this.customChips];
-  }
-
   clickButton() {
     const inputValue: string = this.currentText.trim();
-
-    if (
-      inputValue !== '' &&
-      !this.chips.includes(inputValue) &&
-      !this.customChips.includes(inputValue)
-    ) {
-      this.customChipsChange.emit(this.customChips.concat(inputValue));
+    if (inputValue !== '' && !this.chips.includes(inputValue)) {
+      this.chipsChange.emit(this.chips.concat(inputValue));
       this.chipAnimations[inputValue] = false;
     } else if (inputValue !== '') {
       this.chipAnimations[inputValue] = true;
@@ -83,10 +71,6 @@ export class TextChipsComponent {
   deleteElement(element: string) {
     if (this.chips.includes(element)) {
       this.chipsChange.emit(this.chips.filter((value) => value !== element));
-    } else if (this.customChips.includes(element)) {
-      this.customChipsChange.emit(
-        this.customChips.filter((value) => value !== element),
-      );
     }
 
     delete this.chipAnimations[element];

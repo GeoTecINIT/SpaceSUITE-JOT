@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { PdfResult } from '../models/pdfResult';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
+import { BokInformationService } from '@eo4geo/ngx-bok-visualization';
 import {
   BehaviorSubject,
   concatMap,
@@ -16,11 +17,10 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { BokInformationService } from '@eo4geo/ngx-bok-visualization';
+import { JobOffer } from '../models/jobOffer';
+import { PdfResult } from '../models/pdfResult';
 import { PdfWorkerPayload } from '../models/pdfWorkerPayload';
 import { PdfWorkerResult } from '../models/pdfWorkerResult';
-import { Timestamp } from '@angular/fire/firestore';
-import { JobOffer } from '../models/jobOffer';
 
 @Injectable({ providedIn: 'root' })
 export class PdfService {
@@ -118,9 +118,7 @@ export class PdfService {
   }
 
   generatePortfolioPdf(offer: JobOffer): Observable<PdfResult> {
-    const offerToPrint: JobOffer = new JobOffer(
-      offer,
-    );
+    const offerToPrint: JobOffer = new JobOffer(offer);
     const parseBokConcepts$ = this.parseBokConcepts(
       offerToPrint.knowledge,
     ).pipe(tap((parsed) => (offerToPrint.knowledge = parsed || [])));

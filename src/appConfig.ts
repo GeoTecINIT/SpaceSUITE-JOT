@@ -17,10 +17,10 @@ import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { EditJobPageComponent } from './app/components/editJobPage/editJobPage.component';
 import { JobExplorerComponent } from './app/components/jobExplorer/jobExplorer.component';
-import { JobPageComponent } from './app/components/jobPage/jobPage.component';
 import { JobFormComponent } from './app/components/jobForm/jobForm.component';
-import { environment } from './environments/environment';
+import { JobPageComponent } from './app/components/jobPage/jobPage.component';
 import { UserOrgsGuard } from './app/guards/userOrgs.guard';
+import { environment } from './environments/environment';
 
 const routes: Routes = [
   { path: '', component: JobExplorerComponent },

@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, UrlTree } from '@angular/router';
-import { AuthService, ExitWithoutSavingService, PermissionService } from '@eo4geo/ngx-bok-utils';
+import {
+  AuthService,
+  ExitWithoutSavingService,
+  PermissionService,
+} from '@eo4geo/ngx-bok-utils';
 import {
   ConfirmationService,
   MenuItem,
@@ -44,6 +48,7 @@ import {
   map,
   of,
   Subscription,
+  switchMap,
   take,
 } from 'rxjs';
 import { Filter } from '../../models/filter';
@@ -68,6 +73,9 @@ import { CustomSelectComponent } from '../customSelect/customSelect.component';
 import { MultiselectChipsComponent } from '../multiselectChips/multiselectChips.component';
 import { TextChipsComponent } from '../textChips/textChips.component';
 import { TreeselectChipsComponent } from '../treeselectChips/treeselectChips.component';
+import { LearningOutcomesSelectComponent } from '../learningOutcomesSelect/learningOutcomesSelect.component';
+import { BokInformationService } from '@eo4geo/ngx-bok-visualization';
+import { BloomSkill } from '../../models/bloomSkill';
 
 @Component({
   standalone: true,
@@ -101,6 +109,7 @@ import { TreeselectChipsComponent } from '../treeselectChips/treeselectChips.com
     IftaLabelModule,
     TreeselectChipsComponent,
     ChipModule,
+    LearningOutcomesSelectComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -159,6 +168,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   customCompetences: string[] = [];
 
   showCustomCompetences: boolean = false;
+  showCustomSkills: boolean = false;
 
   profiles: OccupationalProfile[] = [];
   selectedProfile?: OccupationalProfile;
@@ -167,6 +177,9 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
   chipAnimations: Record<string, boolean> = {};
 
   selectedOrgCanPublish: WritableSignal<boolean> = signal(false);
+
+  skillOptions: WritableSignal<TreeNode[]> = signal([]);
+  skillSelection: WritableSignal<TreeNode[]> = signal([]);
 
   private authSubscription!: Subscription;
   private userOrgsSubscription!: Subscription;
@@ -197,7 +210,8 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     private toolService: ToolsService,
     private languageService: LanguagesService,
     private occupationalProfileService: OccupationalProfileService,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
+    private bokInfoService: BokInformationService,
   ) {}
 
   ngOnInit() {
@@ -240,8 +254,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         if (organizations.length == 0) {
           this.exitWithoutSavingService.bypassGuard.next(true);
           this.router.navigate(['job']);
-        }
-        else {
+        } else {
           this.organizationSelector.values = organizations.map((org) => ({
             label: org.name,
             value: org._id,
@@ -274,7 +287,12 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
           .getOrganizationDivisions(this.job.orgId)
           .pipe(take(1))
           .subscribe((divisions) => (this.divisionSelector.values = divisions));
-        this.permissionService.organizationHasPermission(this.job.orgId, 'jot').pipe(take(1)).subscribe(hasPermission => this.selectedOrgCanPublish.set(hasPermission));
+        this.permissionService
+          .organizationHasPermission(this.job.orgId, 'jot')
+          .pipe(take(1))
+          .subscribe((hasPermission) =>
+            this.selectedOrgCanPublish.set(hasPermission),
+          );
       }
 
       this.fieldNames = this.job.fields.map((field) => field.name);
@@ -282,6 +300,24 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
       this.toolNames = this.job.toolsRequired.map((t) => t.name);
       this.languageNames = this.job.languages.map((l) => l.name);
     });
+
+    this.skillSelection.set(
+      this.job.skills.map((skill) => {
+        return {
+          key: `${skill.level}-${skill.concept}-${skill.verb != '' ? skill.verb : this.getUnclassifiedHash(skill.label)}`,
+          label: skill.label,
+          children: [],
+          leaf: true,
+          expanded: false,
+          type: 'leaf',
+          data: skill,
+        };
+      }),
+    );
+
+    this.showCustomSkills = this.job.customSkills.length > 0;
+
+    this.buildSkillOptions();
 
     this.exitWithoutSavingService.showModalSubject.subscribe((value) => {
       if (value) this.confirmExitWithoutSaving();
@@ -310,28 +346,35 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     this.firebaseService
       .getOrganizationDivisions(this.job.orgId!)
       .subscribe((divisions) => (this.divisionSelector.values = divisions));
-    this.permissionService.organizationHasPermission(this.job.orgId, 'jot').pipe(take(1)).subscribe(hasPermission => {
-      this.selectedOrgCanPublish.set(hasPermission);
-      if (!hasPermission) {
-        this.job.isPublic = false;
-      }
-    });
+    this.permissionService
+      .organizationHasPermission(this.job.orgId, 'jot')
+      .pipe(take(1))
+      .subscribe((hasPermission) => {
+        this.selectedOrgCanPublish.set(hasPermission);
+        if (!hasPermission) {
+          this.job.isPublic = false;
+        }
+      });
   }
 
   onConceptsChange(concepts: string[]): void {
     this.job.knowledge = concepts;
+    this.buildSkillOptions();
   }
 
-  onSkillsChange(skills: string[]): void {
-    this.job.skills = skills;
+  onSkillsChange(newSkills: TreeNode[]): void {
+    this.job.skills = newSkills
+      .filter((skill) => skill.data)
+      .map((skill) => skill.data);
   }
 
   onDeletedConcept(label: string): void {
-    const matchedSkills = this.job.skills.filter((skill) =>
-      skill.startsWith(`[${label}]`),
+    const matchedSkills = this.job.skills.filter(
+      (skill) => skill.concept == label,
     );
 
-    if (matchedSkills.length > 0) this.confirmDeleteConcept(matchedSkills);
+    if (matchedSkills.length > 0)
+      this.confirmDeleteConcept(matchedSkills, label);
   }
 
   returnToHomepage(): void {
@@ -431,6 +474,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     profileSelect: Select,
   ): void {
     if (!selectedProfile) return;
+
     if (this.selectedProfiles.includes(selectedProfile)) {
       this.chipAnimations[selectedProfile._id] = true;
 
@@ -438,6 +482,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         this.chipAnimations[selectedProfile._id] = false;
       }, 800);
       profileSelect.clear();
+
       return;
     }
 
@@ -468,9 +513,27 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
       ...new Set([...this.job.skills, ...selectedProfile.skills]),
     ];
 
+    this.skillSelection.set(
+      this.job.skills.map((skill) => {
+        return {
+          key: `${skill.level}-${skill.concept}-${skill.verb != '' ? skill.verb : this.getUnclassifiedHash(skill.label)}`,
+          label: skill.label,
+          children: [],
+          leaf: true,
+          expanded: false,
+          type: 'leaf',
+          data: skill,
+        };
+      }),
+    );
+
+    this.buildSkillOptions();
+
     this.job.customSkills = [
       ...new Set([...this.job.customSkills, ...selectedProfile.customSkills]),
     ];
+
+    this.showCustomSkills = this.job.customSkills.length > 0;
 
     const labels = selectedProfile.competences
       .map((c) => c.preferredLabel)
@@ -576,7 +639,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  private confirmDeleteConcept(skills: string[]): void {
+  private confirmDeleteConcept(skills: BloomSkill[], concept: string): void {
     const isSingle = skills.length === 1;
 
     const message = isSingle
@@ -597,10 +660,28 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         label: acceptLabel,
         severity: 'primary',
       },
-      accept: () =>
-        (this.job.skills = this.job.skills.filter(
-          (skill) => !skills.includes(skill),
-        )),
+      accept: () => {
+        this.job.skills = this.job.skills.filter(
+          (skill) => skill.concept != concept,
+        );
+
+        this.skillSelection.set(
+          this.job.skills.map((skill) => {
+            return {
+              key: `${skill.level}-${skill.concept}-${skill.verb != '' ? skill.verb : this.getUnclassifiedHash(skill.label)}`,
+              label: skill.label,
+              children: [],
+              leaf: true,
+              expanded: false,
+              type: 'leaf',
+              data: skill,
+            };
+          }),
+        );
+
+        this.buildSkillOptions();
+      },
+
       reject: () => {},
     });
   }
@@ -619,5 +700,129 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         );
       });
     }
+  }
+
+  buildSkillOptions(): void {
+    const tempTree: TreeNode[] = [];
+    const conceptSet: Set<string> = new Set();
+
+    this.job.skills.forEach((skill) => conceptSet.add(skill.concept));
+    this.job.knowledge.forEach((concept) => conceptSet.add(concept));
+
+    conceptSet.forEach((concept) => {
+      const conceptTree: TreeNode[] = [
+        {
+          label: 'Level 1: Remember',
+          key: concept + '-1',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Level 2: Understand',
+          key: concept + '-2',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Level 3: Apply',
+          key: concept + '-3',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Level 4: Analyze',
+          key: concept + '-4',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Level 5: Evaluate',
+          key: concept + '-5',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Level 6: Create',
+          key: concept + '-6',
+          expanded: false,
+          leaf: false,
+        },
+        {
+          label: 'Unclassified',
+          key: concept + '-0',
+          expanded: false,
+          leaf: false,
+        },
+      ];
+
+      this.bokInfoService
+        .getConceptSkills(concept)
+        .pipe(
+          switchMap((skills) => {
+            skills.forEach((skill) => {
+              const levelNode: TreeNode | undefined = conceptTree.at(
+                skill.bloomLevel - 1,
+              );
+
+              if (!levelNode) return;
+
+              levelNode.children ??= [];
+
+              levelNode.children.push({
+                key: `${skill.bloomLevel}-${concept}-${skill.bloomVerb != '' ? skill.bloomVerb : this.getUnclassifiedHash(skill.name)}`,
+                label: skill.name,
+                children: [],
+                leaf: true,
+                expanded: false,
+                type: 'leaf',
+                data: new BloomSkill({
+                  level: skill.bloomLevel,
+                  verb: skill.bloomVerb,
+                  label: skill.name,
+                  concept: concept,
+                }),
+              });
+            });
+
+            return this.bokInfoService.getConceptName(concept);
+          }),
+          take(1),
+        )
+        .subscribe((conceptName) => {
+          tempTree.push({
+            label: `[${concept}] ${conceptName}`,
+            key: concept,
+            expanded: true,
+            leaf: false,
+            children: conceptTree,
+            selectable: false,
+          });
+        });
+    });
+
+    tempTree.forEach((levelNode) => {
+      levelNode.children = this.getSortedArray(levelNode.children ?? []);
+    });
+
+    this.skillOptions.set(tempTree);
+  }
+
+  private getSortedArray(values: TreeNode[]): TreeNode[] {
+    if (values.length > 0) {
+      return [...values].sort((a, b) =>
+        (a.label || '').localeCompare(b.label || ''),
+      );
+    }
+
+    return values;
+  }
+
+  private getUnclassifiedHash(data: string): string {
+    let hash = 0;
+    for (const char of data) {
+      hash = (hash << 5) - hash + char.charCodeAt(0);
+      hash |= 0;
+    }
+    return hash.toString();
   }
 }

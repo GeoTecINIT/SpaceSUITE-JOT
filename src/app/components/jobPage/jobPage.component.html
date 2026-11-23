@@ -157,7 +157,6 @@
         class="my-2 custom-panel"
         [header]="`Skills (${allSkills.length})`"
         [toggleable]="true"
-        [collapsed]="overTagLimit(allSkills.length)"
       >
         <ng-template #headericons>
           <p-button
@@ -169,17 +168,10 @@
           />
         </ng-template>
 
-        <div
-          [class]="
-            overTagLimit(allSkills.length)
-              ? 'flex flex-column align-items-start gap-2'
-              : 'flex flex-wrap gap-2'
-          "
-        >
-          @for (skill of allSkills; track $index) {
-            <p-tag class="tag skill-tag" [value]="skill" [rounded]="true" />
-          }
-        </div>
+        <skillsTree
+          [array]="job.skills"
+          [custom]="job.customSkills"
+        ></skillsTree>
       </p-panel>
 
       <p-panel
@@ -371,7 +363,10 @@
                 <li class="flex p-2 popover-element" (click)="downloadPDF(op1)">
                   PDF
                 </li>
-                <li class="flex p-2 popover-element" (click)="downloadJSON(op1)">
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadJSON(op1)"
+                >
                   JSON
                 </li>
                 <li
@@ -465,7 +460,10 @@
                 <li class="flex p-2 popover-element" (click)="downloadPDF(op2)">
                   PDF
                 </li>
-                <li class="flex p-2 popover-element" (click)="downloadJSON(op1)">
+                <li
+                  class="flex p-2 popover-element"
+                  (click)="downloadJSON(op1)"
+                >
                   JSON
                 </li>
                 <li
