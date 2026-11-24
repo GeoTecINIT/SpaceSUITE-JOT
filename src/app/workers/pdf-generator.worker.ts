@@ -425,24 +425,38 @@ function renderSkills(
 
   y = sectionTitle(doc, 'Required Skills', y, assets);
 
-  const totalSkills: AnnotatedElement[] = p.skills
-    .concat(p.customSkills)
-    .map((skill) => extractConceptsFromKnowledgeAndSkills(skill));
+  const totalSkills: AnnotatedElement[] = [
+    ...p.skills.map((skill) => ({
+      content: skill.label,
+      concept: skill.concept,
+    })),
+    ...p.customSkills.map((skill) => ({
+      content: skill,
+      concept: '',
+    })),
+  ];
 
   y += 4 * 1.35;
+
   totalSkills.forEach((skill) => {
     const lines = doc.splitTextToSize(skill.content, 170);
+
     for (let i = 0; i < lines.length; i++) {
-      if (i == 0) lines[i] = '• ' + lines[i];
+      if (i === 0) lines[i] = '• ' + lines[i];
       else lines[i] = '   ' + lines[i];
     }
+
     const linesSize = lines.length * 4 * 1.35;
     y = checkEnd(doc, y, linesSize, assets);
-    if (skill.concept != '')
+
+    if (skill.concept !== '') {
       doc.textWithLink(lines, 20, y, {
         url: 'https://geospacebok.eu/' + skill.concept,
       });
-    else doc.text(lines, 20, y);
+    } else {
+      doc.text(lines, 20, y);
+    }
+
     y += linesSize;
   });
 

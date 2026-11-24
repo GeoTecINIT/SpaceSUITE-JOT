@@ -16,7 +16,7 @@
       [checkmark]="true"
       placeholder="Select one or more profiles"
       optionLabel="title"
-      pTooltip="Add data from profiles. Each selection concatenates the profile's data to the fields."
+      pTooltip="Add data from occupational profiles. Each selection concatenates the profile's data to the fields below."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
@@ -56,6 +56,10 @@
           [class.ng-invalid]="errorMap.get('title') !== undefined"
           [class.ng-dirty]="errorMap.get('title') !== undefined"
           [(ngModel)]="job.title"
+          pTooltip="The name of the job offer."
+          tooltipPosition="top"
+          showDelay="200"
+          hideDelay="200"
           maxlength="200"
         />
 
@@ -86,8 +90,8 @@
         [disabled]="!selectedOrgCanPublish()"
         [pTooltip]="
           selectedOrgCanPublish()
-            ? 'Specifies whether the job offer is public or restricted to your organization.'
-            : 'The selected organization do not have permission to save public offers.'
+            ? 'Indicates whether the job offer is publicly available or restricted to your organization.'
+            : 'Indicates that the selected organization does not have permission to create public job offers.'
         "
         [tooltipStyleClass]="selectedOrgCanPublish() ? '' : 'danger-tooltip'"
         [allowEmpty]="false"
@@ -105,7 +109,7 @@
         icon="'pi pi-bookmark'"
         [error]="errorMap.get('eqf') !== undefined"
         optionsName="EQF Level"
-        pTooltip="The level of knowledge and skills of the job. Ranges from 1 (basic) to 8 (advanced)."
+        pTooltip="The European Qualifications Framework. Indicates level of knowledge, skills and competences, from 1 (basic) to 8 (highly specialized)."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -135,7 +139,7 @@
           optionLabel="label"
           [checkmark]="true"
           [class.invalid-select]="errorMap.get('organization') !== undefined"
-          pTooltip="The organization to which the job offer belongs."
+          pTooltip="The organization associated with the job offer."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -158,7 +162,7 @@
           [disabled]="divisionSelector.values.length === 0"
           [checkmark]="true"
           inputId="division"
-          pTooltip="The organization division to which the job offer belongs."
+          pTooltip="The organizational division associated with the job offer."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -180,7 +184,7 @@
           [class.ng-invalid]="errorMap.get('description') !== undefined"
           [class.ng-dirty]="errorMap.get('description') !== undefined"
           rows="7"
-          pTooltip="Summary or overview of the job."
+          pTooltip="A concise summary or overview of the job offer."
           tooltipPosition="top"
           showDelay="200"
           hideDelay="200"
@@ -212,7 +216,7 @@
         fieldNameSingular="application domain"
         [(chips)]="fieldNames"
         [allowCustom]="false"
-        pTooltip="Fields of education and training of the job as defined by UNESCO's ISCED-F."
+        pTooltip="The fields of education and training associated with the job offer, as defined by UNESCO's ISCED-F classification."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -227,7 +231,7 @@
       [style.border-color]="
         errorMap.get('knowledge') != undefined ? 'var(--danger-color)' : ''
       "
-      pTooltip="Body of Knowledge concepts related to a field of work of the job. Related skills are automatically added."
+      pTooltip="Body of Knowledge concepts associated with the job offer's field of work."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
@@ -260,7 +264,7 @@
         [treeSelectOptions]="skillOptions()"
         fieldName="Skills *"
         [error]="errorMap.get('skills') !== undefined"
-        pTooltip="Skills associated with Body of Knowledge concepts of the profile."
+        pTooltip="The specified skills, knowledge, or competencies the job offer requires. Items listed are ready-to-use examples. If needed, copy-paste-adjust them in the ‘Custom Skills’ field below to use an updated version."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -286,7 +290,7 @@
         fieldName="Custom Skills"
         [icon]="'pi pi-book'"
         [(chips)]="job.customSkills"
-        pTooltip="Custom skills associated with the profile."
+        pTooltip="Custom skills specifically defined for the job offer."
         tooltipPosition="top"
         showDelay="200"
         hideDelay="200"
@@ -299,7 +303,7 @@
       [(chips)]="this.competenceLabels"
       [treeNodes]="competenceTree"
       fieldName="Transversal Skills"
-      pTooltip="Skills that can be used in a wide variety of situations and work settings based on the ESCO classification. Custom values can be manually added below."
+      pTooltip="Skills applicable across a wide range of situations and work settings, based on the ESCO classification. Custom skills can also be added below."
       tooltipPosition="top"
       showDelay="200"
       hideDelay="200"
@@ -320,6 +324,10 @@
         fieldName="Custom Transversal Skills"
         icon="pi pi-chart-bar"
         [(chips)]="customCompetences"
+        pTooltip="Custom skills applicable across a wide range of situations and work settings, specifically defined for the job offer."
+        tooltipPosition="top"
+        showDelay="200"
+        hideDelay="200"
       ></text-chips>
     }
   </div>
