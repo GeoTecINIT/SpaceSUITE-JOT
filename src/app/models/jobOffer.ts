@@ -27,7 +27,7 @@ export class JobOffer extends OccupationalProfile {
     this.contactDetails = data.contactDetails ?? '';
     this.currency = data.currency ?? '';
     this.dataRequired = data.dataRequired ?? [];
-    this.dedication = data.dedication ?? '';
+    this.dedication = data.dedication ?? 'Full Time';
     this.languages = data.languages ?? [];
     this.location = data.location ?? '';
     this.motivationLetter = data.motivationLetter ?? false;
