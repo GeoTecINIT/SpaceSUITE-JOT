@@ -130,9 +130,9 @@ export class JobExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.route.queryParams.subscribe((params) => {
-      const submitted: boolean = params['submitted'];
+      const saved: boolean = params['saved'];
       const mode: string = params['mode'];
-      if (submitted) {
+      if (saved) {
         switch (mode) {
           case 'delete':
             this.messageService.add({

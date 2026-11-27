@@ -383,7 +383,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
     else this.router.navigate(['']);
   }
 
-  submitJob(): void {
+  saveJob(): void {
     this.job.dataRequired = this.datasetNames.map(
       (name) =>
         this.datasets.find((dataset) => dataset.name === name) ?? {
@@ -428,7 +428,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
       const isUpdate = this.formType === FormType.Edit;
 
       this.jobOfferService
-        .submitJobOffer(this.job, isUpdate)
+        .saveJobOffer(this.job, isUpdate)
         .pipe(
           take(1),
           catchError((error) => {
@@ -447,7 +447,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
             if (this.job._id !== '') {
               this.router.navigate(['job/' + this.job._id], {
                 queryParams: {
-                  submitted: true,
+                  saved: true,
                   mode: isUpdate ? 'update' : 'create',
                 },
               });
@@ -462,7 +462,7 @@ export class JobFormComponent implements OnInit, OnDestroy, AfterViewInit {
         severity: 'error',
         summary: 'Error',
         detail:
-          'There are incomplete mandatory fields. Please review the form and try to submit again.',
+          'There are incomplete mandatory fields. Please review the form and try to save again.',
         life: 3000,
         closable: true,
       });

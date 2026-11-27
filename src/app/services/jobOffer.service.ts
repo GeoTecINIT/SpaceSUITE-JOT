@@ -98,7 +98,7 @@ export class JobOfferService {
     return errors;
   }
 
-  submitJobOffer(job: JobOffer, update: boolean = false): Observable<string> {
+  saveJobOffer(job: JobOffer, update: boolean = false): Observable<string> {
     const newJobOffer = new JobOffer(job);
     newJobOffer.eqf = newJobOffer.eqf.replace('EQF', '').trim();
 
